@@ -1,7 +1,6 @@
 import argparse
 import flgo
 from flgo.experiment.logger import BasicLogger
-import flgo.benchmark.cifar10_classification as cifar
 import flgo.benchmark.partition as fbp
 import flgo.experiment.device_scheduler as ds
 import numpy as np
@@ -18,22 +17,25 @@ args = read_args()[0]
 seeds = args.seeds
 gpus = args.gpu
 
+import flgo.benchmark.cifar100_classification as cifar
 task = './CIFAR10_Dirichlet1.0_Clients20_IMB0.0'
 flgo.gen_task_by_(cifar, fbp.DirichletPartitioner(alpha=1.0, num_clients=20), task)
 
 local_training_option = {
     'learning_rate':[0.01, 0.05, 0.1,],
-    'batch_size':[16, 32, 50],
-    'weight_decay': [1e-2, 1e-3, 1e-4],
+    'batch_size':[10, 32, 50],
+    'weight_decay': [1e-2, 1e-3],
     'lr_scheduler': 0,
     'learning_rate_decay': 0.998,
 }
 server_option = {
-    'num_rounds': 2000,
-    'num_epochs': 1,
+    'num_rounds': 1000,
+    'num_epochs': [1,5],
     'sample_option': 'full',
     'proportion': 1.0,
+    'early_stop':200,
 }
+
 data_option = {
     'local_test': True,
 }
@@ -42,7 +44,7 @@ other_option = {
     'no_log_console': True,
     'log_file': True,
 }
-seeds = [1,15,47,967]
+
 common_options = [local_training_option, server_option, data_option, other_option]
 tune_option = {}
 for op in common_options: tune_option.update(op)
@@ -78,10 +80,22 @@ class FullLogger(BasicLogger):
         # output to stdout
         self.show_current_output()
 
+class TuneLogger(BasicLogger):
+    def initialize(self, *args, **kwargs):
+        self._es_key = 'val_accuracy'
+        self.turn_early_stop_direction()
+
+    def log_once(self, *args, **kwargs):
+        val_metrics = self.coordinator.global_test(flag='val')
+        local_data_vols = [c.datavol for c in self.participants]
+        total_data_vol = sum(local_data_vols)
+        for met_name, met_val in val_metrics.items():
+            self.output['val_' + met_name].append(1.0 * sum([client_vol * client_met for client_vol, client_met in zip(local_data_vols, met_val)]) / total_data_vol)
+        self.show_current_output()
+
 def fedrun(task, algo, tune_option={}, optimal_option={}, seeds=[0], tune=True, Logger=None):
     if tune:
-        flgo.tune(task, task, tune_option)
-        return flgo.tune(task, algo, tune_option)
+        return flgo.tune(task, algo, tune_option, Logger=Logger)
     else:
         runner_dict = []
         asc = ds.AutoScheduler(optimal_option['gpu'])
@@ -98,33 +112,23 @@ if __name__=='__main__':
     if args.method=='fedavg':
         import flgo.algorithm.fedavg as algo
         """
-        learning_rate	|0.1
-        batch_size	|16
-        weight_decay	|0.001
-        lr_scheduler	|0
-        learning_rate_decay	|0.998
-        num_rounds	|2000
-        num_epochs	|1
-        sample_option	|full
-        proportion	|1.0
-        local_test	|True
-        no_log_console	|True
-        log_file	|True
-        -----------------------------------------------
-        The minimal validation loss occurs at the round 698
         """
         optimal_option = {'gpu':gpus,'learning_rate':0.1, 'batch_size':16, 'weight_decay':0.001, "lr_scheduler":0, "learning_rate_decay":0.998, 'num_rounds':1000, "num_epochs":1, "sample_option":'full', "proportion":1.0, "local_test":True, "no_log_console":True, "log_file":True }
-        fedrun(task, algo, tune_option, optimal_option=optimal_option, seeds=seeds, tune=args.tune, Logger=FullLogger)
+        fedrun(task, algo, tune_option, optimal_option=optimal_option, seeds=seeds, tune=args.tune, Logger=TuneLogger if args.tune else FullLogger)
     elif args.method=='fedprox':
         import flgo.algorithm.fedprox as algo
+        """
+        """
         tune_option.update({'mu':[0.001, 0.01, 0.1]})
         optimal_option = {}
-        fedrun(task, algo, tune_option, optimal_option=optimal_option, seeds=seeds, tune=args.tune, Logger=FullLogger)
+        fedrun(task, algo, tune_option, optimal_option=optimal_option, seeds=seeds, tune=args.tune, Logger=TuneLogger if args.tune else FullLogger)
     elif args.method=='feddyn':
         import flgo.algorithm.feddyn as algo
+        """
+        """
         tune_option.update({'mu':[0.0001, 0.001, 0.01], 'alpha':[0.001, 0.01, 0.1]})
         optimal_option = {}
-        fedrun(task, algo, tune_option, optimal_option=optimal_option, seeds=seeds, tune=args.tune, Logger=FullLogger)
+        fedrun(task, algo, tune_option, optimal_option=optimal_option, seeds=seeds, tune=args.tune, Logger=TuneLogger if args.tune else FullLogger)
 
 
 
