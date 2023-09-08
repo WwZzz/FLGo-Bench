@@ -28,7 +28,7 @@ tune_option = option['tune']
 optimal_option = option['optimal']
 tune_option['gpu'] = gpus
 optimal_option['gpu'] = gpus
-print('ok')
+
 class FullLogger(BasicLogger):
     def log_once(self, *args, **kwargs):
         test_metric = self.server.test()
