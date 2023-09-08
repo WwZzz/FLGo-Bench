@@ -1,12 +1,12 @@
 import argparse
 import flgo
 from flgo.experiment.logger import BasicLogger
-import flgo.benchmark.partition as fbp
 import flgo.experiment.device_scheduler as ds
 import numpy as np
 import torch.multiprocessing
 def read_args():
     parser = argparse.ArgumentParser()
+    parser.add_argument('--task', help='name of task', type=str)
     parser.add_argument('--method', help='name of method', type=str, default='fedavg')
     parser.add_argument('--tune', help='whether to tune', action="store_true", default=False)
     parser.add_argument('--gpu', nargs='*', help='GPU IDs and empty input is equal to using CPU', type=int, default=[])
@@ -14,13 +14,9 @@ def read_args():
     return parser.parse_known_args()
 
 args = read_args()[0]
+task = args.task
 seeds = args.seeds
 gpus = args.gpu
-print(args.method)
-
-import flgo.benchmark.cifar100_classification as cifar
-task = './CIFAR10_Dirichlet1.0_Clients20_IMB0.0'
-flgo.gen_task_by_(cifar, fbp.DirichletPartitioner(alpha=1.0, num_clients=20), task)
 
 local_training_option = {
     'learning_rate':[0.01, 0.05, 0.1,],
