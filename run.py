@@ -4,48 +4,31 @@ from flgo.experiment.logger import BasicLogger
 import flgo.experiment.device_scheduler as ds
 import numpy as np
 import torch.multiprocessing
+import yaml
+import importlib
+
 def read_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--task', help='name of task', type=str)
+    parser.add_argument('--task', help='name of task', type=str, default='')
     parser.add_argument('--method', help='name of method', type=str, default='fedavg')
     parser.add_argument('--tune', help='whether to tune', action="store_true", default=False)
     parser.add_argument('--gpu', nargs='*', help='GPU IDs and empty input is equal to using CPU', type=int, default=[])
     parser.add_argument('--seeds', nargs='+', help='seeds', type=int, default=[1,15,47,967])
+    parser.add_argument('--config', type=str, help='configuration of hypara', default='')
     return parser.parse_known_args()
 
 args = read_args()[0]
 task = args.task
 seeds = args.seeds
 gpus = args.gpu
-
-local_training_option = {
-    'learning_rate':[0.01, 0.05, 0.1,],
-    'batch_size':[10, 32, 50],
-    'weight_decay': [1e-2, 1e-3],
-    'lr_scheduler': 0,
-    'learning_rate_decay': 0.998,
-}
-server_option = {
-    'num_rounds': 1000,
-    'num_epochs': [1,5],
-    'sample_option': 'full',
-    'proportion': 1.0,
-    'early_stop':200,
-}
-
-data_option = {
-    'local_test': True,
-}
-other_option = {
-    'gpu':gpus,
-    'no_log_console': True,
-    'log_file': True,
-}
-
-common_options = [local_training_option, server_option, data_option, other_option]
-tune_option = {}
-for op in common_options: tune_option.update(op)
-
+config = args.config
+with open(config, 'r') as inf:
+    option = yaml.load(inf, Loader=yaml.FullLoader)
+tune_option = option['tune']
+optimal_option = option['optimal']
+tune_option['gpu'] = gpus
+optimal_option['gpu'] = gpus
+print('ok')
 class FullLogger(BasicLogger):
     def log_once(self, *args, **kwargs):
         test_metric = self.server.test()
@@ -106,26 +89,14 @@ def fedrun(task, algo, tune_option={}, optimal_option={}, seeds=[0], tune=True, 
 if __name__=='__main__':
     torch.multiprocessing.set_start_method("spawn", force=True)
     torch.multiprocessing.set_sharing_strategy("file_system")
-    if args.method=='fedavg':
-        import flgo.algorithm.fedavg as algo
-        """
-        """
-        optimal_option = {'gpu':gpus,'learning_rate':0.1, 'batch_size':16, 'weight_decay':0.001, "lr_scheduler":0, "learning_rate_decay":0.998, 'num_rounds':1000, "num_epochs":1, "sample_option":'full', "proportion":1.0, "local_test":True, "no_log_console":True, "log_file":True }
-        fedrun(task, algo, tune_option, optimal_option=optimal_option, seeds=seeds, tune=args.tune, Logger=TuneLogger if args.tune else FullLogger)
-    elif args.method=='fedprox':
-        import flgo.algorithm.fedprox as algo
-        """
-        """
-        tune_option.update({'mu':[0.001, 0.01, 0.1]})
-        optimal_option = {}
-        fedrun(task, algo, tune_option, optimal_option=optimal_option, seeds=seeds, tune=args.tune, Logger=TuneLogger if args.tune else FullLogger)
-    elif args.method=='feddyn':
-        import flgo.algorithm.feddyn as algo
-        """
-        """
-        tune_option.update({'mu':[0.0001, 0.001, 0.01], 'alpha':[0.001, 0.01, 0.1]})
-        optimal_option = {}
-        fedrun(task, algo, tune_option, optimal_option=optimal_option, seeds=seeds, tune=args.tune, Logger=TuneLogger if args.tune else FullLogger)
+    algo = None
+    while algo is None:
+        try:
+            algo = importlib.import_module(args.method)
+            break
+        except:
+            algo = flgo.download_resource('.', args.method, 'algorithm')
+    fedrun(task, algo, tune_option, optimal_option=optimal_option, seeds=seeds, tune=args.tune, Logger=TuneLogger if args.tune else FullLogger)
 
 
 
