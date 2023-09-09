@@ -6,6 +6,7 @@ import numpy as np
 import torch.multiprocessing
 import yaml
 import importlib
+import os
 
 def read_args():
     parser = argparse.ArgumentParser()
@@ -24,10 +25,9 @@ gpus = args.gpu
 config = args.config
 with open(config, 'r') as inf:
     option = yaml.load(inf, Loader=yaml.FullLoader)
-tune_option = option['tune']
-optimal_option = option['optimal']
-tune_option['gpu'] = gpus
-optimal_option['gpu'] = gpus
+option['gpu'] = gpus
+tune_option = option
+optimal_option = option
 
 class FullLogger(BasicLogger):
     def log_once(self, *args, **kwargs):
@@ -96,12 +96,7 @@ if __name__=='__main__':
             break
         except:
             algo = flgo.download_resource('.', args.method, 'algorithm')
-    res = fedrun(task, algo, tune_option, optimal_option=optimal_option, seeds=seeds, tune=args.tune, Logger=TuneLogger if args.tune else FullLogger)
+    optimal_option = fedrun(task, algo, tune_option, optimal_option=optimal_option, seeds=seeds, tune=args.tune, Logger=TuneLogger if args.tune else FullLogger)
     if args.tune:
-        option['optimal'] = res
-        with open(config, 'w') as outf:
-            yaml.dump(option, outf)
-
-
-
-
+        with open(os.path.join(os.path.dirname(args.config), '_'.join(['op', 'config', args.method, task])+'.yml'), 'w') as outf:
+            yaml.dump(optimal_option, outf)
