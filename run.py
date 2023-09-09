@@ -63,7 +63,7 @@ class FullLogger(BasicLogger):
 class TuneLogger(BasicLogger):
     def initialize(self, *args, **kwargs):
         self._es_key = 'val_accuracy'
-        self.turn_early_stop_direction()
+        self.turn_es_direction()
 
     def log_once(self, *args, **kwargs):
         val_metrics = self.coordinator.global_test(flag='val')
