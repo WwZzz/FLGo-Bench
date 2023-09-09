@@ -97,7 +97,7 @@ if __name__=='__main__':
         except:
             algo = flgo.download_resource('.', args.method, 'algorithm')
     res = fedrun(task, algo, tune_option, optimal_option=optimal_option, seeds=seeds, tune=args.tune, Logger=TuneLogger if args.tune else FullLogger)
-    if algo.tune:
+    if args.tune:
         option['optimal'] = res
         with open(config, 'w') as outf:
             yaml.dump(option, outf)
