@@ -17,5 +17,8 @@ import flgo
 #
 # # 10.24.116.60
 # flgo.gen_task_by_(cifar10, fbp.DirichletPartitioner(alpha=0.1, num_clients=20, error_bar=1e-9), 'cifar10_dir.1_c20')
+#
+# # 10.24.81.135
+# flgo.gen_task_by_(cifar10, fbp.IIDPartitioner(num_clients=20), 'cifar10_iid_c20')
 
 ############################################ 2023 - 09 - 15

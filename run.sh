@@ -82,3 +82,19 @@
 #python run.py --task cifar10_dir.1_c20 --method fedavg --config ./EXP_R1000_P1._V.2/config_fedavg.yml --tune --gpu 0 1 2 3
 #python run.py --task cifar10_dir.1_c20 --method fedavg --config ./EXP_R1000_P1._V.2/op_config_fedavg_cifar10_dir.1_c20.yml --gpu 0 1 2 3
 #
+#################################################################################################################   10.24.81.135 Task cifar10_iid_c20
+######################## P=0.1
+## fedavg
+#python run.py --task cifar10_iid_c20 --method fedavg --config ./EXP_R1000_P.1_V.2/config_fedavg.yml --tune --gpu 4 5 6 7
+#python run.py --task cifar10_iid_c20 --method fedavg --config ./EXP_R1000_P.1_V.2/op_config_fedavg_cifar10_iid_c20.yml --gpu 4 5 6 7
+#
+######################## P=0.2
+## fedavg
+#python run.py --task cifar10_iid_c20 --method fedavg --config ./EXP_R1000_P.2_V.2/config_fedavg.yml --tune --gpu 4 5 6 7
+#python run.py --task cifar10_iid_c20 --method fedavg --config ./EXP_R1000_P.2_V.2/op_config_fedavg_cifar10_iid_c20.yml --gpu 4 5 6 7
+#
+#
+######################## P=1.0
+## fedavg
+#python run.py --task cifar10_iid_c20 --method fedavg --config ./EXP_R1000_P1._V.2/config_fedavg.yml --tune --gpu 4 5 6 7
+#python run.py --task cifar10_iid_c20 --method fedavg --config ./EXP_R1000_P1._V.2/op_config_fedavg_cifar10_iid_c20.yml --gpu 4 5 6 7
