@@ -6,7 +6,7 @@ learning_rate_decay: 0.998
 num_rounds: 2000
 num_epochs: [1,5]
 sample_option: full
-proportion: 0.1
+proportion: 0.2
 early_stop: 200
 train_holdout: 0.2
 local_test: True
