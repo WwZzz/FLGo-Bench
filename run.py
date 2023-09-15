@@ -7,6 +7,7 @@ import torch.multiprocessing
 import yaml
 import importlib
 import os
+import time
 
 def read_args():
     parser = argparse.ArgumentParser()
@@ -73,12 +74,37 @@ class TuneLogger(BasicLogger):
             self.output['val_' + met_name].append(1.0 * sum([client_vol * client_met for client_vol, client_met in zip(local_data_vols, met_val)]) / total_data_vol)
         self.show_current_output()
 
+class LimitedAutoScheduler(ds.AutoScheduler):
+    def __init__(self, devices: list, put_interval=5, mean_memory_occupated=1000, available_interval=5,
+                 dynamic_memory_occupated=True, dynamic_condition='mean', left_ratio=0.6):
+        super(LimitedAutoScheduler, self).__init__(devices = devices, put_interval=put_interval, mean_memory_occupated=mean_memory_occupated, available_interval=available_interval,
+                 dynamic_memory_occupated=dynamic_memory_occupated, dynamic_condition=dynamic_condition)
+        self.left_ratio = min(max(left_ratio,0.0),1.0)
+
+    def check_available(self, dev):
+        if dev=='-1':return True
+        crt_time = time.time()
+        crt_free_memory = self.dev_state[dev]['free_memory']
+        target_memory = self.mean_memory_occupated
+        total_memory = self.dev_state[dev]['total_memory']
+        crt_avl = (crt_free_memory>target_memory) and (crt_free_memory>=total_memory*self.left_ratio)
+        if crt_avl:
+            if self.dev_state[dev]['avl']:
+                if crt_time - self.dev_state[dev]['time']>=self.available_interval:
+                    if self.dev_state[dev]['time_put'] is None or crt_time-self.dev_state[dev]['time_put']>=self.put_interval:
+                        self.dev_state[dev]['time_put'] = crt_time
+                        return True
+        if crt_avl!=self.dev_state[dev]['avl']:
+            self.dev_state[dev]['avl'] = True
+            self.dev_state[dev]['time'] = crt_time
+        return False
+
 def fedrun(task, algo, tune_option={}, optimal_option={}, seeds=[0], tune=True, Logger=None):
     if tune:
         return flgo.tune(task, algo, tune_option, Logger=Logger)
     else:
         runner_dict = []
-        asc = ds.AutoScheduler(optimal_option['gpu'])
+        asc = LimitedAutoScheduler(optimal_option['gpu'], put_interval=10, available_interval=10, left_ratio=0.7)
         for seed in seeds:
             opi = optimal_option.copy()
             opi.update({'seed': seed})
