@@ -1,0 +1,14 @@
+learning_rate: [0.01, 0.05, 0.1]
+batch_size: [10, 50]
+weight_decay: [0.01, 0.001]
+lr_scheduler: 0
+learning_rate_decay: 0.998
+num_rounds: 2000
+num_epochs: [1,5]
+sample_option: full
+proportion: 0.2
+early_stop: 200
+train_holdout: 0.2
+local_test: True
+no_log_console: True
+log_file: True
