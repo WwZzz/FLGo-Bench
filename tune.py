@@ -1,0 +1,94 @@
+import sys
+import os.path
+import warnings
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import importlib
+import argparse
+import os.path
+import flgo
+from flgo.experiment.logger import BasicLogger
+import torch.multiprocessing as mlp
+import yaml
+import collections
+import numpy as np
+
+class TuneLogger(BasicLogger):
+    def initialize(self, *args, **kwargs):
+        self.set_es_key("val_accuracy")
+        self.set_es_direction(1)
+
+    def log_once(self, *args, **kwargs):
+        cvals = []
+        for c in self.clients:
+            if c.model is None: continue
+            model = c.model
+            cvals.append(c.test(model, 'val'))
+        cval_dict = {}
+        if len(cvals) > 0:
+            for met_name in cvals[0].keys():
+                cap_dict = collections.OrderedDict({k: [] for k in sorted(set(self.ps))})
+                if met_name not in cval_dict.keys(): cval_dict[met_name] = []
+                for cid in range(len(cvals)):
+                    cval_dict[met_name].append(cvals[cid][met_name])
+                self.output['val_' + met_name].append(float(np.array(cval_dict[met_name]).mean()))
+                self.output['min_val_' + met_name].append(float(np.array(cval_dict[met_name]).min()))
+                self.output['max_val_' + met_name].append(float(np.array(cval_dict[met_name]).max()))
+                for ci, vi in zip(self.ps, cval_dict[met_name]):
+                    cap_dict[ci].append(vi)
+                for ci in cap_dict.keys():
+                    self.output['val_' + met_name + '_' + str(ci)].append(float(np.array(cap_dict[ci]).mean()))
+        self.show_current_output()
+
+
+def read_option():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--method', help='algorithm name', type=str, default='standalone')
+    parser.add_argument('--task', help='task name', type=str, default='cifar10_iid_c100')
+    parser.add_argument('--gpu', nargs='*', help='GPU IDs and empty input is equal to using CPU', type=int)
+    parser.add_argument('--config', help='congiguration', type=str, default='')
+    parser.add_argument('--model', help = 'model name', type=str, default='')
+    parser.add_argument('--put_interval', help='interval (s) to put command into devices', type=int, default=5)
+    parser.add_argument('--max_pdev', help='interval (s) to put command into devices', type=int, default=7)
+    parser.add_argument('--available_interval', help='check availability of devices every x seconds', type=int, default=5)
+    parser.add_argument('--memory', help='mean memory occupation', type=float, default=1000)
+    parser.add_argument('--no_dynmem', help='no_dynmem',  action="store_true", default=False)
+    try:
+        option = vars(parser.parse_known_args()[0])
+    except IOError as msg:
+        parser.error(str(msg))
+    return option
+
+if __name__=='__main__':
+    mlp.set_sharing_strategy("file_system")
+    mlp.set_start_method("spawn", force=True)
+    option = read_option()
+    config_file = option['config']
+    if config_file=='': config_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'task', option['task'], 'config.yml')
+    if os.path.exists(config_file):
+        with open(config_file, 'r') as inf:
+            config = yaml.load(inf, yaml.Loader)
+    else:
+        config = {}
+    paras = config
+
+    import flgo.experiment.device_scheduler as fed
+    scheduler = None if option['gpu'] is None else fed.AutoScheduler(option['gpu'], put_interval=option['put_interval'], available_interval=option['available_interval'], mean_memory_occupated=option['memory'], dynamic_memory_occupated=not option['no_dynmem'], max_processes_per_device=option['max_pdev'])
+    method = None
+    modules = [".".join(["algorithm", option['method']]), ".".join(["develop", option['method']]),".".join(["flgo", "algorithm", option['method']])]
+    for m in modules:
+        try:
+            method = importlib.import_module(m)
+            break
+        except ModuleNotFoundError:
+            continue
+    if method is None: raise ModuleNotFoundError("{} was not found".format(method))
+    task = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'task', option['task'])
+    if option['model'] == '':
+        model = None
+    else:
+        try:
+            model = getattr(method, option['model'])
+        except:
+            model = option['model']
+    res = flgo.tune(task, method, paras, model=model, Logger=TuneLogger, scheduler=scheduler)
