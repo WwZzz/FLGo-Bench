@@ -1,0 +1,1 @@
+{"benchmark":"flgo.benchmark.mnist_classification","scene":"unknown","num_clients":100,"partitioner":"iid"}
