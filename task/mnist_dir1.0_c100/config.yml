@@ -6,7 +6,7 @@ learning_rate_decay: 0.9998
 num_rounds: 1000
 num_epochs: [5]
 clip_grad: 10
-proportion: [0.1, 0.2, 0.5, 1.0]
+proportion: 0.2
 early_stop: 250
 train_holdout: 0.2
 local_test: True
