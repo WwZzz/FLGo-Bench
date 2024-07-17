@@ -1,14 +1,24 @@
 # FLGo-Bench
 Produce results of federated algorithms on various benchmarks
 
-## 20 Clients
+### CIFAR10
+#### 100 Clients
+```
+learning_rate: [0.001, 0.005, 0.01, 0.05, 0.1]
+batch_size: 50
+weight_decay: 1e-3
+lr_scheduler: 0
+learning_rate_decay: 0.9998
+num_rounds: 2000
+num_epochs: [5]
+clip_grad: 10
+proportion: [0.1, 0.2, 0.5, 1.0]
+early_stop: 500
+train_holdout: 0.2
+local_test: True
+no_log_console: True
+```
 
-| **Task**            | **Algorithm** | **Machine**   | **Status**       |
-|---------------------|---------------|---------------|------------------|
-| cifar10_dir.1_c20   | fedavg        | 10.24.116.60  | Full Running     |
-| cifar10_dir1_c20    | fedavg        | 10.24.81.135  | Partial Finished |
-| cifar10_iid_c20     | fedavg        | 10.24.81.135  | Full Running     |
-| cifar100_dir1_c20   | fedavg        | 10.24.80.246  | Partial Finished |
-| cifar100_dir.1_c20  | fedavg        | 10.24.116.58  | Full Running     |
-| cifar100_iid_c20    | fedavg        | 10.24.116.59  | Full Running     |
-|                     |               |               |                  |
+| **Task**           | **Algorithm** | **model** | **P=0.1** | **P=0.2** | **P=0.5** | **P=1.0** | 
+|--------------------|---------------|-----------|-----------|-----------|-----------|-----------|
+| cifar10_iid_c100   | fedavg        | CNN       | lr=0.1    | lr=0.1    |           |           |
