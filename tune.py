@@ -6,6 +6,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import importlib
 import argparse
 import os.path
+import torch.utils.data as tud
 import flgo
 from flgo.experiment.logger import BasicLogger
 import torch.multiprocessing as mlp
@@ -19,33 +20,26 @@ class TuneLogger(BasicLogger):
         self.set_es_direction(1)
 
     def log_once(self, *args, **kwargs):
-        cvals = []
-        for c in self.clients:
-            if c.model is None: continue
-            model = c.model
-            cvals.append(c.test(model, 'val'))
+        cvals = [c.test(self.server.model, 'val') for c in self.clients]
+        cdatavols = np.array([len(c.val_data) for c in self.clients])
+        cdatavols = cdatavols/cdatavols.sum()
         cval_dict = {}
         if len(cvals) > 0:
             for met_name in cvals[0].keys():
-                cap_dict = collections.OrderedDict({k: [] for k in sorted(set(self.ps))})
                 if met_name not in cval_dict.keys(): cval_dict[met_name] = []
                 for cid in range(len(cvals)):
                     cval_dict[met_name].append(cvals[cid][met_name])
-                self.output['val_' + met_name].append(float(np.array(cval_dict[met_name]).mean()))
+                self.output['val_' + met_name].append(float((np.array(cval_dict[met_name])*cdatavols).sum()))
                 self.output['min_val_' + met_name].append(float(np.array(cval_dict[met_name]).min()))
                 self.output['max_val_' + met_name].append(float(np.array(cval_dict[met_name]).max()))
-                for ci, vi in zip(self.ps, cval_dict[met_name]):
-                    cap_dict[ci].append(vi)
-                for ci in cap_dict.keys():
-                    self.output['val_' + met_name + '_' + str(ci)].append(float(np.array(cap_dict[ci]).mean()))
         self.show_current_output()
 
 
 def read_option():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--method', help='algorithm name', type=str, default='standalone')
+    parser.add_argument('--method', help='algorithm name', type=str, default='fedavg')
     parser.add_argument('--task', help='task name', type=str, default='cifar10_iid_c100')
-    parser.add_argument('--gpu', nargs='*', help='GPU IDs and empty input is equal to using CPU', type=int)
+    parser.add_argument('--gpu', nargs='*', help='GPU IDs and empty input is equal to using CPU', type=int, default=[0])
     parser.add_argument('--config', help='congiguration', type=str, default='')
     parser.add_argument('--model', help = 'model name', type=str, default='')
     parser.add_argument('--put_interval', help='interval (s) to put command into devices', type=int, default=5)
