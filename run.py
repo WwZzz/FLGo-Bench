@@ -13,6 +13,7 @@ def read_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('--task', help='name of task', type=str, default='')
     parser.add_argument('--algorithm', help='name of method', type=str, default='fedavg')
+    parser.add_argument('--model', help = 'model name', type=str, default='')
     parser.add_argument('--gpu', nargs='*', help='GPU IDs and empty input is equal to using CPU', type=int, default=[0])
     parser.add_argument('--seeds', nargs='+', help='seeds', type=int, default=[2,4388,15,333,967])
     parser.add_argument('--config', type=str, help='configuration of hypara', default='')
@@ -60,13 +61,13 @@ class FullLogger(BasicLogger):
         self.show_current_output()
 
 
-def fedrun(task, algo, optimal_option={}, seeds=[0], Logger=None):
+def fedrun(task, algo, optimal_option={}, seeds=[0], Logger=None, model=None):
     runner_dict = []
     asc = ds.AutoScheduler(optimal_option['gpu'], put_interval=10, available_interval=10, max_processes_per_device=10)
     for seed in seeds:
         opi = optimal_option.copy()
         opi.update({'seed': seed})
-        runner_dict.append({'task': task, 'algorithm': algo, 'option': opi, 'Logger':Logger})
+        runner_dict.append({'task': task, 'algorithm': algo, 'option': opi, 'model':model, 'Logger':Logger})
     res = flgo.multi_init_and_run(runner_dict, scheduler=asc)
     return res
 
@@ -76,11 +77,22 @@ if __name__=='__main__':
     algo = None
     modules = [".".join(["algorithm", args.algorithm]), ".".join(["develop",  args.algorithm]),".".join(["flgo", "algorithm",  args.algorithm])]
     for m in modules:
-
         try:
             algo = importlib.import_module(m)
             break
         except ModuleNotFoundError:
             continue
     if algo is None: raise ModuleNotFoundError("{} was not found".format(algo))
-    fedrun(os.path.join('task', task), algo, optimal_option=optimal_option, seeds=seeds, Logger=FullLogger)
+    model  = None
+    if args.model != '':
+        try:
+            model = getattr(algo, args.model)
+        except:
+            model = None
+        if model is None:
+            try:
+                model = importlib.import_module(args.model)
+            except:
+                print("using default model")
+                model = None
+    fedrun(os.path.join('task', task), algo, optimal_option=optimal_option, seeds=seeds, Logger=FullLogger, model=model)

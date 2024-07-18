@@ -78,11 +78,17 @@ if __name__=='__main__':
             continue
     if method is None: raise ModuleNotFoundError("{} was not found".format(method))
     task = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'task', option['task'])
-    if option['model'] == '':
-        model = None
-    else:
+
+    model  = None
+    if option['model'] != '':
         try:
             model = getattr(method, option['model'])
         except:
-            model = option['model']
+            model = None
+        if model is None:
+            try:
+                model = importlib.import_module(option['model'])
+            except:
+                print("using default model")
+                model = None
     res = flgo.tune(task, method, paras, model=model, Logger=TuneLogger, scheduler=scheduler)
