@@ -1,6 +1,7 @@
 # FLGo-Bench
 Produce results of federated algorithms on various benchmarks
 
+# Result
 ## CIFAR10
 ### 100 Clients
 #### Configuration
@@ -48,4 +49,30 @@ no_log_console: True
 
 | **Algorithm** | **model** | **iid**     | **dir5.0** | **dir2.0** | **dir1.0** | **dir0.1** |    
 |---------------|-----------|-------------|------------|------------|------------|------------|
-| fedavg        | CNN       | lr=0.1      |            |            |            |            |
+| fedavg        | CNN       | lr=0.1      | lr=0.05    | lr=0.05    | lr=0.05    | lr=0.05    |
+
+#### Main Results
+```
+seed: [2,4388,15,333,967] # results are averaged over five random seeds
+proportion: 0.2
+```
+Global Test
+
+| **Algorithm** | **model** | **iid**    | **dir5.0** | **dir2.0** | **dir1.0** | **dir0.1** |    
+|---------------|-----------|------------|------------|------------|------------|------------|
+| fedavg        | CNN       | 99.20±0.00 |            |            |            |            |
+
+Local Test
+
+
+| **Algorithm** | **model** | **iid**    | **dir5.0** | **dir2.0** | **dir1.0** | **dir0.1** |    
+|---------------|-----------|------------|------------|------------|------------|------------|
+| fedavg        | CNN       | 98.87±0.03 |            |            |            |            |
+
+#### Impact of Sampling Ratio
+
+| **Task** | **Algorithm** | **model** | **p=0.1**  | **p=0.2**  | **p=0.5**  | **p=1.0** |  
+|----------|---------------|-----------|------------|------------|------------|-----------|
+| iid      | fedavg        | CNN       | 99.20±0.03 | 99.20±0.00 | 99.21±0.02 | 99.22±0.0 |
+
+#### Impact of Local Epoch
