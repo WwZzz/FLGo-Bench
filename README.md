@@ -26,9 +26,30 @@ no_log_console: True
 | fedavg        | CNN       | lr=0.1      |            |            |            |            |
 
 #### Main Results
-#### Impact of Sampling Ratio
-#### Impact of Local Epoch
+```
+seed: [2,4388,15,333,967] # results are averaged over five random seeds
+proportion: 0.2
+```
+Global Test
 
+| **Algorithm** | **model** | **iid**    | **dir5.0** | **dir2.0** | **dir1.0** | **dir0.1** |    
+|---------------|-----------|------------|------------|------------|------------|------------|
+| fedavg        | CNN       | 81.54±0.14 |            |            |            |            |
+
+Local Test
+
+
+| **Algorithm** | **model** | **iid**    | **dir5.0** | **dir2.0** | **dir1.0** | **dir0.1** |    
+|---------------|-----------|------------|------------|------------|------------|------------|
+| fedavg        | CNN       | 80.98±0.39 |            |            |            |            |
+
+#### Impact of Sampling Ratio
+
+| **Task** | **Algorithm** | **model** | **p=0.1**  | **p=0.2**  | **p=0.5**  | **p=1.0** |  
+|----------|---------------|-----------|------------|------------|------------|-----------|
+| iid      | fedavg        | CNN       | 81.70±0.30 | 81.54±0.14 | 81.34±0.23 | 99.22±0.0 |
+
+#### Impact of Local Epoch
 ## MNIST
 ### 100 Clients
 ```
