@@ -117,9 +117,9 @@ no_log_console: True
 log_file: True
 ```
 
-| **Algorithm** | **model** | **dir1.0** |   
-|---------------|-----------|------------|
-| fedavg        | CNN       | lr=1.0     |
+| **Algorithm** | **model**           | **dir1.0** |   
+|---------------|---------------------|------------|
+| fedavg        | EmbeddingBag+Linear | lr=1.0     |
 
 #### Main Results
 ```
@@ -128,12 +128,12 @@ proportion: 0.2
 ```
 Global Test
 
-| **Algorithm** | **model** | **dir1.0** |   
-|---------------|-----------|------------|
-| fedavg        | CNN       |            |
+| **Algorithm** | **model**           | **dir1.0** |   
+|---------------|---------------------|------------|
+| fedavg        | EmbeddingBag+Linear |            |
 
 Local Test
 
-| **Algorithm** | **model** | **dir1.0** |   
-|---------------|-----------|------------|
-| fedavg        | CNN       |            |
+| **Algorithm** | **model**           | **dir1.0** |   
+|---------------|---------------------|------------|
+| fedavg        | EmbeddingBag+Linear |            |
