@@ -1,6 +1,6 @@
 import argparse
 import os.path
-
+import numpy as np
 import yaml
 import flgo.experiment.analyzer as fea
 
@@ -29,8 +29,13 @@ def max_val_acc(x, op={}):
 
 def lr(x, op={}):
     return x.option['learning_rate']
+
+def optimal_round_by_val(x, op={}):
+    return np.argmax(x.log['val_accuracy'])
+
 tb.add_column(max_val_acc)
 tb.add_column(lr)
+tb.add_column(optimal_round_by_val)
 tb.print()
 # selector = fea.Selector({'task': task, 'header':[method], 'filter':config2filter(option)})
 # records = selector.records[task]

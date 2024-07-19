@@ -97,3 +97,43 @@ Local Test
 | iid      | fedavg        | CNN       | 99.20±0.03 | 99.20±0.00 | 99.21±0.02 | 99.22±0.0 |
 
 #### Impact of Local Epoch
+## AGNEWS
+### 100 Clients
+```
+learning_rate: [0.1, 0.5, 1.0, 5.0, 10.0]
+batch_size: 50
+weight_decay: 1e-4
+momentum: 0.9
+lr_scheduler: 0
+learning_rate_decay: 0.998
+num_rounds: 1000
+num_epochs: 1
+clip_grad: 10
+proportion: 0.2
+early_stop: 125
+train_holdout: 0.2
+local_test: True
+no_log_console: True
+log_file: True
+```
+
+| **Algorithm** | **model** | **dir1.0** |   
+|---------------|-----------|------------|
+| fedavg        | CNN       | lr=1.0     |
+
+#### Main Results
+```
+seed: [2,4388,15,333,967] # results are averaged over five random seeds
+proportion: 0.2
+```
+Global Test
+
+| **Algorithm** | **model** | **dir1.0** |   
+|---------------|-----------|------------|
+| fedavg        | CNN       |            |
+
+Local Test
+
+| **Algorithm** | **model** | **dir1.0** |   
+|---------------|-----------|------------|
+| fedavg        | CNN       |            |
