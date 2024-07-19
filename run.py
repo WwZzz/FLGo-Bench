@@ -17,6 +17,9 @@ def read_args():
     parser.add_argument('--gpu', nargs='*', help='GPU IDs and empty input is equal to using CPU', type=int, default=[0])
     parser.add_argument('--seeds', nargs='+', help='seeds', type=int, default=[2,4388,15,333,967])
     parser.add_argument('--config', type=str, help='configuration of hypara', default='')
+    parser.add_argument('--put_interval', help='interval (s) to put command into devices', type=int, default=10)
+    parser.add_argument('--max_pdev', help='interval (s) to put command into devices', type=int, default=7)
+    parser.add_argument('--available_interval', help='check availability of devices every x seconds', type=int, default=10)
     return parser.parse_known_args()
 
 args = read_args()[0]
@@ -61,9 +64,9 @@ class FullLogger(BasicLogger):
         self.show_current_output()
 
 
-def fedrun(task, algo, optimal_option={}, seeds=[0], Logger=None, model=None):
+def fedrun(task, algo, optimal_option={}, seeds=[0], Logger=None, model=None, put_interval=10, available_interval=10, max_processes_per_device=10):
     runner_dict = []
-    asc = ds.AutoScheduler(optimal_option['gpu'], put_interval=10, available_interval=10, max_processes_per_device=10)
+    asc = ds.AutoScheduler(optimal_option['gpu'], put_interval=put_interval, available_interval=available_interval, max_processes_per_device=max_processes_per_device)
     for seed in seeds:
         opi = optimal_option.copy()
         opi.update({'seed': seed})
@@ -95,4 +98,4 @@ if __name__=='__main__':
             except:
                 print("using default model")
                 model = None
-    fedrun(os.path.join('task', task), algo, optimal_option=optimal_option, seeds=seeds, Logger=FullLogger, model=model)
+    fedrun(os.path.join('task', task), algo, optimal_option=optimal_option, seeds=seeds, Logger=FullLogger, model=model, put_interval=args.put_interval, available_interval=args.available_interval, max_processes_per_device=args.max_pdev)
