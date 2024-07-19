@@ -20,6 +20,8 @@ algorithm = args.algorithm
 config = args.config
 
 records = fea.load_records(os.path.join('task', task), algorithm, option)
+painter = fea.Painter(records)
+painter.create_figure(fea.Curve, {'args':{'x':'communication_round', 'y':'val_accuracy'}})
 tb = fea.Table(records)
 
 def max_val_acc(x, op={}):
