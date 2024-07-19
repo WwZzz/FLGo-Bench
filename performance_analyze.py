@@ -36,6 +36,7 @@ def optimal_round_by_val(x, op={}):
 tb.add_column(max_val_acc)
 tb.add_column(lr)
 tb.add_column(optimal_round_by_val)
+tb.tb.sortby = max_val_acc.__name__
 tb.print()
 # selector = fea.Selector({'task': task, 'header':[method], 'filter':config2filter(option)})
 # records = selector.records[task]
