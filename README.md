@@ -127,9 +127,11 @@ no_log_console: True
 log_file: True
 ```
 
-| **Algorithm** | **model**           | **dir1.0** |   
-|---------------|---------------------|------------|
-| fedavg        | EmbeddingBag+Linear | lr=1.0     |
+| **Algorithm** | **model**           | **dir1.0**     |   
+|---------------|---------------------|----------------|
+| fedavg        | EmbeddingBag+Linear | lr=1.0         |
+| fedprox       | EmbeddingBag+Linear | lr=1.0, μ=0.01 |
+
 
 #### Main Results
 ```
