@@ -138,10 +138,10 @@ Global Test
 
 | **Algorithm** | **model**           | **dir1.0** |   
 |---------------|---------------------|------------|
-| fedavg        | EmbeddingBag+Linear |            |
+| fedavg        | EmbeddingBag+Linear | 89.37±0.14 |
 
 Local Test
 
 | **Algorithm** | **model**           | **dir1.0** |   
 |---------------|---------------------|------------|
-| fedavg        | EmbeddingBag+Linear |            |
+| fedavg        | EmbeddingBag+Linear | 89.84±0.08 |
