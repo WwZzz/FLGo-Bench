@@ -36,3 +36,10 @@ nohup python tune.py --task mnist_dir5.0_c100 --gpu 1 2 3 0 --method feddyn --co
 nohup python tune.py --task mnist_dir2.0_c100 --gpu 2 3 0 1 --method feddyn --config ./config/tune_dyn.yml &
 nohup python tune.py --task mnist_dir1.0_c100 --gpu 3 0 1 2 --method feddyn --config ./config/tune_dyn.yml &
 nohup python tune.py --task mnist_dir0.1_c100 --gpu 0 1 2 3 --method feddyn --config ./config/tune_dyn.yml &
+
+nohup python tune.py --task mnist_iid_c100 --gpu 0 1 2 3 --method moon --config ./config/tune_moon.yml &
+nohup python tune.py --task mnist_dir5.0_c100 --gpu 1 2 3 0 --method moon --config ./config/tune_moon.yml &
+nohup python tune.py --task mnist_dir2.0_c100 --gpu 2 3 0 1 --method moon --config ./config/tune_moon.yml &
+nohup python tune.py --task mnist_dir1.0_c100 --gpu 3 0 1 2 --method moon --config ./config/tune_moon.yml &
+nohup python tune.py --task mnist_dir0.1_c100 --gpu 0 1 2 3 --method moon --config ./config/tune_moon.yml &
+
