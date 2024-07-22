@@ -23,3 +23,8 @@ nohup python run.py --task mnist_iid_c100 --algorithm feddyn --gpu 3 0 1 2 --con
 nohup python run.py --task mnist_dir0.1_c100 --algorithm feddyn --gpu 0 1 2 3 --config ./config/dyn_dir.yml &
 nohup python run.py --task mnist_dir1.0_c100 --algorithm feddyn --gpu 2 3 0 1 --config ./config/dyn_dir.yml &
 
+nohup python run.py --task mnist_iid_c100 --algorithm moon --gpu 0 1 2 3 --config ./config/moon_iid.yml &
+nohup python run.py --task mnist_dir0.1_c100 --algorithm moon --gpu 0 1 2 3 --config ./config/moon_d0.yml &
+nohup python run.py --task mnist_dir1.0_c100 --algorithm moon --gpu 1 2 3 0 --config ./config/moon_d1.yml &
+nohup python run.py --task mnist_dir2.0_c100 --algorithm moon --gpu 2 3 0 1 --config ./config/moon_d2.yml &
+nohup python run.py --task mnist_dir5.0_c100 --algorithm moon --gpu 3 0 1 2 --config ./config/moon_d5.yml &
