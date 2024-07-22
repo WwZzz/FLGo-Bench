@@ -63,6 +63,7 @@ class Client(BasicClient):
             loss_con = model_contrastive_loss(z, z_glob, z_prev, self.tau)
             loss = loss + self.mu * loss_con
             loss.backward()
+            if self.clip_grad>0:torch.nn.utils.clip_grad_norm_(parameters=model.parameters(), max_norm=self.clip_grad)
             optimizer.step()
 
         self.local_model = copy.deepcopy(model).to(torch.device('cpu'))
