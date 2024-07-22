@@ -139,6 +139,7 @@ log_file: True
 |---------------|---------------------|----------------|
 | fedavg        | EmbeddingBag+Linear | lr=1.0         |
 | fedprox       | EmbeddingBag+Linear | lr=1.0, μ=0.01 |
+| scaffold      | EmbeddingBag+Linear | -              |
 
 
 #### Main Results
@@ -152,6 +153,8 @@ Global Test
 |---------------|---------------------|------------|
 | fedavg        | EmbeddingBag+Linear | 89.37±0.14 |
 | fedprox       | EmbeddingBag+Linear | 89.39±0.12 |
+| scaffold      | EmbeddingBag+Linear | -          |
+
 
 Local Test
 
@@ -159,6 +162,8 @@ Local Test
 |---------------|---------------------|------------|
 | fedavg        | EmbeddingBag+Linear | 89.84±0.08 |
 | fedprox       | EmbeddingBag+Linear | 89.87±0.06 |
+| scaffold      | EmbeddingBag+Linear | -          |
+
 
 
 
