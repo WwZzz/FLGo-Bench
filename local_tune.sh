@@ -11,6 +11,8 @@ nohup python tune.py --task mnist_dir0.1_c100 --gpu 0 1 2 3 --method fedavg
 
 nohup python tune.py --task agnews_dir1.0_c100 --gpu 0 1 2 3 --method fedavg --max_pdev 1 &
 
+nohup python tune.py --task domainnet_c6 --gpu 0 1 2 3 --method fedavg &
+
 nohup python tune.py --task mnist_iid_c100 --gpu 0 1 2 3 --method fedprox --config ./config/tune_prox.yml --put_interval 10 --available_interval 10 --max_pdev 10 &
 nohup python tune.py --task mnist_dir0.1_c100 --gpu 0 1 2 3 --method fedprox --config ./config/tune_prox.yml --put_interval 10 --available_interval 10 --max_pdev 10 &
 nohup python tune.py --task mnist_dir1.0_c100 --gpu 0 1 2 3 --method fedprox --config ./config/tune_prox.yml --put_interval 10 --available_interval 10 --max_pdev 10 &
@@ -44,3 +46,4 @@ nohup python tune.py --task mnist_dir1.0_c100 --gpu 3 0 1 2 --method moon --conf
 nohup python tune.py --task mnist_dir0.1_c100 --gpu 0 1 2 3 --method moon --config ./config/tune_moon.yml &
 
 nohup python tune.py --task agnews_dir1.0_c100 --gpu 0 1 2 3 --method scaffold &
+
