@@ -13,6 +13,7 @@ nohup python tune.py --task agnews_dir1.0_c100 --gpu 0 1 2 3 --method fedavg --m
 
 nohup python tune.py --task domainnet_c6 --gpu 0 1 2 3 --method fedavg &
 nohup python tune.py --task office_caltech10_c4 --gpu 0 1 2 3 --method fedavg &
+nohup python tune.py --task cifar100_dir1.0_c100 --gpu 0 1 2 --model model.mobilenetv2_cifar100 --method fedavg &
 
 nohup python tune.py --task mnist_iid_c100 --gpu 0 1 2 3 --method fedprox --config ./config/tune_prox.yml --put_interval 10 --available_interval 10 --max_pdev 10 &
 nohup python tune.py --task mnist_dir0.1_c100 --gpu 0 1 2 3 --method fedprox --config ./config/tune_prox.yml --put_interval 10 --available_interval 10 --max_pdev 10 &
