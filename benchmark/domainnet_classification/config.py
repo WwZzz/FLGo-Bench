@@ -161,7 +161,7 @@ class AlexNet(nn.Module):
         self.fc1 = nn.Linear(256 * 6 * 6, 1024)
         self.bn6 = nn.BatchNorm1d(1024)
         self.relu = nn.ReLU()
-        self.fc2 = nn.Linear(1024, 1024)
+        self.fc2 = nn.Linear(1024,1024)
         self.bn7 = nn.BatchNorm1d(1024)
         self.fc3 = nn.Linear(1024, num_classes)
 
@@ -169,9 +169,9 @@ class AlexNet(nn.Module):
         x = self.features(x)
         x = self.avgpool(x)
         x = torch.flatten(x, 1)
-        x = self.fc1(x)
+        x = self.bn6(self.fc1(x))
         x = self.relu(x)
-        x = self.fc2(x)
+        x = self.bn7(self.fc2(x))
         x = self.relu(x)
         x = self.fc3(x)
         return x
