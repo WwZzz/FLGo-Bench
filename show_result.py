@@ -56,6 +56,10 @@ def get_final_res(tb, name):
     print(f"Mean {name}:{mean_res}")
     print(f"std {name}:{std_res}")
 
+def get_seed(x, op={}):
+    return x.option['seed']
+
+tb.add_column(get_seed)
 tb.add_column(max_val_acc)
 tb.add_column(max_test_acc)
 tb.add_column(lr)

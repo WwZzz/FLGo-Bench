@@ -152,6 +152,7 @@ log_file: True
 | fedavg        | EmbeddingBag+Linear | lr=1.0         |
 | fedprox       | EmbeddingBag+Linear | lr=1.0, μ=0.01 |
 | scaffold      | EmbeddingBag+Linear | lr=1.0         |
+| feddyn        | EmbeddingBag+Linear | lr=0.5, α=0.01 |
 
 
 #### Main Results
