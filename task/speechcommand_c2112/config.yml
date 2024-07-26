@@ -11,3 +11,4 @@ early_stop: 250
 train_holdout: 0.0
 no_log_console: True
 log_file: True
+pin_memory: True
