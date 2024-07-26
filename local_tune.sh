@@ -49,4 +49,5 @@ nohup python tune.py --task mnist_dir1.0_c100 --gpu 3 0 1 2 --method moon --conf
 nohup python tune.py --task mnist_dir0.1_c100 --gpu 0 1 2 3 --method moon --config ./config/tune_moon.yml &
 
 nohup python tune.py --task agnews_dir1.0_c100 --gpu 0 1 2 3 --method scaffold &
+nohup python tune.py --task speechcommand_c2112 --gpu 1 0 --method scaffold &
 
