@@ -11,6 +11,9 @@ nohup python run.py --task mnist_dir2.0_c100 --algorithm fedavg --gpu 2 3 0 1 --
 nohup python run.py --task mnist_dir5.0_c100 --algorithm fedavg --gpu 3 0 1 2 --config ./config/tmp.yml &
 
 nohup python run.py --task agnews_dir1.0_c100 --algorithm fedavg --gpu 1 2 3 0 --config ./config/tmp.yml --max_pdev 1 --put_interval 30 --available_interval 30 &
+nohup python run.py --task office_caltech10_c4 --algorithm fedavg --gpu 1 2 3 0 --config ./config/office_scaffold.yml &
+
+
 
 nohup python run.py --task cifar10_iid_c100 --algorithm fedprox --gpu 1 2 3 0 --config ./config/run_prox.yml &
 nohup python run.py --task mnist_iid_c100 --algorithm fedprox --gpu 0 1 2 3 --config ./config/prox_iid.yml &
@@ -34,3 +37,5 @@ nohup python run.py --task cifar10_dir0.1_c100 --algorithm moon --gpu 1 2 3 0 --
 nohup python run.py --task cifar10_dir1.0_c100 --algorithm moon --gpu 2 3 0 1 --config ./config/moon_run1.yml &
 nohup python run.py --task cifar10_dir2.0_c100 --algorithm moon --gpu 3 0 1 2 --config ./config/moon_run2.yml &
 nohup python run.py --task cifar10_dir5.0_c100 --algorithm moon --gpu 0 1 2 3 --config ./config/moon_run1.yml &
+
+nohup python run.py --task office_caltech10_c4 --algorithm scaffold --gpu 0 1 2 3 --config ./config/office_scaffold.yml &
