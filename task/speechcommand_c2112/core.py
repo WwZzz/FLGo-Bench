@@ -36,7 +36,25 @@ class TaskGenerator(fbb.FromDatasetGenerator):
                                             train_data=train_data, val_data=val_data, test_data=test_data)
 
 class TaskPipe(fbb.FromDatasetPipe):
-    TaskDataset = torch.utils.data.Subset
+    class TaskDataset(torch.utils.data.Dataset):
+        def __init__(self, dataset, pin_memory=False):
+            super().__init__()
+            self.dataset = dataset
+            self.pin_memory = pin_memory
+            if not self.pin_memory:
+                self.X = None
+            else:
+                self.X = [self.dataset[i] for i in range(len(self.dataset))]
+
+        def __len__(self):
+            return len(self.dataset)
+
+        def __getitem__(self, idx):
+            if self.X is not None:
+                return self.X[idx]
+            else:
+                return self.dataset[idx]
+
     def __init__(self, task_path):
         super(TaskPipe, self).__init__(task_path, train_data=train_data, val_data=val_data, test_data=test_data)
         self.my_split_dataset = split_dataset
@@ -79,6 +97,10 @@ class TaskPipe(fbb.FromDatasetPipe):
             else:
                 cdata_test = None
             task_data[f'Client{cid}'] = {'train':cdata_train, 'val':cdata_val, 'test': cdata_test}
+        for u in task_data:
+            for k in task_data[u]:
+                if task_data[u][k] is not None:
+                    task_data[u][k] = self.TaskDataset(task_data[u][k], running_time_option['pin_memory'])
         return task_data
 
 class TaskCalculator(fbb.BasicTaskCalculator):

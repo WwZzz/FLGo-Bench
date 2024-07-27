@@ -23,26 +23,51 @@ config = args.config
 records = fea.load_records(os.path.join('task', task), algorithm, option)
 tb = fea.Table(records)
 
-def max_val_acc(x, op={}):
-    return max(x.log['local_val_accuracy'])
+def max_log(x, op={}):
+    res = x.log.get(op['x'], None)
+    return max(res) if res is not None else -np.inf
 
-def max_test_acc(x, op={}):
-    return max(x.log['test_accuracy'])
+def get_option(x, op={}):
+    res = x.option.get(op['x'], None)
+    return res
+
+def optimal_by_(x, op={}):
+    k = x.log.get(op['x'], None)
+    v = x.log.get(op['y'], None)
+    if k is None or v is None: return None
+    return v[np.argmax(k)]
+
+def optimal_gtest_by_gval(x, op={}):
+    return optimal_by_(x, {'x': 'val_accuracy', 'y': 'test_accuracy'})
+
+def optimal_gtest_by_lval(x, op={}):
+    return optimal_by_(x, {'x': 'local_val_accuracy', 'y': 'test_accuracy'})
+
+def optimal_ltest_by_lval(x, op={}):
+    return optimal_by_(x, {'x': 'local_val_accuracy', 'y': 'local_test_accuracy'})
+
+def optimal_mean_ltest_by_lval(x, op={}):
+    return optimal_by_(x, {'x': 'local_val_accuracy', 'y': 'mean_local_test_accuracy'})
+
+def optimal_round_by_lval(x, op={}):
+    res = x.log.get('local_val_accuracy', None)
+    return np.argmax(res) if res is not None else None
+
+def optimal_round_by_gval(x, op={}):
+    res = x.log.get('val_accuracy', None)
+    return np.argmax(res) if res is not None else None
+
+def max_local_val_acc(x, op={}):
+    return max_log(x, {'x': 'local_val_accuracy'})
+
+def max_global_val_acc(x, op={}):
+    return max_log(x, {'x': 'val_accuracy'})
+
+def max_global_test_acc(x, op={}):
+    return max_log(x, {'x': 'test_accuracy'})
 
 def lr(x, op={}):
     return x.option['learning_rate']
-
-def optimal_testacc_by_val(x, op={}):
-    return x.log['test_accuracy'][np.argmax(x.log['local_val_accuracy'])]
-
-def optimal_local_by_val(x, op={}):
-    return x.log['mean_local_test_accuracy'][np.argmax(x.log['local_val_accuracy'])]
-
-def optimal_testloss_by_val(x, op={}):
-    return x.log['test_loss'][np.argmax(x.log['local_val_accuracy'])]
-
-def optimal_round_by_val(x, op={}):
-    return np.argmax(x.log['local_val_accuracy'])
 
 def get_column(tb, name):
     idx = tb.tb.field_names.index(name)
@@ -51,25 +76,31 @@ def get_column(tb, name):
 
 def get_final_res(tb, name):
     res = get_column(tb, name)
+    if len(res)==0 or res[0] is None: return
     mean_res = np.mean(res)
     std_res = np.std(res)
     print(f"Mean {name}:{mean_res}")
     print(f"std {name}:{std_res}")
 
 def get_seed(x, op={}):
-    return x.option['seed']
+    return get_option(x, {'x':'seed'})
 
 tb.add_column(get_seed)
-tb.add_column(max_val_acc)
-tb.add_column(max_test_acc)
+tb.add_column(max_local_val_acc)
+tb.add_column(max_global_test_acc)
+tb.add_column(max_global_val_acc)
 tb.add_column(lr)
-tb.add_column(optimal_testacc_by_val)
-tb.add_column(optimal_local_by_val)
-tb.add_column(optimal_testloss_by_val)
-tb.add_column(optimal_round_by_val)
+tb.add_column(optimal_gtest_by_lval)
+tb.add_column(optimal_gtest_by_gval)
+tb.add_column(optimal_ltest_by_lval)
+tb.add_column(optimal_mean_ltest_by_lval)
+tb.add_column(optimal_round_by_lval)
+tb.add_column(optimal_round_by_gval)
 tb.print()
-get_final_res(tb,  optimal_testacc_by_val.__name__)
-get_final_res(tb, optimal_local_by_val.__name__)
+get_final_res(tb,  optimal_gtest_by_gval.__name__)
+get_final_res(tb,  optimal_gtest_by_lval.__name__)
+get_final_res(tb, optimal_ltest_by_lval.__name__)
+get_final_res(tb, optimal_mean_ltest_by_lval.__name__)
 # testaccs = get_column(tb, optimal_testacc_by_val.__name__)
 # mean_testacc = np.mean(testaccs)
 # std_testacc = np.std(testaccs)
