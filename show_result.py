@@ -44,7 +44,10 @@ def optimal_gtest_by_lval(x, op={}):
     return optimal_by_(x, {'x': 'local_val_accuracy', 'y': 'test_accuracy'})
 
 def optimal_ltest_by_lval(x, op={}):
-    return optimal_by_(x, {'x': 'mean_local_val_accuracy', 'y': 'local_test_accuracy'})
+    return optimal_by_(x, {'x': 'local_val_accuracy', 'y': 'local_test_accuracy'})
+
+def optimal_mean_ltest_by_lval(x, op={}):
+    return optimal_by_(x, {'x': 'local_val_accuracy', 'y': 'mean_local_test_accuracy'})
 
 def optimal_round_by_lval(x, op={}):
     res = x.log.get('local_val_accuracy', None)
@@ -90,12 +93,14 @@ tb.add_column(lr)
 tb.add_column(optimal_gtest_by_lval)
 tb.add_column(optimal_gtest_by_gval)
 tb.add_column(optimal_ltest_by_lval)
+tb.add_column(optimal_mean_ltest_by_lval)
 tb.add_column(optimal_round_by_lval)
 tb.add_column(optimal_round_by_gval)
 tb.print()
 get_final_res(tb,  optimal_gtest_by_gval.__name__)
 get_final_res(tb,  optimal_gtest_by_lval.__name__)
 get_final_res(tb, optimal_ltest_by_lval.__name__)
+get_final_res(tb, optimal_mean_ltest_by_lval.__name__)
 # testaccs = get_column(tb, optimal_testacc_by_val.__name__)
 # mean_testacc = np.mean(testaccs)
 # std_testacc = np.std(testaccs)
