@@ -1,14 +1,16 @@
-nohup python tune.py --task cifar10_iid_c100 --gpu 0 1 2 3 --method fedavg
-nohup python tune.py --task cifar10_dir5.0_c100 --gpu 0 1 2 3 --method fedavg
-nohup python tune.py --task cifar10_dir2.0_c100 --gpu 0 1 2 3 --method fedavg
-nohup python tune.py --task cifar10_dir1.0_c100 --gpu 0 1 2 3 --method fedavg
-nohup python tune.py --task cifar10_dir0.1_c100 --gpu 0 1 2 3 --method fedavg
-nohup python tune.py --task mnist_iid_c100 --gpu 0 1 2 3 --method fedavg
-nohup python tune.py --task mnist_dir5.0_c100 --gpu 0 1 2 3 --method fedavg
-nohup python tune.py --task mnist_dir2.0_c100 --gpu 0 1 2 3 --method fedavg
-nohup python tune.py --task mnist_dir1.0_c100 --gpu 0 1 2 3 --method fedavg
-nohup python tune.py --task mnist_dir0.1_c100 --gpu 0 1 2 3 --method fedavg
-
+nohup python tune.py --task cifar10_iid_c100 --gpu 0 1 2 3 --method fedavg &
+nohup python tune.py --task cifar10_dir5.0_c100 --gpu 0 1 2 3 --method fedavg &
+nohup python tune.py --task cifar10_dir2.0_c100 --gpu 0 1 2 3 --method fedavg &
+nohup python tune.py --task cifar10_dir1.0_c100 --gpu 0 1 2 3 --method fedavg &
+nohup python tune.py --task cifar10_dir0.1_c100 --gpu 0 1 2 3 --method fedavg &
+nohup python tune.py --task mnist_iid_c100 --gpu 0 1 2 3 --method fedavg &
+nohup python tune.py --task mnist_dir5.0_c100 --gpu 0 1 2 3 --method fedavg &
+nohup python tune.py --task mnist_dir2.0_c100 --gpu 0 1 2 3 --method fedavg &
+nohup python tune.py --task mnist_dir1.0_c100 --gpu 0 1 2 3 --method fedavg &
+nohup python tune.py --task mnist_dir0.1_c100 --gpu 0 1 2 3 --method fedavg &
+nohup python tune.py --task cifar100_iid_c100 --gpu 0 1 2 3 --method fedavg &
+nohup python tune.py --task cifar100_dir1.0_c100 --gpu 1 2 3 0 --method fedavg &
+nohup python tune.py --task cifar100_dir0.1_c100 --gpu 2 3 0 1 --method fedavg &
 nohup python tune.py --task agnews_dir1.0_c100 --gpu 0 1 2 3 --method fedavg --max_pdev 1 &
 
 nohup python tune.py --task domainnet_c6 --gpu 0 1 2 3 --method fedavg &
