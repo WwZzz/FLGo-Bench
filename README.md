@@ -66,6 +66,49 @@ Local Test
 | iid      | fedavg        | CNN       | 81.70±0.30 | 81.54±0.14 | 81.34±0.23 | 81.87±0.17 |
 
 #### Impact of Local Epoch
+
+## CIFAR100
+### 100 Clients
+#### Configuration
+```
+learning_rate: [0.001, 0.005, 0.01, 0.05, 0.1]
+proportion: 0.2
+batch_size: 50
+weight_decay: 1e-3
+lr_scheduler: 0
+learning_rate_decay: 0.9998
+num_rounds: 2000
+num_epochs: [5]
+clip_grad: 10
+early_stop: 500
+train_holdout: 0.2
+local_test: True
+no_log_console: True
+```
+
+| **Algorithm** | **model** | **iid** | **dir1.0** | **dir0.1** | 
+|---------------|-----------|---------|------------|------------|
+| fedavg        | CNN       |         |            |            | 
+
+#### Main Results
+```
+seed: [2,4388,15,333,967] # results are averaged over five random seeds
+proportion: 0.2
+```
+Global Test
+
+| **Algorithm** | **model** | **iid** | **dir1.0** | **dir0.1** | 
+|---------------|-----------|---------|------------|------------|
+| fedavg        | CNN       |         |            |            | 
+
+
+
+Local Test
+
+| **Algorithm** | **model** | **iid** | **dir1.0** | **dir0.1** | 
+|---------------|-----------|---------|------------|------------|
+| fedavg        | CNN       |         |            |            | 
+
 ## MNIST
 ### 100 Clients
 ```
@@ -129,6 +172,7 @@ Local Test
 | dir0.1   | fedavg        | CNN       | 98.27±0.08 | 98.31±0.06 | 98.32±0.04 | 98.33±0.02 |
 
 #### Impact of Local Epoch
+
 ## AGNEWS
 ### 100 Clients
 ```
@@ -179,8 +223,7 @@ Local Test
 | fedprox       | EmbeddingBag+Linear | 89.87±0.06 |
 | scaffold      | EmbeddingBag+Linear |            |
 
-
-## Office-Caltech100
+## Office-Caltech10
 ### 4 Clients
 ```
 learning_rate: [0.001, 0.005, 0.01, 0.05, 0.1]
