@@ -23,7 +23,7 @@ def model_contrastive_loss(z, z_glob, z_prev, temperature=0.5):
 class Server(BasicServer):
     def initialize(self, *args, **kwargs):
         self.init_algo_para({'mu': 0.1, 'tau':0.5})
-        self.output_layer = list(self.model.state_dict().keys())[-1].split('.')[0]
+        self.output_layer = ".".join([f'[{m}]' if m.isdigit() else f'{m}' for m in list(self.model.state_dict().keys())[-1].split('.')[:-1]])
 
 class Client(BasicClient):
     def initialize(self, *args, **kwargs):
@@ -41,9 +41,9 @@ class Client(BasicClient):
         feature_maps = []
         def hook(model, input, output):
             feature_maps.append(input)
-        getattr(global_model, self.output_layer).register_forward_hook(hook)
-        if self.local_model is not None: getattr(self.local_model, self.output_layer).register_forward_hook(hook)
-        getattr(model, self.output_layer).register_forward_hook(hook)
+        eval('global_model.{}'.format(self.output_layer)).register_forward_hook(hook)
+        if self.local_model is not None: eval("self.local_model.{}".format(self.output_layer)).register_forward_hook(hook)
+        eval('model.{}'.format(self.output_layer)).register_forward_hook(hook)
 
         model.train()
         optimizer = self.calculator.get_optimizer(model, lr=self.learning_rate, weight_decay=self.weight_decay, momentum=self.momentum)
