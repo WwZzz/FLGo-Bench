@@ -224,3 +224,39 @@ Size-Weighted Local Test
 |---------------|-----------|------------|
 | fedavg        | AlexNet   | 78.67±0.46 |
 | scaffold      | AlexNet   | 75.93±1.55 |
+
+## SpeechCommand
+### 2112 Clients
+```
+learning_rate: [0.001, 0.005, 0.01, 0.05, 0.1]
+batch_size: 50
+weight_decay: 1e-3
+lr_scheduler: 0
+learning_rate_decay: 0.998
+num_rounds: 1000
+num_epochs: 1
+clip_grad: 10
+proportion: 0.05
+early_stop: 250
+train_holdout: 0.0
+no_log_console: True
+log_file: True
+pin_memory: True
+```
+
+| **Algorithm** | **model** | **client-id** |   
+|---------------|-----------|---------------|
+| fedavg        | M5        |               |
+
+#### Main Results
+```
+seed: [2,4388,15,333,967] # results are averaged over five random seeds
+```
+
+Global Test
+
+| **Algorithm** | **model** | **client-id** |   
+|---------------|-----------|---------------|
+| fedavg        | M5        |               |
+
+

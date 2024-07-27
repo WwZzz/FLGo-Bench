@@ -14,8 +14,10 @@ def read_args():
 args = read_args()[0]
 task =args.task
 
-with open(args.config, 'r') as inf:
-    option = yaml.load(inf, Loader=yaml.FullLoader)
+if args.config!='' and os.path.exists(args.config):
+    with open(args.config, 'r') as inf:
+        option = yaml.load(inf, Loader=yaml.FullLoader)
+else: option = {}
 algorithm = args.algorithm
 config = args.config
 
@@ -25,8 +27,19 @@ painter = fea.Painter(records)
 painter.create_figure(fea.Curve, {'args':{'x':'communication_round', 'y':'val_accuracy'}})
 tb = fea.Table(records)
 
-def max_val_acc(x, op={}):
-    return max(x.log['val_accuracy'])
+def get_column(tb, name):
+    idx = tb.tb.field_names.index(name)
+    col_values = [r[idx] for r in tb.tb.rows]
+    return col_values
+def max_log(x, op={}):
+    res = x.log.get(op['x'], None)
+    return max(res) if res is not None else -np.inf
+
+def max_local_val_acc(x, op={}):
+    return max_log(x, {'x': 'local_val_accuracy'})
+
+def max_global_val_acc(x, op={}):
+    return max_log(x, {'x': 'val_accuracy'})
 
 def lr(x, op={}):
     return x.option['learning_rate']
@@ -34,10 +47,15 @@ def lr(x, op={}):
 def optimal_round_by_val(x, op={}):
     return np.argmax(x.log['val_accuracy'])
 
-tb.add_column(max_val_acc)
+tb.add_column(max_local_val_acc)
+tb.add_column(max_global_val_acc)
 tb.add_column(lr)
 tb.add_column(optimal_round_by_val)
-tb.tb.sortby = max_val_acc.__name__
+sort_key =  max_local_val_acc.__name__
+gv = get_column(tb, max_global_val_acc.__name__)
+if len(gv)>0 and gv[0] is not None:
+    sort_key = max_global_val_acc.__name__
+tb.tb.sortby = sort_key
 tb.print()
 # selector = fea.Selector({'task': task, 'header':[method], 'filter':config2filter(option)})
 # records = selector.records[task]
