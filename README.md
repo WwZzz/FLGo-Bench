@@ -88,7 +88,7 @@ no_log_console: True
 
 | **Algorithm** | **model** | **iid** | **dir1.0** | **dir0.1** | 
 |---------------|-----------|---------|------------|------------|
-| fedavg        | CNN       |         |            |            | 
+| fedavg        | CNN       | lr=0.1  | lr=0.01    | lr=0.1     | 
 
 #### Main Results
 ```
