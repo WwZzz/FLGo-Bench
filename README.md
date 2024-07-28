@@ -88,7 +88,8 @@ no_log_console: True
 
 | **Algorithm** | **model** | **iid** | **dir1.0** | **dir0.1** | 
 |---------------|-----------|---------|------------|------------|
-| fedavg        | CNN       | lr=0.1  | lr=0.01    | lr=0.1     | 
+| fedavg        | CNN       | lr=0.1  | lr=0.1     | lr=0.1     | 
+| scaffold      | CNN       | lr=0.1  | lr=0.1     | lr=0.1     | 
 
 #### Main Results
 ```
@@ -100,6 +101,7 @@ Global Test
 | **Algorithm** | **model** | **iid**    | **dir1.0** | **dir0.1** | 
 |---------------|-----------|------------|------------|------------|
 | fedavg        | CNN       | 41.33±0.30 |            | 22.50±0.52 | 
+| scaffold      | CNN       |            |            |            | 
 
 
 Local Test
@@ -107,6 +109,7 @@ Local Test
 | **Algorithm** | **model** | **iid**    | **dir1.0** | **dir0.1** | 
 |---------------|-----------|------------|------------|------------|
 | fedavg        | CNN       | 41.04±0.34 |            | 22.21±0.51 | 
+| scaffold      | CNN       |            |            |            |
 
 ## MNIST
 ### 100 Clients
