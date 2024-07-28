@@ -25,7 +25,14 @@ if args.model!='': option['model'] = [args.model]
 records = fea.load_records(os.path.join('task', task), algorithm, option)
 print(f"Number of Records: {len(records)}")
 painter = fea.Painter(records)
-painter.create_figure(fea.Curve, {'args':{'x':'communication_round', 'y':'val_accuracy'}})
+try:
+    painter.create_figure(fea.Curve, {'args':{'x':'communication_round', 'y':'val_accuracy'}})
+except:
+    pass
+try:
+    painter.create_figure(fea.Curve, {'args':{'x':'communication_round', 'y':'local_val_accuracy'}})
+except:
+    pass
 tb = fea.Table(records)
 
 def get_column(tb, name):
@@ -46,7 +53,8 @@ def lr(x, op={}):
     return x.option['learning_rate']
 
 def optimal_round_by_val(x, op={}):
-    return np.argmax(x.log['val_accuracy'])
+    res = x.log.get('val_accuracy', None)
+    return np.argmax(res) if res is not None else -np.inf
 
 tb.add_column(max_local_val_acc)
 tb.add_column(max_global_val_acc)
