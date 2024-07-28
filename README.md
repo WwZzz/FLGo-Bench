@@ -211,7 +211,7 @@ Global Test
 |---------------|---------------------|------------|
 | fedavg        | EmbeddingBag+Linear | 89.37±0.14 |
 | fedprox       | EmbeddingBag+Linear | 89.39±0.12 |
-| scaffold      | EmbeddingBag+Linear |            |
+| scaffold      | EmbeddingBag+Linear | 87.98±0.65 |
 | feddyn        | EmbeddingBag+Linear | 91.02±0.02 |
 
 
@@ -221,7 +221,7 @@ Local Test
 |---------------|---------------------|------------|
 | fedavg        | EmbeddingBag+Linear | 89.84±0.08 |
 | fedprox       | EmbeddingBag+Linear | 89.87±0.06 |
-| scaffold      | EmbeddingBag+Linear |            |
+| scaffold      | EmbeddingBag+Linear | 88.31±0.69 |
 | feddyn        | EmbeddingBag+Linear | 91.11±0.01 |
 
 ## Office-Caltech10
