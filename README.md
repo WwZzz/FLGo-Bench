@@ -306,4 +306,40 @@ Global Test
 |---------------|-----------|---------------|
 | fedavg        | M5        |               |
 
+## Shakespeare
+### 1012 Clients
+```
+learning_rate: [0.1, 0.5, 1.0, 5.0, 10.0]
+batch_size: 50
+weight_decay: 5e-4
+lr_scheduler: 0
+learning_rate_decay: 0.9998
+num_rounds: 200
+num_epochs: 5
+clip_grad: 10
+proportion: 0.1
+early_stop: 100
+train_holdout: 0.2
+local_test: True
+no_log_console: True
+log_file: True
+```
+
+| **Algorithm** | **model** | **client-id** |   
+|---------------|-----------|---------------|
+| fedavg        | LSTM      | lr=0.1        |
+| scaffold      | LSTM      | lr=0.5        |
+
+
+#### Main Results
+```
+seed: [2,4388,15,333,967] # results are averaged over five random seeds
+```
+
+Global Test
+
+| **Algorithm** | **model** | **client-id** |   
+|---------------|-----------|---------------|
+| fedavg        | LSTM      |               |
+
 

@@ -3,11 +3,11 @@ batch_size: 50
 weight_decay: 5e-4
 lr_scheduler: 0
 learning_rate_decay: 0.9998
-num_rounds: 100
+num_rounds: 200
 num_epochs: 5
 clip_grad: 10
 proportion: 0.1
-early_stop: 100
+early_stop: 80
 train_holdout: 0.2
 local_test: True
 no_log_console: True
