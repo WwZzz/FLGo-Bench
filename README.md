@@ -296,7 +296,7 @@ pin_memory: True
 
 | **Algorithm** | **model** | **client-id** |   
 |---------------|-----------|---------------|
-| fedavg        | M5        |               |
+| fedavg        | M5        | lr=1.0        |
 
 #### Main Results
 ```

@@ -12,6 +12,7 @@ nohup python run.py --task mnist_dir5.0_c100 --algorithm fedavg --gpu 3 0 1 2 --
 
 nohup python run.py --task agnews_dir1.0_c100 --algorithm fedavg --gpu 1 2 3 0 --config ./config/tmp.yml --max_pdev 1 --put_interval 30 --available_interval 30 &
 nohup python run.py --task office_caltech10_c4 --algorithm fedavg --gpu 1 2 3 0 --config ./config/office_scaffold.yml &
+nohup python run.py --task speechcommand_c2112 --algorithm fedavg --gpu 0 1 --config ./config/speech_fedavg.yml --max_pdev 1 --put_interval 360 --available_interval 360 &
 
 
 
