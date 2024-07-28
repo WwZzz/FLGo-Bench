@@ -214,7 +214,7 @@ Global Test
 |---------------|---------------------|------------|
 | fedavg        | EmbeddingBag+Linear | 89.37±0.14 |
 | fedprox       | EmbeddingBag+Linear | 89.39±0.12 |
-| scaffold      | EmbeddingBag+Linear |            |
+| scaffold      | EmbeddingBag+Linear | 87.98±0.65 |
 | feddyn        | EmbeddingBag+Linear | 91.02±0.02 |
 
 
@@ -224,7 +224,7 @@ Local Test
 |---------------|---------------------|------------|
 | fedavg        | EmbeddingBag+Linear | 89.84±0.08 |
 | fedprox       | EmbeddingBag+Linear | 89.87±0.06 |
-| scaffold      | EmbeddingBag+Linear |            |
+| scaffold      | EmbeddingBag+Linear | 88.31±0.69 |
 | feddyn        | EmbeddingBag+Linear | 91.11±0.01 |
 
 ## Office-Caltech10
@@ -308,5 +308,41 @@ Global Test
 | **Algorithm** | **model** | **client-id** |   
 |---------------|-----------|---------------|
 | fedavg        | M5        |               |
+
+## Shakespeare
+### 1012 Clients
+```
+learning_rate: [0.1, 0.5, 1.0, 5.0, 10.0]
+batch_size: 50
+weight_decay: 5e-4
+lr_scheduler: 0
+learning_rate_decay: 0.9998
+num_rounds: 200
+num_epochs: 5
+clip_grad: 10
+proportion: 0.1
+early_stop: 100
+train_holdout: 0.2
+local_test: True
+no_log_console: True
+log_file: True
+```
+
+| **Algorithm** | **model** | **client-id** |   
+|---------------|-----------|---------------|
+| fedavg        | LSTM      | lr=0.1        |
+| scaffold      | LSTM      | lr=0.5        |
+
+
+#### Main Results
+```
+seed: [2,4388,15,333,967] # results are averaged over five random seeds
+```
+
+Global Test
+
+| **Algorithm** | **model** | **client-id** |   
+|---------------|-----------|---------------|
+| fedavg        | LSTM      |               |
 
 
