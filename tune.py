@@ -34,9 +34,9 @@ class TuneLogger(BasicLogger):
                     if met_name not in cval_dict.keys(): cval_dict[met_name] = []
                     for cid in range(len(cvals)):
                         cval_dict[met_name].append(cvals[cid][met_name])
-                    self.output['val_' + met_name].append(float((np.array(cval_dict[met_name])*cdatavols).sum()))
-                    self.output['min_val_' + met_name].append(float(np.array(cval_dict[met_name]).min()))
-                    self.output['max_val_' + met_name].append(float(np.array(cval_dict[met_name]).max()))
+                    self.output['local_val_' + met_name].append(float((np.array(cval_dict[met_name])*cdatavols).sum()))
+                    self.output['min_local_val_' + met_name].append(float(np.array(cval_dict[met_name]).min()))
+                    self.output['max_local_val_' + met_name].append(float(np.array(cval_dict[met_name]).max()))
         self.show_current_output()
 
 
