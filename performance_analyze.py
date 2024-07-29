@@ -62,7 +62,7 @@ tb.add_column(lr)
 tb.add_column(optimal_round_by_val)
 sort_key =  max_local_val_acc.__name__
 gv = get_column(tb, max_global_val_acc.__name__)
-if len(gv)>0 and gv[0] is not None:
+if len(gv)>0 and gv[0] is not None and gv[0]!=-np.inf:
     sort_key = max_global_val_acc.__name__
 tb.tb.sortby = sort_key
 tb.print()
