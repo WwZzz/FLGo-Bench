@@ -7,6 +7,7 @@ import torch.multiprocessing
 import yaml
 import importlib
 import os
+import flgo.utils.fflow as fuf
 import time
 
 def read_args():
@@ -20,6 +21,7 @@ def read_args():
     parser.add_argument('--put_interval', help='interval (s) to put command into devices', type=int, default=10)
     parser.add_argument('--max_pdev', help='interval (s) to put command into devices', type=int, default=7)
     parser.add_argument('--available_interval', help='check availability of devices every x seconds', type=int, default=10)
+    parser.add_argument('--mmap', help='mmap',  action="store_true", default=False)
     return parser.parse_known_args()
 
 args = read_args()[0]
@@ -64,14 +66,17 @@ class FullLogger(BasicLogger):
         self.show_current_output()
 
 
-def fedrun(task, algo, optimal_option={}, seeds=[0], Logger=None, model=None, put_interval=10, available_interval=10, max_processes_per_device=10):
+def fedrun(task, algo, optimal_option={}, seeds=[0], Logger=None, model=None, put_interval=10, available_interval=10, max_processes_per_device=10, mmap=False):
     runner_dict = []
     asc = ds.AutoScheduler(optimal_option['gpu'], put_interval=put_interval, available_interval=available_interval, max_processes_per_device=max_processes_per_device)
     for seed in seeds:
         opi = optimal_option.copy()
         opi.update({'seed': seed})
         runner_dict.append({'task': task, 'algorithm': algo, 'option': opi, 'model':model, 'Logger':Logger})
-    res = flgo.multi_init_and_run(runner_dict, scheduler=asc)
+    if mmap:
+        res = fuf.multi_init_and_run_by_mmap(runner_dict, scheduler=asc)
+    else:
+        res = flgo.multi_init_and_run(runner_dict, scheduler=asc)
     return res
 
 if __name__=='__main__':
@@ -98,4 +103,4 @@ if __name__=='__main__':
             except:
                 print("using default model")
                 model = None
-    fedrun(os.path.join('task', task), algo, optimal_option=optimal_option, seeds=seeds, Logger=FullLogger, model=model, put_interval=args.put_interval, available_interval=args.available_interval, max_processes_per_device=args.max_pdev)
+    fedrun(os.path.join('task', task), algo, optimal_option=optimal_option, seeds=seeds, Logger=FullLogger, model=model, put_interval=args.put_interval, available_interval=args.available_interval, max_processes_per_device=args.max_pdev, mmap=args.mmap)
