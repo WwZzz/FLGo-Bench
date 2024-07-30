@@ -73,10 +73,7 @@ def fedrun(task, algo, optimal_option={}, seeds=[0], Logger=None, model=None, pu
         opi = optimal_option.copy()
         opi.update({'seed': seed})
         runner_dict.append({'task': task, 'algorithm': algo, 'option': opi, 'model':model, 'Logger':Logger})
-    if mmap:
-        res = fuf.multi_init_and_run_by_mmap(runner_dict, scheduler=asc)
-    else:
-        res = flgo.multi_init_and_run(runner_dict, scheduler=asc)
+    res = flgo.multi_init_and_run(runner_dict, scheduler=asc, mmap=mmap)
     return res
 
 if __name__=='__main__':
