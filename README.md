@@ -312,7 +312,7 @@ Global Test
 
 | **Algorithm** | **model** | **client-id** |   
 |---------------|-----------|---------------|
-| fedavg        | M5        |               |
+| fedavg        | M5        | 69.11±0.91    |
 
 ## Shakespeare
 ### 1012 Clients
