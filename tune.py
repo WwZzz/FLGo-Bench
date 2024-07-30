@@ -16,9 +16,11 @@ import numpy as np
 
 class TuneLogger(BasicLogger):
     def initialize(self, *args, **kwargs):
-        self.set_es_key("val_accuracy")
+        if self.server.val_data is not None and len(self.server.val_data) > 0:
+            self.set_es_key("val_accuracy")
+        else:
+            self.set_es_key("local_val_accuracy")
         self.set_es_direction(1)
-
     def log_once(self, *args, **kwargs):
         if self.server.val_data is not None and len(self.server.val_data)>0:
             sval = self.server.test(self.server.model, 'val')
