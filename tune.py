@@ -52,6 +52,7 @@ def read_option():
     parser.add_argument('--available_interval', help='check availability of devices every x seconds', type=int, default=5)
     parser.add_argument('--memory', help='mean memory occupation', type=float, default=1000)
     parser.add_argument('--no_dynmem', help='no_dynmem',  action="store_true", default=False)
+    parser.add_argument('--mmap', help='mmap',  action="store_true", default=False)
     try:
         option = vars(parser.parse_known_args()[0])
     except IOError as msg:
@@ -63,6 +64,7 @@ if __name__=='__main__':
     mlp.set_start_method("spawn", force=True)
     option = read_option()
     config_file = option['config']
+    mmap = option['mmap']
     if config_file=='': config_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'task', option['task'], 'config.yml')
     if os.path.exists(config_file):
         with open(config_file, 'r') as inf:
@@ -96,4 +98,4 @@ if __name__=='__main__':
             except:
                 print("using default model")
                 model = None
-    res = flgo.tune(task, method, paras, model=model, Logger=TuneLogger, scheduler=scheduler)
+    res = flgo.tune(task, method, paras, model=model, Logger=TuneLogger, scheduler=scheduler, mmap=mmap)
