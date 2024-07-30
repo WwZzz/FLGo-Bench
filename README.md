@@ -249,11 +249,12 @@ no_log_console: True
 log_file: True
 ```
 
-| **Algorithm** | **model** | **domain**    |   
-|---------------|-----------|---------------|
-| fedavg        | AlexNet   | lr=0.1        |
-| fedprox       | AlexNet   | lr=0.1, μ=0.1 |
-| scaffold      | AlexNet   | lr=0.1        |
+| **Algorithm** | **model** | **domain**     |   
+|---------------|-----------|----------------|
+| fedavg        | AlexNet   | lr=0.1         |
+| fedprox       | AlexNet   | lr=0.1, μ=0.1  |
+| scaffold      | AlexNet   | lr=0.1         |
+| feddyn        | AlexNet   | lr=0.01, α=0.1 |
 
 #### Main Results
 ```
@@ -266,16 +267,18 @@ Local Test
 | **Algorithm** | **model** | **dir1.0** |   
 |---------------|-----------|------------|
 | fedavg        | AlexNet   | 81.34±0.75 |
-| fedprox       | AlexNet   |            |
+| fedprox       | AlexNet   | 83.21±0.78 |
 | scaffold      | AlexNet   | 82.82±1.31 |
+| feddyn        | AlexNet   |            |
 
 Size-Weighted Local Test
 
 | **Algorithm** | **model** | **dir1.0** |   
 |---------------|-----------|------------|
 | fedavg        | AlexNet   | 78.67±0.46 |
-| fedprox       | AlexNet   |            |
+| fedprox       | AlexNet   | 78.06±1.01 |
 | scaffold      | AlexNet   | 75.93±1.55 |
+| feddyn        | AlexNet   |            |
 
 ## SpeechCommand
 ### 2112 Clients
