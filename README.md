@@ -302,6 +302,7 @@ pin_memory: True
 | **Algorithm** | **model** | **client-id** |   
 |---------------|-----------|---------------|
 | fedavg        | M5        | lr=1.0        |
+| scaffold      | M5        | lr=1.0        |
 
 #### Main Results
 ```
@@ -313,6 +314,7 @@ Global Test
 | **Algorithm** | **model** | **client-id** |   
 |---------------|-----------|---------------|
 | fedavg        | M5        | 69.11±0.91    |
+| fedavg        | M5        |               |
 
 ## Shakespeare
 ### 1012 Clients
