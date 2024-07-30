@@ -86,11 +86,11 @@ local_test: True
 no_log_console: True
 ```
 
-| **Algorithm** | **model** | **iid**         | **dir1.0**      | **dir0.1** | 
-|---------------|-----------|-----------------|-----------------|------------|
-| fedavg        | CNN       | lr=0.1          | lr=0.1          | lr=0.1     | 
-| fedprox       | CNN       | lr=0.1, μ=0.001 | lr=0.1, μ=0.001 |            |
-| scaffold      | CNN       | lr=0.1          | lr=0.1          | lr=0.1     | 
+| **Algorithm** | **model** | **iid**         | **dir1.0**      | **dir0.1**        | 
+|---------------|-----------|-----------------|-----------------|-------------------|
+| fedavg        | CNN       | lr=0.1          | lr=0.1          | lr=0.1            | 
+| fedprox       | CNN       | lr=0.1, μ=0.001 | lr=0.1, μ=0.001 | lr=0.05, μ=0.0001 |
+| scaffold      | CNN       | lr=0.1          | lr=0.1          | lr=0.1            | 
 
 #### Main Results
 ```
