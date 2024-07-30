@@ -203,6 +203,7 @@ log_file: True
 | fedprox       | EmbeddingBag+Linear | lr=1.0, μ=0.01 |
 | scaffold      | EmbeddingBag+Linear | lr=1.0         |
 | feddyn        | EmbeddingBag+Linear | lr=0.5, α=0.01 |
+| moon          | EmbeddingBag+Linear | lr=0.5, μ=10.0 |
 
 
 #### Main Results
