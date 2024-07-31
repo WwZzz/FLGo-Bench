@@ -271,7 +271,7 @@ seed: [2,4388,15,333,967] # results are averaged over five random seeds
 
 Local Test
 
-| **Algorithm** | **model** | **dir1.0** |   
+| **Algorithm** | **model** | **domain** |   
 |---------------|-----------|------------|
 | fedavg        | AlexNet   | 81.34±0.75 |
 | fedprox       | AlexNet   | 83.21±0.78 |
@@ -280,7 +280,7 @@ Local Test
 
 Size-Weighted Local Test
 
-| **Algorithm** | **model** | **dir1.0** |   
+| **Algorithm** | **model** | **domain** |   
 |---------------|-----------|------------|
 | fedavg        | AlexNet   | 78.67±0.46 |
 | fedprox       | AlexNet   | 78.06±1.01 |
@@ -320,7 +320,7 @@ seed: [2,4388,15,333,967] # results are averaged over five random seeds
 
 Local Test
 
-| **Algorithm** | **model** | **dir1.0** |   
+| **Algorithm** | **model** | **domain** |   
 |---------------|-----------|------------|
 | fedavg        | AlexNet   |            |
 
