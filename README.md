@@ -261,6 +261,7 @@ log_file: True
 | fedprox       | AlexNet   | lr=0.1, μ=0.1  |
 | scaffold      | AlexNet   | lr=0.1         |
 | feddyn        | AlexNet   | lr=0.01, α=0.1 |
+| moon          | AlexNet   | lr=0.05, μ=1.0 |
 
 #### Main Results
 ```
