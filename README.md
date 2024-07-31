@@ -272,7 +272,7 @@ Local Test
 | fedavg        | AlexNet   | 81.34±0.75 |
 | fedprox       | AlexNet   | 83.21±0.78 |
 | scaffold      | AlexNet   | 82.82±1.31 |
-| feddyn        | AlexNet   |            |
+| feddyn        | AlexNet   | 83.61±1.66 |
 
 Size-Weighted Local Test
 
@@ -281,7 +281,7 @@ Size-Weighted Local Test
 | fedavg        | AlexNet   | 78.67±0.46 |
 | fedprox       | AlexNet   | 78.06±1.01 |
 | scaffold      | AlexNet   | 75.93±1.55 |
-| feddyn        | AlexNet   |            |
+| feddyn        | AlexNet   | 76.18±1.76 |
 
 ## SpeechCommand
 ### 2112 Clients
