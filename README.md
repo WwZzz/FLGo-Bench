@@ -287,6 +287,55 @@ Size-Weighted Local Test
 | scaffold      | AlexNet   | 75.93±1.55 |
 | feddyn        | AlexNet   | 76.18±1.76 |
 
+## DomainNet
+### 6 Clients
+```
+learning_rate: [0.001, 0.005, 0.01, 0.05, 0.1]
+batch_size: 50
+weight_decay: 1e-3
+lr_scheduler: 0
+learning_rate_decay: 0.9998
+num_rounds: 500
+num_epochs: 1
+clip_grad: 10
+sample: full
+proportion: 1.0
+early_stop: 100
+train_holdout: 0.2
+local_test: True
+no_log_console: True
+log_file: True
+```
+
+| **Algorithm** | **model** | **domain**     |   
+|---------------|-----------|----------------|
+| fedavg        | AlexNet   | lr=0.1         |
+
+
+#### Main Results
+```
+seed: [2,4388,15,333,967] # results are averaged over five random seeds
+```
+
+
+Local Test
+
+| **Algorithm** | **model** | **dir1.0** |   
+|---------------|-----------|------------|
+| fedavg        | AlexNet   | 81.34±0.75 |
+| fedprox       | AlexNet   | 83.21±0.78 |
+| scaffold      | AlexNet   | 82.82±1.31 |
+| feddyn        | AlexNet   | 83.61±1.66 |
+
+Size-Weighted Local Test
+
+| **Algorithm** | **model** | **dir1.0** |   
+|---------------|-----------|------------|
+| fedavg        | AlexNet   | 78.67±0.46 |
+| fedprox       | AlexNet   | 78.06±1.01 |
+| scaffold      | AlexNet   | 75.93±1.55 |
+| feddyn        | AlexNet   | 76.18±1.76 |
+
 ## SpeechCommand
 ### 2112 Clients
 ```
