@@ -1,0 +1,12 @@
+learning_rate: 0.1
+batch_size: 50
+weight_decay: 1e-3
+lr_scheduler: 0
+learning_rate_decay: 0.9998
+num_rounds: 2000
+num_epochs: 1
+clip_grad: 10
+proportion: 0.1
+early_stop: 500
+train_holdout: 0.2
+local_test: True

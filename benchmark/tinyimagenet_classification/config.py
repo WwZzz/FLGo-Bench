@@ -42,7 +42,7 @@ class TinyImageNet(ImageFolder):
         "https://github.com/tjmoon0104/pytorch-tiny-imagenet/releases/download/tiny-imagenet-dataset/tiny-imagenet-200.zip"
     )
     DATASET_MD5_HASH = "90528d7ca1a48142e341f4ef8d21d0de"
-    def __init__(self, root:str, split:str='train',transform=None, resolution=64):
+    def __init__(self, root:str, split:str='train',transform=None, resolution=224):
         self.root = root
         self.zip_file = Path(os.path.join(self.root, "tiny-imagenet-200.zip"))
         if resolution==64:
@@ -160,7 +160,7 @@ test_data = TinyImageNet(root, 'test', data_transforms['test'])
 val_data = TinyImageNet(root, 'val', data_transforms['val'])
 
 def get_model():
-    model_ft = models.resnet18()
+    model_ft = models.resnet18(models.ResNet18_Weights)
     # Finetune Final few layers to adjust for tiny imagenet input
     model_ft.avgpool = nn.AdaptiveAvgPool2d(1)
     num_features = model_ft.fc.in_features
