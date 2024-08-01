@@ -277,6 +277,7 @@ Local Test
 | fedprox       | AlexNet   | 83.21±0.78 |
 | scaffold      | AlexNet   | 82.82±1.31 |
 | feddyn        | AlexNet   | 83.61±1.66 |
+| moon          | AlexNet   | 80.52±1.48 |
 
 Size-Weighted Local Test
 
@@ -286,6 +287,7 @@ Size-Weighted Local Test
 | fedprox       | AlexNet   | 78.06±1.01 |
 | scaffold      | AlexNet   | 75.93±1.55 |
 | feddyn        | AlexNet   | 76.18±1.76 |
+| moon          | AlexNet   | 76.46±0.68 |
 
 ## DomainNet
 ### 6 Clients
