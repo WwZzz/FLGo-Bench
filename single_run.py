@@ -16,6 +16,7 @@ def read_args():
     parser.add_argument('--model', help = 'model name', type=str, default='')
     parser.add_argument('--gpu', help='GPU IDs and empty input is equal to using CPU', type=int, default=[0])
     parser.add_argument('--config', type=str, help='configuration of hypara', default='')
+    parser.add_argument('--load_mode', help = 'load_mode', type=str, default='')
     return parser.parse_known_args()
 
 args = read_args()[0]
@@ -80,4 +81,5 @@ if __name__=='__main__':
             except:
                 print("using default model")
                 model = None
+    optimal_option['load_mode'] = args.load_mode
     flgo.init(os.path.join('task', task), algo, optimal_option, model=model, Logger=FullLogger).run()
