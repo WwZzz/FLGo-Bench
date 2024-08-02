@@ -22,6 +22,7 @@ def read_args():
     parser.add_argument('--max_pdev', help='interval (s) to put command into devices', type=int, default=7)
     parser.add_argument('--available_interval', help='check availability of devices every x seconds', type=int, default=10)
     parser.add_argument('--mmap', help='mmap',  action="store_true", default=False)
+    parser.add_argument('--load_mode', help = 'load_mode', type=str, default='')
     return parser.parse_known_args()
 
 args = read_args()[0]
@@ -33,7 +34,7 @@ with open(config, 'r') as inf:
     option = yaml.load(inf, Loader=yaml.FullLoader)
 option['gpu'] = gpus
 optimal_option = option
-
+optimal_option['load_mode'] = args.load_mode
 class FullLogger(BasicLogger):
     def log_once(self, *args, **kwargs):
         test_metric = self.server.test()

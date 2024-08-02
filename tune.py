@@ -55,6 +55,7 @@ def read_option():
     parser.add_argument('--memory', help='mean memory occupation', type=float, default=1000)
     parser.add_argument('--no_dynmem', help='no_dynmem',  action="store_true", default=False)
     parser.add_argument('--mmap', help='mmap',  action="store_true", default=False)
+    parser.add_argument('--load_mode', help = 'load_mode', type=str, default='')
     try:
         option = vars(parser.parse_known_args()[0])
     except IOError as msg:
@@ -74,7 +75,7 @@ if __name__=='__main__':
     else:
         config = {}
     paras = config
-
+    paras['load_mode'] = option['load_mode']
     import flgo.experiment.device_scheduler as fed
     scheduler = None if option['gpu'] is None else fed.AutoScheduler(option['gpu'], put_interval=option['put_interval'], available_interval=option['available_interval'], mean_memory_occupated=option['memory'], dynamic_memory_occupated=not option['no_dynmem'], max_processes_per_device=option['max_pdev'])
     method = None
