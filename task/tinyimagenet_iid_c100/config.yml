@@ -7,7 +7,7 @@ num_rounds: 2000
 num_epochs: [5]
 clip_grad: 10
 proportion: 0.2
-early_stop: 500
+early_stop: 100
 train_holdout: 0.2
 local_test: True
 no_log_console: True

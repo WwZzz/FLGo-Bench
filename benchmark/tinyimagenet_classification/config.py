@@ -16,8 +16,6 @@ root = os.path.abspath(os.path.dirname(__file__))
 data_transforms = {
     "train": transforms.Compose(
         [
-            transforms.RandomRotation(20),
-            transforms.RandomHorizontalFlip(0.5),
             transforms.ToTensor(),
             transforms.Normalize([0.4802, 0.4481, 0.3975], [0.2302, 0.2265, 0.2262]),
         ]
