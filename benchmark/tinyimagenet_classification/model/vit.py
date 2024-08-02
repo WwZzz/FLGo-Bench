@@ -5,7 +5,8 @@ import torchvision.models as models
 class Model(fmodule.FModule):
     def __init__(self):
         super().__init__()
-        model = models.vit_b_16(models.ViT_B_16_Weights)
+        model = models.vit_b_16()
+        # model = models.vit_b_16(models.ViT_B_16_Weights)
         model.head = nn.Linear(model.heads.head.in_features, 200)
         self.model = model
 
