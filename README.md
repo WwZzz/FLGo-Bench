@@ -91,7 +91,8 @@ no_log_console: True
 | fedavg        | CNN       | lr=0.1          | lr=0.1          | lr=0.1            | 
 | fedprox       | CNN       | lr=0.1, μ=0.001 | lr=0.1, μ=0.001 | lr=0.05, μ=0.0001 |
 | scaffold      | CNN       | lr=0.1          | lr=0.1          | lr=0.1            |
-| feddyn        | CNN       |                 |                 | lr=0.1, α=0.03    | 
+| feddyn        | CNN       | lr=0.001, α=0.1 | lr=0.1, α=0.1   | lr=0.1, α=0.03    | 
+| moon          | CNN       | lr=0.1, μ=0.1   | lr=0.1, μ=0.1   |                   | 
 
 
 #### Main Results
