@@ -56,6 +56,7 @@ def read_option():
     parser.add_argument('--no_dynmem', help='no_dynmem',  action="store_true", default=False)
     parser.add_argument('--mmap', help='mmap',  action="store_true", default=False)
     parser.add_argument('--load_mode', help = 'load_mode', type=str, default='')
+    parser.add_argument('--seq', help='tune sequencially',  action="store_true", default=False)
     try:
         option = vars(parser.parse_known_args()[0])
     except IOError as msg:
@@ -101,4 +102,7 @@ if __name__=='__main__':
             except:
                 print("using default model")
                 model = None
-    res = flgo.tune(task, method, paras, model=model, Logger=TuneLogger, scheduler=scheduler, mmap=mmap)
+    if option['seq']:
+        res = flgo.tune_sequencially(task, method, paras, model=model, Logger=TuneLogger, mmap=mmap)
+    else:
+        res = flgo.tune(task, method, paras, model=model, Logger=TuneLogger, scheduler=scheduler, mmap=mmap)
