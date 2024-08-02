@@ -402,6 +402,11 @@ Global Test
 
 | **Algorithm** | **model** | **client-id** |   
 |---------------|-----------|---------------|
-| fedavg        | LSTM      |               |
+| fedavg        | LSTM      | 52.85±0.06    |
 
 
+Local Test
+
+| **Algorithm** | **model** | **client-id** |   
+|---------------|-----------|---------------|
+| fedavg        | LSTM      | 52.76±0.17    |
