@@ -10,3 +10,4 @@ proportion: 0.1
 early_stop: 500
 train_holdout: 0.2
 local_test: True
+eval_interval: 20
