@@ -319,6 +319,8 @@ log_file: True
 | fedavg        | AlexNet   | lr=0.1         |
 | fedprox       | AlexNet   | lr=0.1, μ=0.01 |
 | scaffold      | AlexNet   | lr=0.1         |
+| feddyn        | AlexNet   | lr=0.05, α=0.1 |
+| fedprox       | AlexNet   | lr=0.1, μ=0.1  |
 
 #### Main Results
 ```
