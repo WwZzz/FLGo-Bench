@@ -39,7 +39,7 @@ moon: μ ∈ [0.1, 1.0, 5.0, 10.0]
 seed: [2,4388,15,333,967] # results are averaged over five random seeds
 proportion: 0.2
 ```
-Global Test
+*Global Test*
 
 | **Algorithm** | **model** | **iid**    | **dir5.0** | **dir2.0** | **dir1.0** | **dir0.1** |    
 |---------------|-----------|------------|------------|------------|------------|------------|
@@ -49,7 +49,7 @@ Global Test
 | moon          | CNN       | 80.88±0.27 | 79.63±0.20 | 77.21±0.33 | 75.67±0.26 | 62.44±1.10 |
 | feddyn        | CNN       | 85.09±0.22 | 83.65±0.09 | 81.54±0.30 | 80.26±0.40 | 70.82±0.50 |
 
-Local Test
+*Local Test*
 
 | **Algorithm** | **model** | **iid**    | **dir5.0** | **dir2.0** | **dir1.0** | **dir0.1** |    
 |---------------|-----------|------------|------------|------------|------------|------------|
@@ -100,7 +100,7 @@ no_log_console: True
 seed: [2,4388,15,333,967] # results are averaged over five random seeds
 proportion: 0.2
 ```
-Global Test
+*Global Test*
 
 | **Algorithm** | **model** | **iid**    | **dir1.0** | **dir0.1** | 
 |---------------|-----------|------------|------------|------------|
@@ -111,7 +111,7 @@ Global Test
 | moon          | CNN       | 41.49±0.40 | 37.28±0.37 | 21.09±0.32 |
 
 
-Local Test
+*Local Test*
 
 
 | **Algorithm** | **model** | **iid**    | **dir1.0** | **dir0.1** | 
@@ -154,7 +154,7 @@ no_log_console: True
 seed: [2,4388,15,333,967] # results are averaged over five random seeds
 proportion: 0.2
 ```
-Global Test
+*Global Test*
 
 | **Algorithm** | **model** | **iid**    | **dir5.0** | **dir2.0** | **dir1.0** | **dir0.1** |    
 |---------------|-----------|------------|------------|------------|------------|------------|
@@ -164,7 +164,7 @@ Global Test
 | feddyn        | CNN       | 99.37±0.01 | 99.23±0.02 | 99.25±0.03 | 99.20±0.04 | 98.89±0.04 |
 | moon          | CNN       | 99.07±0.04 | 99.05±0.04 | 99.10±0.08 | 99.00±0.05 | 98.43±0.07 |
 
-Local Test
+*Local Test*
 
 | **Algorithm** | **model** | **iid**    | **dir5.0** | **dir2.0** | **dir1.0** | **dir0.1** |    
 |---------------|-----------|------------|------------|------------|------------|------------|
@@ -220,7 +220,7 @@ log_file: True
 seed: [2,4388,15,333,967] # results are averaged over five random seeds
 proportion: 0.2
 ```
-Global Test
+*Global Test*
 
 | **Algorithm** | **model**           | **dir1.0** |   
 |---------------|---------------------|------------|
@@ -230,7 +230,7 @@ Global Test
 | feddyn        | EmbeddingBag+Linear | 91.02±0.02 |
 | moon          | EmbeddingBag+Linear | 90.28±0.07 |
 
-Local Test
+*Local Test*
 
 | **Algorithm** | **model**           | **dir1.0** |   
 |---------------|---------------------|------------|
@@ -274,7 +274,7 @@ seed: [2,4388,15,333,967] # results are averaged over five random seeds
 ```
 
 
-Local Test
+*Local Test*
 
 | **Algorithm** | **model** | **domain** |   
 |---------------|-----------|------------|
@@ -284,7 +284,7 @@ Local Test
 | feddyn        | AlexNet   | 83.61±1.66 |
 | moon          | AlexNet   | 80.52±1.48 |
 
-Size-Weighted Local Test
+Size-Weighted *Local Test*
 
 | **Algorithm** | **model** | **domain** |   
 |---------------|-----------|------------|
@@ -328,12 +328,27 @@ seed: [2,4388,15,333,967] # results are averaged over five random seeds
 ```
 
 
-Local Test
+*Global Test*
 
 | **Algorithm** | **model** | **domain** |   
 |---------------|-----------|------------|
 | fedavg        | AlexNet   |            |
+| fedprox       | AlexNet   | 71.41±0.29 |
 
+*Local Test*
+
+| **Algorithm** | **model** | **domain** |   
+|---------------|-----------|------------|
+| fedavg        | AlexNet   |            |
+| fedprox       | AlexNet   | 71.04±0.44 |
+
+*Sized-weighted Local Test*
+
+| **Algorithm** | **model** | **domain** |   
+|---------------|-----------|------------|
+| fedavg        | AlexNet   |            |
+| fedprox       | AlexNet   | 72.40±0.49 |
+'
 
 ## SpeechCommand
 ### 2112 Clients
@@ -364,7 +379,7 @@ pin_memory: True
 seed: [2,4388,15,333,967] # results are averaged over five random seeds
 ```
 
-Global Test
+*Global Test*
 
 | **Algorithm** | **model** | **client-id** |   
 |---------------|-----------|---------------|
@@ -401,14 +416,14 @@ log_file: True
 seed: [2,4388,15,333,967] # results are averaged over five random seeds
 ```
 
-Global Test
+*Global Test*
 
 | **Algorithm** | **model** | **client-id** |   
 |---------------|-----------|---------------|
 | fedavg        | LSTM      | 52.85±0.06    |
 
 
-Local Test
+*Local Test*
 
 | **Algorithm** | **model** | **client-id** |   
 |---------------|-----------|---------------|
