@@ -332,21 +332,21 @@ seed: [2,4388,15,333,967] # results are averaged over five random seeds
 
 | **Algorithm** | **model** | **domain** |   
 |---------------|-----------|------------|
-| fedavg        | AlexNet   |            |
+| fedavg        | AlexNet   | 71.44±0.35 |
 | fedprox       | AlexNet   | 71.41±0.29 |
 
 *Local Test*
 
 | **Algorithm** | **model** | **domain** |   
 |---------------|-----------|------------|
-| fedavg        | AlexNet   |            |
+| fedavg        | AlexNet   | 71.06±0.73 |
 | fedprox       | AlexNet   | 71.04±0.44 |
 
 *Sized-weighted Local Test*
 
 | **Algorithm** | **model** | **domain** |   
 |---------------|-----------|------------|
-| fedavg        | AlexNet   |            |
+| fedavg        | AlexNet   | 72.68±0.65 |
 | fedprox       | AlexNet   | 72.40±0.49 |
 '
 
