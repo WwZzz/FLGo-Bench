@@ -177,6 +177,7 @@ proportion: 0.2
 <div style="text-align: right;">
 <a href="#Nevigation" style="text-decoration: none; background-color: #0366d6; color: white; padding: 5px 10px; border-radius: 5px;">Back</a>
 </div>
+
 ## MNIST
 ### 100 Clients
 ```
@@ -244,6 +245,7 @@ proportion: 0.2
 <div style="text-align: right;">
 <a href="#Nevigation" style="text-decoration: none; background-color: #0366d6; color: white; padding: 5px 10px; border-radius: 5px;">Back</a>
 </div>
+
 ## AGNEWS
 ### 100 Clients
 ```
@@ -301,6 +303,7 @@ proportion: 0.2
 <div style="text-align: right;">
 <a href="#Nevigation" style="text-decoration: none; background-color: #0366d6; color: white; padding: 5px 10px; border-radius: 5px;">Back</a>
 </div>
+
 ## Office-Caltech10
 ### 4 Clients
 ```
@@ -358,6 +361,7 @@ Size-Weighted *Local Test*
 <div style="text-align: right;">
 <a href="#Nevigation" style="text-decoration: none; background-color: #0366d6; color: white; padding: 5px 10px; border-radius: 5px;">Back</a>
 </div>
+
 ## DomainNet
 ### 6 Clients
 ```
@@ -425,6 +429,7 @@ seed: [2,4388,15,333,967] # results are averaged over five random seeds
 <div style="text-align: right;">
 <a href="#Nevigation" style="text-decoration: none; background-color: #0366d6; color: white; padding: 5px 10px; border-radius: 5px;">Back</a>
 </div>
+
 ## SpeechCommand
 ### 2112 Clients
 ```
@@ -466,6 +471,7 @@ seed: [2,4388,15,333,967] # results are averaged over five random seeds
 <div style="text-align: right;">
 <a href="#Nevigation" style="text-decoration: none; background-color: #0366d6; color: white; padding: 5px 10px; border-radius: 5px;">Back</a>
 </div>
+
 ## Shakespeare
 ### 1012 Clients
 ```
@@ -512,3 +518,4 @@ seed: [2,4388,15,333,967] # results are averaged over five random seeds
 <div style="text-align: right;">
 <a href="#Nevigation" style="text-decoration: none; background-color: #0366d6; color: white; padding: 5px 10px; border-radius: 5px;">Back</a>
 </div>
+
