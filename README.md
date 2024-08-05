@@ -174,6 +174,9 @@ proportion: 0.2
 | feddyn        | CNN       | 52.48±0.49 | 38.92±0.37 | 26.08±0.15 | 
 | moon          | CNN       | 40.91±0.30 | 36.22±0.34 | 20.67±0.26 |
 
+<div style="text-align: right;">
+<a href="#Nevigation" style="text-decoration: none; background-color: #0366d6; color: white; padding: 5px 10px; border-radius: 5px;">Back</a>
+</div>
 ## MNIST
 ### 100 Clients
 ```
@@ -238,6 +241,9 @@ proportion: 0.2
 
 #### Impact of Local Epoch
 
+<div style="text-align: right;">
+<a href="#Nevigation" style="text-decoration: none; background-color: #0366d6; color: white; padding: 5px 10px; border-radius: 5px;">Back</a>
+</div>
 ## AGNEWS
 ### 100 Clients
 ```
@@ -292,6 +298,9 @@ proportion: 0.2
 | feddyn        | EmbeddingBag+Linear | 91.11±0.01 |
 | moon          | EmbeddingBag+Linear | 90.64±0.04 |
 
+<div style="text-align: right;">
+<a href="#Nevigation" style="text-decoration: none; background-color: #0366d6; color: white; padding: 5px 10px; border-radius: 5px;">Back</a>
+</div>
 ## Office-Caltech10
 ### 4 Clients
 ```
@@ -346,6 +355,9 @@ Size-Weighted *Local Test*
 | feddyn        | AlexNet   | 76.18±1.76 |
 | moon          | AlexNet   | 76.46±0.68 |
 
+<div style="text-align: right;">
+<a href="#Nevigation" style="text-decoration: none; background-color: #0366d6; color: white; padding: 5px 10px; border-radius: 5px;">Back</a>
+</div>
 ## DomainNet
 ### 6 Clients
 ```
@@ -410,6 +422,9 @@ seed: [2,4388,15,333,967] # results are averaged over five random seeds
 | feddyn        | AlexNet   | 72.20±0.30 |
 | moon          | AlexNet   | 71.88±0.37 |
 
+<div style="text-align: right;">
+<a href="#Nevigation" style="text-decoration: none; background-color: #0366d6; color: white; padding: 5px 10px; border-radius: 5px;">Back</a>
+</div>
 ## SpeechCommand
 ### 2112 Clients
 ```
@@ -448,6 +463,9 @@ seed: [2,4388,15,333,967] # results are averaged over five random seeds
 | fedavg        | M5        | 69.11±0.91    |
 | scaffold      | M5        | 64.40±0.42    |
 
+<div style="text-align: right;">
+<a href="#Nevigation" style="text-decoration: none; background-color: #0366d6; color: white; padding: 5px 10px; border-radius: 5px;">Back</a>
+</div>
 ## Shakespeare
 ### 1012 Clients
 ```
@@ -490,3 +508,7 @@ seed: [2,4388,15,333,967] # results are averaged over five random seeds
 | **Algorithm** | **model** | **client-id** |   
 |---------------|-----------|---------------|
 | fedavg        | LSTM      | 52.76±0.17    |
+
+<div style="text-align: right;">
+<a href="#Nevigation" style="text-decoration: none; background-color: #0366d6; color: white; padding: 5px 10px; border-radius: 5px;">Back</a>
+</div>
