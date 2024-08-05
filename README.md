@@ -40,10 +40,11 @@ python show_result.py --task TASK --algorithm ALGORITHM --model MODEL --config C
 ```
 
 # Experimental Results
-- [CIFAR10](##CIFAR10)
-- [CIFAR100](##CIFAR100)
-- [MNIST](##MNIST)
-- [AgNews](##AGNEWS)
+- [CIFAR10](#CIFAR10)
+- [CIFAR100](#CIFAR100)
+- [MNIST](#MNIST)
+- [AgNews](#AGNEWS)
+
 ## CIFAR10
 ### 100 Clients
 #### Configuration
