@@ -382,6 +382,7 @@ pin_memory: True
 | fedavg        | M5        | lr=1.0          |
 | fedprox       | M5        | lr=1.0, mu=0.01 |
 | scaffold      | M5        | lr=1.0          |
+| feddyn        | M5        | lr=0.1, α=0.001 |
 
 #### Main Results
 ```
