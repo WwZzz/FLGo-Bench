@@ -44,7 +44,10 @@ python show_result.py --task TASK --algorithm ALGORITHM --model MODEL --config C
 - [CIFAR100](#CIFAR100)
 - [MNIST](#MNIST)
 - [AgNews](#AGNEWS)
-
+- [Office-Caltech10](#Office-Caltech10)
+- [DomainNet](#DomainNet)
+- [SpeechCommand](#SpeechCommand)
+- [Shakespeare](#Shakespeare)
 ## CIFAR10
 ### 100 Clients
 #### Configuration
