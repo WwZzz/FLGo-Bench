@@ -40,6 +40,8 @@ python show_result.py --task TASK --algorithm ALGORITHM --model MODEL --config C
 ```
 
 # Experimental Results
+## Nevigation
+
 - [CIFAR10](#CIFAR10)
 - [CIFAR100](#CIFAR100)
 - [MNIST](#MNIST)
@@ -113,7 +115,7 @@ proportion: 0.2
 
 #### Impact of Local Epoch
 
-[Back To Nevigation](Experimental Results)
+[Back To Nevigation](#Nevigation)
 
 ## CIFAR100
 ### 100 Clients
