@@ -40,6 +40,7 @@ python show_result.py --task TASK --algorithm ALGORITHM --model MODEL --config C
 ```
 
 # Experimental Results
+[CIFAR10](##CIFAR10)
 ## CIFAR10
 ### 100 Clients
 #### Configuration
