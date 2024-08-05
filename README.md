@@ -373,6 +373,8 @@ seed: [2,4388,15,333,967] # results are averaged over five random seeds
 | fedavg        | AlexNet   | 71.44±0.35 |
 | fedprox       | AlexNet   | 71.41±0.29 |
 | scaffold      | AlexNet   | 72.31±0.64 |
+| feddyn        | AlexNet   | 71.65±0.27 |
+| moon          | AlexNet   | 71.37±0.18 |
 
 *Local Test*
 
@@ -381,6 +383,8 @@ seed: [2,4388,15,333,967] # results are averaged over five random seeds
 | fedavg        | AlexNet   | 71.06±0.73 |
 | fedprox       | AlexNet   | 71.04±0.44 |
 | scaffold      | AlexNet   | 72.14±0.52 |
+| feddyn        | AlexNet   | 70.79±0.47 |
+| moon          | AlexNet   | 70.33±0.36 |
 
 *Sized-weighted Local Test*
 
@@ -389,7 +393,8 @@ seed: [2,4388,15,333,967] # results are averaged over five random seeds
 | fedavg        | AlexNet   | 72.68±0.65 |
 | fedprox       | AlexNet   | 72.40±0.49 |
 | scaffold      | AlexNet   | 73.35±0.50 |
-'
+| feddyn        | AlexNet   | 72.20±0.30 |
+| moon          | AlexNet   | 71.88±0.37 |
 
 ## SpeechCommand
 ### 2112 Clients
@@ -410,10 +415,12 @@ log_file: True
 pin_memory: True
 ```
 
-| **Algorithm** | **model** | **client-id** |   
-|---------------|-----------|---------------|
-| fedavg        | M5        | lr=1.0        |
-| scaffold      | M5        | lr=1.0        |
+| **Algorithm** | **model** | **client-id**   |   
+|---------------|-----------|-----------------|
+| fedavg        | M5        | lr=1.0          |
+| fedprox       | M5        | lr=1.0, mu=0.01 |
+| scaffold      | M5        | lr=1.0          |
+| feddyn        | M5        | lr=0.1, α=0.001 |
 
 #### Main Results
 ```
