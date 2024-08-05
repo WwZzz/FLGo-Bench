@@ -112,7 +112,9 @@ proportion: 0.2
 | iid      | fedavg        | CNN       | 81.70±0.30 | 81.54±0.14 | 81.34±0.23 | 81.87±0.17 |
 
 #### Impact of Local Epoch
+
 [Back To Nevigation](#Experimental Results)
+
 ## CIFAR100
 ### 100 Clients
 #### Configuration
