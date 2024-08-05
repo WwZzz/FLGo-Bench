@@ -115,7 +115,9 @@ proportion: 0.2
 
 #### Impact of Local Epoch
 
-<p style="text-align: right;"><a href="#Nevigation" style="text-decoration: none; background-color: #0366d6; color: white; padding: 5px 10px; border-radius: 5px;">Back</a></p>
+<div style="text-align: right;">
+<a href="#Nevigation" style="text-decoration: none; background-color: #0366d6; color: white; padding: 5px 10px; border-radius: 5px;">Back</a>
+</div>
 
 ## CIFAR100
 ### 100 Clients
