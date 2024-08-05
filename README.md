@@ -1,7 +1,45 @@
 # FLGo-Bench
 Produce results of federated algorithms on various benchmarks
+## Usage
+- **Tuning Command**
+```
+python tune.py --task TASKNAME --algorithm ALGORITHM --config CONFIG_PATH --gpu GPUids 
+```
 
-# Result
+- **Running Command**
+```
+python run.py --task TASKNAME --algorithm ALGORITHM --config CONFIG_PATH --gpu GPUids 
+```
+- **Optional Args**
+
+| **Name**           | **Type** | **Desc.**                                                                                                   |   
+|--------------------|----------|-------------------------------------------------------------------------------------------------------------|
+| model              | str      | the file name in the dictionary `model/` that denotes a legal model in FLGo                                 |
+| load_mode          | str      | be one of ['', 'mmap', 'mem'], which respectively denotes DefaultIO, MemmapIO, and InMemory Dataset Loading |
+| max_pdev           | int      | the maximum number of processes on each gpu device                                                          |
+| available_interval | int      | the time interval (s) to check whether a device is available                                                |
+| put_interval       | int      | the time interval (s) to put one process into device                                                        |
+| seq                | bool     | whether to run each process in sequencial                                                                   |
+
+- **Example**
+```python
+# Tuning FedAvg on MNIST-IID with GPU 0 and 1
+python tune.py --task mnist_iid_c100 --algorithm fedavg --config ./config/general.yml --gpu 0 1
+
+# Runing FedAvg on MNIST-IID with GPU 0 and 1
+python run.py --task mnist_iid_c100 --algorithm fedavg --config ./config/general.yml --gpu 0 1
+```
+
+## Analysis 
+```python
+# Show tuning Result
+python performance_analyze.py --task TASK --algorithm ALGORITHM --model MODEL --config CONFIG_PATH 
+
+# Show Running Result
+python show_result.py --task TASK --algorithm ALGORITHM --model MODEL --config CONFIG_PATH 
+```
+
+# Experimental Results
 ## CIFAR10
 ### 100 Clients
 #### Configuration
