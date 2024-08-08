@@ -44,7 +44,7 @@ class TuneLogger(BasicLogger):
 
 def read_option():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--method', help='algorithm name', type=str, default='fedavg')
+    parser.add_argument('--algorithm', help='algorithm name', type=str, default='fedavg')
     parser.add_argument('--task', help='task name', type=str, default='cifar10_iid_c100')
     parser.add_argument('--gpu', nargs='*', help='GPU IDs and empty input is equal to using CPU', type=int, default=[0])
     parser.add_argument('--config', help='congiguration', type=str, default='')
@@ -80,7 +80,7 @@ if __name__=='__main__':
     import flgo.experiment.device_scheduler as fed
     scheduler = None if option['gpu'] is None else fed.AutoScheduler(option['gpu'], put_interval=option['put_interval'], available_interval=option['available_interval'], mean_memory_occupated=option['memory'], dynamic_memory_occupated=not option['no_dynmem'], max_processes_per_device=option['max_pdev'])
     method = None
-    modules = [".".join(["algorithm", option['method']]), ".".join(["develop", option['method']]),".".join(["flgo", "algorithm", option['method']])]
+    modules = [".".join(["algorithm", option['algorithm']]), ".".join(["develop", option['algorithm']]),".".join(["flgo", "algorithm", option['algorithm']])]
     for m in modules:
         try:
             method = importlib.import_module(m)
