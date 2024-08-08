@@ -1,7 +1,55 @@
 # FLGo-Bench
 Produce results of federated algorithms on various benchmarks
+## Usage
+- **Tuning Command**
+```
+python tune.py --task TASKNAME --algorithm ALGORITHM --config CONFIG_PATH --gpu GPUids 
+```
 
-# Result
+- **Running Command**
+```
+python run.py --task TASKNAME --algorithm ALGORITHM --config CONFIG_PATH --gpu GPUids 
+```
+- **Optional Args**
+
+| **Name**           | **Type** | **Desc.**                                                                                                   |   
+|--------------------|----------|-------------------------------------------------------------------------------------------------------------|
+| model              | str      | the file name in the dictionary `model/` that denotes a legal model in FLGo                                 |
+| load_mode          | str      | be one of ['', 'mmap', 'mem'], which respectively denotes DefaultIO, MemmapIO, and InMemory Dataset Loading |
+| max_pdev           | int      | the maximum number of processes on each gpu device                                                          |
+| available_interval | int      | the time interval (s) to check whether a device is available                                                |
+| put_interval       | int      | the time interval (s) to put one process into device                                                        |
+| seq                | bool     | whether to run each process in sequencial                                                                   |
+
+- **Example**
+```python
+# Tuning FedAvg on MNIST-IID with GPU 0 and 1
+python tune.py --task mnist_iid_c100 --algorithm fedavg --config ./config/general.yml --gpu 0 1
+
+# Runing FedAvg on MNIST-IID with GPU 0 and 1
+python run.py --task mnist_iid_c100 --algorithm fedavg --config ./config/general.yml --gpu 0 1
+```
+
+## Analysis 
+```python
+# Show tuning Result
+python performance_analyze.py --task TASK --algorithm ALGORITHM --model MODEL --config CONFIG_PATH 
+
+# Show Running Result
+python show_result.py --task TASK --algorithm ALGORITHM --model MODEL --config CONFIG_PATH 
+```
+
+# Experimental Results
+## Nevigation
+
+- [CIFAR10](#CIFAR10)
+- [CIFAR100](#CIFAR100)
+- [MNIST](#MNIST)
+- [AgNews](#AGNEWS)
+- [Office-Caltech10](#Office-Caltech10)
+- [DomainNet](#DomainNet)
+- [SpeechCommand](#SpeechCommand)
+- [Shakespeare](#Shakespeare)
 ## CIFAR10
 ### 100 Clients
 #### Configuration
@@ -39,7 +87,7 @@ moon: μ ∈ [0.1, 1.0, 5.0, 10.0]
 seed: [2,4388,15,333,967] # results are averaged over five random seeds
 proportion: 0.2
 ```
-Global Test
+*Global Test*
 
 | **Algorithm** | **model** | **iid**    | **dir5.0** | **dir2.0** | **dir1.0** | **dir0.1** |    
 |---------------|-----------|------------|------------|------------|------------|------------|
@@ -49,7 +97,7 @@ Global Test
 | moon          | CNN       | 80.88±0.27 | 79.63±0.20 | 77.21±0.33 | 75.67±0.26 | 62.44±1.10 |
 | feddyn        | CNN       | 85.09±0.22 | 83.65±0.09 | 81.54±0.30 | 80.26±0.40 | 70.82±0.50 |
 
-Local Test
+*Local Test*
 
 | **Algorithm** | **model** | **iid**    | **dir5.0** | **dir2.0** | **dir1.0** | **dir0.1** |    
 |---------------|-----------|------------|------------|------------|------------|------------|
@@ -66,6 +114,10 @@ Local Test
 | iid      | fedavg        | CNN       | 81.70±0.30 | 81.54±0.14 | 81.34±0.23 | 81.87±0.17 |
 
 #### Impact of Local Epoch
+
+<div style="text-align: right;">
+<a href="#Nevigation" style="text-decoration: none; background-color: #0366d6; color: white; padding: 5px 10px; border-radius: 5px;">Back</a>
+</div>
 
 ## CIFAR100
 ### 100 Clients
@@ -100,7 +152,7 @@ no_log_console: True
 seed: [2,4388,15,333,967] # results are averaged over five random seeds
 proportion: 0.2
 ```
-Global Test
+*Global Test*
 
 | **Algorithm** | **model** | **iid**    | **dir1.0** | **dir0.1** | 
 |---------------|-----------|------------|------------|------------|
@@ -111,7 +163,7 @@ Global Test
 | moon          | CNN       | 41.49±0.40 | 37.28±0.37 | 21.09±0.32 |
 
 
-Local Test
+*Local Test*
 
 
 | **Algorithm** | **model** | **iid**    | **dir1.0** | **dir0.1** | 
@@ -121,6 +173,10 @@ Local Test
 | scaffold      | CNN       | 49.94±0.22 | 39.70±0.31 | 18.58±0.61 |
 | feddyn        | CNN       | 52.48±0.49 | 38.92±0.37 | 26.08±0.15 | 
 | moon          | CNN       | 40.91±0.30 | 36.22±0.34 | 20.67±0.26 |
+
+<div style="text-align: right;">
+<a href="#Nevigation" style="text-decoration: none; background-color: #0366d6; color: white; padding: 5px 10px; border-radius: 5px;">Back</a>
+</div>
 
 ## MNIST
 ### 100 Clients
@@ -154,7 +210,7 @@ no_log_console: True
 seed: [2,4388,15,333,967] # results are averaged over five random seeds
 proportion: 0.2
 ```
-Global Test
+*Global Test*
 
 | **Algorithm** | **model** | **iid**    | **dir5.0** | **dir2.0** | **dir1.0** | **dir0.1** |    
 |---------------|-----------|------------|------------|------------|------------|------------|
@@ -164,7 +220,7 @@ Global Test
 | feddyn        | CNN       | 99.37±0.01 | 99.23±0.02 | 99.25±0.03 | 99.20±0.04 | 98.89±0.04 |
 | moon          | CNN       | 99.07±0.04 | 99.05±0.04 | 99.10±0.08 | 99.00±0.05 | 98.43±0.07 |
 
-Local Test
+*Local Test*
 
 | **Algorithm** | **model** | **iid**    | **dir5.0** | **dir2.0** | **dir1.0** | **dir0.1** |    
 |---------------|-----------|------------|------------|------------|------------|------------|
@@ -185,6 +241,10 @@ Local Test
 | dir0.1   | fedavg        | CNN       | 98.27±0.08 | 98.31±0.06 | 98.32±0.04 | 98.33±0.02 |
 
 #### Impact of Local Epoch
+
+<div style="text-align: right;">
+<a href="#Nevigation" style="text-decoration: none; background-color: #0366d6; color: white; padding: 5px 10px; border-radius: 5px;">Back</a>
+</div>
 
 ## AGNEWS
 ### 100 Clients
@@ -220,7 +280,7 @@ log_file: True
 seed: [2,4388,15,333,967] # results are averaged over five random seeds
 proportion: 0.2
 ```
-Global Test
+*Global Test*
 
 | **Algorithm** | **model**           | **dir1.0** |   
 |---------------|---------------------|------------|
@@ -230,7 +290,7 @@ Global Test
 | feddyn        | EmbeddingBag+Linear | 91.02±0.02 |
 | moon          | EmbeddingBag+Linear | 90.28±0.07 |
 
-Local Test
+*Local Test*
 
 | **Algorithm** | **model**           | **dir1.0** |   
 |---------------|---------------------|------------|
@@ -239,6 +299,10 @@ Local Test
 | scaffold      | EmbeddingBag+Linear | 88.31±0.69 |
 | feddyn        | EmbeddingBag+Linear | 91.11±0.01 |
 | moon          | EmbeddingBag+Linear | 90.64±0.04 |
+
+<div style="text-align: right;">
+<a href="#Nevigation" style="text-decoration: none; background-color: #0366d6; color: white; padding: 5px 10px; border-radius: 5px;">Back</a>
+</div>
 
 ## Office-Caltech10
 ### 4 Clients
@@ -274,7 +338,7 @@ seed: [2,4388,15,333,967] # results are averaged over five random seeds
 ```
 
 
-Local Test
+*Local Test*
 
 | **Algorithm** | **model** | **domain** |   
 |---------------|-----------|------------|
@@ -284,7 +348,7 @@ Local Test
 | feddyn        | AlexNet   | 83.61±1.66 |
 | moon          | AlexNet   | 80.52±1.48 |
 
-Size-Weighted Local Test
+Size-Weighted *Local Test*
 
 | **Algorithm** | **model** | **domain** |   
 |---------------|-----------|------------|
@@ -293,6 +357,10 @@ Size-Weighted Local Test
 | scaffold      | AlexNet   | 75.93±1.55 |
 | feddyn        | AlexNet   | 76.18±1.76 |
 | moon          | AlexNet   | 76.46±0.68 |
+
+<div style="text-align: right;">
+<a href="#Nevigation" style="text-decoration: none; background-color: #0366d6; color: white; padding: 5px 10px; border-radius: 5px;">Back</a>
+</div>
 
 ## DomainNet
 ### 6 Clients
@@ -328,12 +396,39 @@ seed: [2,4388,15,333,967] # results are averaged over five random seeds
 ```
 
 
-Local Test
+*Global Test*
 
 | **Algorithm** | **model** | **domain** |   
 |---------------|-----------|------------|
-| fedavg        | AlexNet   |            |
+| fedavg        | AlexNet   | 71.44±0.35 |
+| fedprox       | AlexNet   | 71.41±0.29 |
+| scaffold      | AlexNet   | 72.31±0.64 |
+| feddyn        | AlexNet   | 71.65±0.27 |
+| moon          | AlexNet   | 71.37±0.18 |
 
+*Local Test*
+
+| **Algorithm** | **model** | **domain** |   
+|---------------|-----------|------------|
+| fedavg        | AlexNet   | 71.06±0.73 |
+| fedprox       | AlexNet   | 71.04±0.44 |
+| scaffold      | AlexNet   | 72.14±0.52 |
+| feddyn        | AlexNet   | 70.79±0.47 |
+| moon          | AlexNet   | 70.33±0.36 |
+
+*Sized-weighted Local Test*
+
+| **Algorithm** | **model** | **domain** |   
+|---------------|-----------|------------|
+| fedavg        | AlexNet   | 72.68±0.65 |
+| fedprox       | AlexNet   | 72.40±0.49 |
+| scaffold      | AlexNet   | 73.35±0.50 |
+| feddyn        | AlexNet   | 72.20±0.30 |
+| moon          | AlexNet   | 71.88±0.37 |
+
+<div style="text-align: right;">
+<a href="#Nevigation" style="text-decoration: none; background-color: #0366d6; color: white; padding: 5px 10px; border-radius: 5px;">Back</a>
+</div>
 
 ## SpeechCommand
 ### 2112 Clients
@@ -343,7 +438,7 @@ batch_size: 50
 weight_decay: 1e-3
 lr_scheduler: 0
 learning_rate_decay: 0.998
-num_rounds: 1000
+num_rounds: 2000
 num_epochs: 1
 clip_grad: 10
 proportion: 0.05
@@ -351,25 +446,31 @@ early_stop: 250
 train_holdout: 0.0
 no_log_console: True
 log_file: True
-pin_memory: True
 ```
 
-| **Algorithm** | **model** | **client-id** |   
-|---------------|-----------|---------------|
-| fedavg        | M5        | lr=1.0        |
-| scaffold      | M5        | lr=1.0        |
+| **Algorithm** | **model** | **client-id**    |   
+|---------------|-----------|------------------|
+| fedavg        | M5        | lr=1.0           |
+| fedprox       | M5        | lr=1.0, mu=0.01  |
+| scaffold      | M5        | lr=1.0           |
+| feddyn        | M5        | lr=0.1, α=0.001  |
+| moon          | M5        | lr=1.0, mu=0.1   |
 
 #### Main Results
 ```
 seed: [2,4388,15,333,967] # results are averaged over five random seeds
 ```
 
-Global Test
+*Global Test*
 
 | **Algorithm** | **model** | **client-id** |   
 |---------------|-----------|---------------|
 | fedavg        | M5        | 69.11±0.91    |
 | scaffold      | M5        | 64.40±0.42    |
+
+<div style="text-align: right;">
+<a href="#Nevigation" style="text-decoration: none; background-color: #0366d6; color: white; padding: 5px 10px; border-radius: 5px;">Back</a>
+</div>
 
 ## Shakespeare
 ### 1012 Clients
@@ -401,15 +502,20 @@ log_file: True
 seed: [2,4388,15,333,967] # results are averaged over five random seeds
 ```
 
-Global Test
+*Global Test*
 
 | **Algorithm** | **model** | **client-id** |   
 |---------------|-----------|---------------|
 | fedavg        | LSTM      | 52.85±0.06    |
 
 
-Local Test
+*Local Test*
 
 | **Algorithm** | **model** | **client-id** |   
 |---------------|-----------|---------------|
 | fedavg        | LSTM      | 52.76±0.17    |
+
+<div style="text-align: right;">
+<a href="#Nevigation" style="text-decoration: none; background-color: #0366d6; color: white; padding: 5px 10px; border-radius: 5px;">Back</a>
+</div>
+
