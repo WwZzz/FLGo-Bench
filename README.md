@@ -438,7 +438,7 @@ batch_size: 50
 weight_decay: 1e-3
 lr_scheduler: 0
 learning_rate_decay: 0.998
-num_rounds: 1000
+num_rounds: 2000
 num_epochs: 1
 clip_grad: 10
 proportion: 0.05
@@ -446,7 +446,6 @@ early_stop: 250
 train_holdout: 0.0
 no_log_console: True
 log_file: True
-pin_memory: True
 ```
 
 | **Algorithm** | **model** | **client-id**    |   
