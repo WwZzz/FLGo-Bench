@@ -377,12 +377,13 @@ log_file: True
 pin_memory: True
 ```
 
-| **Algorithm** | **model** | **client-id**   |   
-|---------------|-----------|-----------------|
-| fedavg        | M5        | lr=1.0          |
+| **Algorithm** | **model** | **client-id**  |   
+|---------------|-----------|----------------|
+| fedavg        | M5        | lr=1.0         |
 | fedprox       | M5        | lr=1.0, mu=0.01 |
-| scaffold      | M5        | lr=1.0          |
+| scaffold      | M5        | lr=1.0         |
 | feddyn        | M5        | lr=0.1, α=0.001 |
+| moon          | M5        | lr=1.0, mu=0.1 |
 
 #### Main Results
 ```
