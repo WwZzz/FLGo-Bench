@@ -44,7 +44,7 @@ class TuneLogger(BasicLogger):
 
 def read_option():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--method', help='algorithm name', type=str, default='fedavg')
+    parser.add_argument('--algorithm', help='algorithm name', type=str, default='fedavg')
     parser.add_argument('--task', help='task name', type=str, default='cifar10_iid_c100')
     parser.add_argument('--gpu', nargs='*', help='GPU IDs and empty input is equal to using CPU', type=int, default=[0])
     parser.add_argument('--config', help='congiguration', type=str, default='')
@@ -57,6 +57,7 @@ def read_option():
     parser.add_argument('--mmap', help='mmap',  action="store_true", default=False)
     parser.add_argument('--load_mode', help = 'load_mode', type=str, default='')
     parser.add_argument('--seq', help='tune sequencially',  action="store_true", default=False)
+    parser.add_argument('--parallel', help='number of parallel processing',   type=int, default=0)
     try:
         option = vars(parser.parse_known_args()[0])
     except IOError as msg:
@@ -80,13 +81,22 @@ if __name__=='__main__':
     import flgo.experiment.device_scheduler as fed
     scheduler = None if option['gpu'] is None else fed.AutoScheduler(option['gpu'], put_interval=option['put_interval'], available_interval=option['available_interval'], mean_memory_occupated=option['memory'], dynamic_memory_occupated=not option['no_dynmem'], max_processes_per_device=option['max_pdev'])
     method = None
-    modules = [".".join(["algorithm", option['method']]), ".".join(["develop", option['method']]),".".join(["flgo", "algorithm", option['method']])]
-    for m in modules:
+    acce = False
+    modules = [".".join(["algorithm", option['algorithm']]), ".".join(["develop", option['algorithm']]),".".join(["flgo", "algorithm", option['algorithm']])]
+    if option['parallel']>0:
         try:
-            method = importlib.import_module(m)
-            break
-        except ModuleNotFoundError:
-            continue
+            method = importlib.import_module(".".join(["algorithm", "accelerate", option['algorithm']]))
+            acce = True
+        except:
+            method = None
+            warnings.warn(f"There is no acceleration support for {option['algorithm']}")
+    if method is None:
+        for m in modules:
+            try:
+                method = importlib.import_module(m)
+                break
+            except ModuleNotFoundError:
+                continue
     if method is None: raise ModuleNotFoundError("{} was not found".format(method))
     task = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'task', option['task'])
 
@@ -102,6 +112,9 @@ if __name__=='__main__':
             except:
                 print("using default model")
                 model = None
+    if acce and option['parallel']>0:
+        paras['num_parallels'] = option['parallel']
+        paras['parallel_type'] = 'obj'
     if option['seq']:
         res = flgo.tune_sequencially(task, method, paras, model=model, Logger=TuneLogger, mmap=mmap)
     else:
