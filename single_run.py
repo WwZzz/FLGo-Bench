@@ -1,4 +1,6 @@
 import argparse
+import warnings
+
 import flgo
 from flgo.experiment.logger import BasicLogger
 import flgo.experiment.device_scheduler as ds
@@ -17,7 +19,7 @@ def read_args():
     parser.add_argument('--gpu', help='GPU IDs and empty input is equal to using CPU', type=int, default=[0])
     parser.add_argument('--config', type=str, help='configuration of hypara', default='')
     parser.add_argument('--load_mode', help = 'load_mode', type=str, default='')
-    parser.add_argument('--parallel', help = 'load_mode', type=int, default=1)
+    parser.add_argument('--parallel', help = 'load_mode', type=int, default=0)
     return parser.parse_known_args()
 
 args = read_args()[0]
@@ -49,26 +51,24 @@ class FullLogger(BasicLogger):
         # output to stdout
         self.show_current_output()
 
-
-def fedrun(task, algo, optimal_option={}, seeds=[0], Logger=None, model=None, put_interval=10, available_interval=10, max_processes_per_device=10):
-    runner_dict = []
-    asc = ds.AutoScheduler(optimal_option['gpu'], put_interval=put_interval, available_interval=available_interval, max_processes_per_device=max_processes_per_device)
-    for seed in seeds:
-        opi = optimal_option.copy()
-        opi.update({'seed': seed})
-        runner_dict.append({'task': task, 'algorithm': algo, 'option': opi, 'model':model, 'Logger':Logger})
-    res = flgo.multi_init_and_run(runner_dict, scheduler=asc)
-    return res
-
 if __name__=='__main__':
     algo = None
+    acce = False
     modules = [".".join(["algorithm", args.algorithm]), ".".join(["develop",  args.algorithm]),".".join(["flgo", "algorithm",  args.algorithm])]
-    for m in modules:
+    if args.parallel>0:
         try:
-            algo = importlib.import_module(m)
-            break
-        except ModuleNotFoundError:
-            continue
+            algo = importlib.import_module(".".join(["algorithm", "accelerate", option['algorithm']]))
+            acce = True
+        except:
+            algo = None
+            warnings.warn(f"There is no acceleration support for {option['algorithm']}")
+    if algo is None:
+        for m in modules:
+            try:
+                algo = importlib.import_module(m)
+                break
+            except ModuleNotFoundError:
+                continue
     if algo is None: raise ModuleNotFoundError("{} was not found".format(algo))
     model  = None
     if args.model != '':
@@ -83,5 +83,8 @@ if __name__=='__main__':
                 print("using default model")
                 model = None
     optimal_option['load_mode'] = args.load_mode
+    if acce and option['parallel']>0:
+        optimal_option['num_parallels'] =args.parallel
+        optimal_option['parallel_type'] = 'obj'
     optimal_option['num_parallels'] = args.parallel
     flgo.init(os.path.join('task', task), algo, optimal_option, model=model, Logger=FullLogger).run()
