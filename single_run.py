@@ -19,7 +19,7 @@ def read_args():
     parser.add_argument('--gpu', help='GPU IDs and empty input is equal to using CPU', type=int, default=[0])
     parser.add_argument('--config', type=str, help='configuration of hypara', default='')
     parser.add_argument('--load_mode', help = 'load_mode', type=str, default='')
-    parser.add_argument('--parallel', help = 'load_mode', type=int, default=0)
+    parser.add_argument('--num_client_parallel', help = 'num of client processes', type=int, default=0)
     return parser.parse_known_args()
 
 args = read_args()[0]
@@ -55,7 +55,7 @@ if __name__=='__main__':
     algo = None
     acce = False
     modules = [".".join(["algorithm", args.algorithm]), ".".join(["develop",  args.algorithm]),".".join(["flgo", "algorithm",  args.algorithm])]
-    if args.parallel>0:
+    if args.num_client_parallel>0:
         try:
             algo = importlib.import_module(".".join(["algorithm", "accelerate", option['algorithm']]))
             acce = True
@@ -84,7 +84,7 @@ if __name__=='__main__':
                 model = None
     optimal_option['load_mode'] = args.load_mode
     if acce and option['parallel']>0:
-        optimal_option['num_parallels'] =args.parallel
+        optimal_option['num_parallels'] =args.num_client_parallel
         optimal_option['parallel_type'] = 'obj'
-    optimal_option['num_parallels'] = args.parallel
+    optimal_option['num_parallels'] = args.num_client_parallel
     flgo.init(os.path.join('task', task), algo, optimal_option, model=model, Logger=FullLogger).run()

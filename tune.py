@@ -57,7 +57,7 @@ def read_option():
     parser.add_argument('--mmap', help='mmap',  action="store_true", default=False)
     parser.add_argument('--load_mode', help = 'load_mode', type=str, default='')
     parser.add_argument('--seq', help='tune sequencially',  action="store_true", default=False)
-    parser.add_argument('--parallel', help='number of parallel processing',   type=int, default=0)
+    parser.add_argument('--num_client_parallel', help='number of parallel processing',   type=int, default=0)
     try:
         option = vars(parser.parse_known_args()[0])
     except IOError as msg:
@@ -83,7 +83,7 @@ if __name__=='__main__':
     method = None
     acce = False
     modules = [".".join(["algorithm", option['algorithm']]), ".".join(["develop", option['algorithm']]),".".join(["flgo", "algorithm", option['algorithm']])]
-    if option['parallel']>0:
+    if option['num_client_parallel']>0:
         try:
             method = importlib.import_module(".".join(["algorithm", "accelerate", option['algorithm']]))
             acce = True
@@ -112,8 +112,8 @@ if __name__=='__main__':
             except:
                 print("using default model")
                 model = None
-    if acce and option['parallel']>0:
-        paras['num_parallels'] = option['parallel']
+    if acce and option['num_client_parallel']>0:
+        paras['num_parallels'] = option['num_client_parallel']
         paras['parallel_type'] = 'obj'
     if option['seq']:
         res = flgo.tune_sequencially(task, method, paras, model=model, Logger=TuneLogger, mmap=mmap)
