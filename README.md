@@ -12,14 +12,15 @@ python run.py --task TASKNAME --algorithm ALGORITHM --config CONFIG_PATH --gpu G
 ```
 - **Optional Args**
 
-| **Name**           | **Type** | **Desc.**                                                                                                   |   
-|--------------------|----------|-------------------------------------------------------------------------------------------------------------|
-| model              | str      | the file name in the dictionary `model/` that denotes a legal model in FLGo                                 |
-| load_mode          | str      | be one of ['', 'mmap', 'mem'], which respectively denotes DefaultIO, MemmapIO, and InMemory Dataset Loading |
-| max_pdev           | int      | the maximum number of processes on each gpu device                                                          |
-| available_interval | int      | the time interval (s) to check whether a device is available                                                |
-| put_interval       | int      | the time interval (s) to put one process into device                                                        |
-| seq                | bool     | whether to run each process in sequencial                                                                   |
+| **Name**            | **Type** | **Desc.**                                                                                                   |   
+|---------------------|----------|-------------------------------------------------------------------------------------------------------------|
+| model               | str      | the file name in the dictionary `model/` that denotes a legal model in FLGo                                 |
+| load_mode           | str      | be one of ['', 'mmap', 'mem'], which respectively denotes DefaultIO, MemmapIO, and InMemory Dataset Loading |
+| max_pdev            | int      | the maximum number of processes on each gpu device                                                          |
+| available_interval  | int      | the time interval (s) to check whether a device is available                                                |
+| put_interval        | int      | the time interval (s) to put one process into device                                                        |
+| seq                 | bool     | whether to run each process in sequencial                                                                   |
+| num_client_parallel | int      | the number of parallel client local training processes, default is 0                                        |
 
 - **Example**
 ```python
