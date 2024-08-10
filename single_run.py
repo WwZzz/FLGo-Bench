@@ -57,11 +57,11 @@ if __name__=='__main__':
     modules = [".".join(["algorithm", args.algorithm]), ".".join(["develop",  args.algorithm]),".".join(["flgo", "algorithm",  args.algorithm])]
     if args.num_client_parallel>0:
         try:
-            algo = importlib.import_module(".".join(["algorithm", "accelerate", option['algorithm']]))
+            algo = importlib.import_module(".".join(["algorithm", "accelerate", args.algorithm]))
             acce = True
         except:
             algo = None
-            warnings.warn(f"There is no acceleration support for {option['algorithm']}")
+            warnings.warn(f"There is no acceleration support for {args.algorithm}")
     if algo is None:
         for m in modules:
             try:
@@ -83,8 +83,8 @@ if __name__=='__main__':
                 print("using default model")
                 model = None
     optimal_option['load_mode'] = args.load_mode
-    if acce and option['parallel']>0:
+    if acce and args.num_client_parallel>0:
         optimal_option['num_parallels'] =args.num_client_parallel
-        optimal_option['parallel_type'] = 'obj'
+        optimal_option['parallel_type'] = 'else'
     optimal_option['num_parallels'] = args.num_client_parallel
     flgo.init(os.path.join('task', task), algo, optimal_option, model=model, Logger=FullLogger).run()

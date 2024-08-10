@@ -91,11 +91,11 @@ if __name__=='__main__':
     modules = [".".join(["algorithm", args.algorithm]), ".".join(["develop",  args.algorithm]),".".join(["flgo", "algorithm",  args.algorithm])]
     if args.num_client_parallel>0:
         try:
-            algo = importlib.import_module(".".join(["algorithm", "accelerate", option['algorithm']]))
+            algo = importlib.import_module(".".join(["algorithm", "accelerate", args.algorithm]))
             acce = True
         except:
             algo = None
-            warnings.warn(f"There is no acceleration support for {option['algorithm']}")
+            warnings.warn(f"There is no acceleration support for {args.algorithm}")
     if algo is None:
         for m in modules:
             try:
@@ -116,7 +116,7 @@ if __name__=='__main__':
             except:
                 print("using default model")
                 model = None
-    if acce and option['parallel']>0:
+    if acce and args.num_client_parallel>0:
         optimal_option['num_parallels'] =args.num_client_parallel
         optimal_option['parallel_type'] = 'obj'
     fedrun(os.path.join('task', task), algo, optimal_option=optimal_option, seeds=seeds, Logger=FullLogger, model=model, put_interval=args.put_interval, available_interval=args.available_interval, max_processes_per_device=args.max_pdev, mmap=args.mmap, seq=args.seq)
