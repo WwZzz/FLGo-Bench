@@ -58,6 +58,7 @@ def read_option():
     parser.add_argument('--load_mode', help = 'load_mode', type=str, default='')
     parser.add_argument('--seq', help='tune sequencially',  action="store_true", default=False)
     parser.add_argument('--num_client_parallel', help='number of parallel processing',   type=int, default=0)
+    parser.add_argument('--test_parallel', help='test parallel',  action="store_true", default=False)
     try:
         option = vars(parser.parse_known_args()[0])
     except IOError as msg:
@@ -114,7 +115,8 @@ if __name__=='__main__':
                 model = None
     if acce and option['num_client_parallel']>0:
         paras['num_parallels'] = option['num_client_parallel']
-        paras['parallel_type'] = 'obj'
+        paras['parallel_type'] = 'else'
+    if option['test_parallel']: paras['test_parallel'] = True
     if option['seq']:
         res = flgo.tune_sequencially(task, method, paras, model=model, Logger=TuneLogger, mmap=mmap)
     else:

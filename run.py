@@ -27,6 +27,7 @@ def read_args():
     parser.add_argument('--load_mode', help = 'load_mode', type=str, default='')
     parser.add_argument('--seq', help='run sequencially',  action="store_true", default=False)
     parser.add_argument('--num_client_parallel', help = 'number of parallel processing', type=int, default=0)
+    parser.add_argument('--test_parallel', help='test parallel',  action="store_true", default=False)
     return parser.parse_known_args()
 
 args = read_args()[0]
@@ -118,5 +119,7 @@ if __name__=='__main__':
                 model = None
     if acce and args.num_client_parallel>0:
         optimal_option['num_parallels'] =args.num_client_parallel
-        optimal_option['parallel_type'] = 'obj'
+        optimal_option['parallel_type'] = 'else'
+    if args.test_parallel:
+        optimal_option['test_parallel'] = True
     fedrun(os.path.join('task', task), algo, optimal_option=optimal_option, seeds=seeds, Logger=FullLogger, model=model, put_interval=args.put_interval, available_interval=args.available_interval, max_processes_per_device=args.max_pdev, mmap=args.mmap, seq=args.seq)
