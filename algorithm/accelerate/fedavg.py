@@ -1,8 +1,11 @@
+import collections
+
 import flgo.algorithm.fedbase as fedbase
 import torch
 from tqdm import tqdm
 import ray
 import torch.utils.data as tud
+import torch.nn as nn
 import copy
 import flgo.simulator.base as ss
 import flgo.utils.shared_memory as fus
@@ -59,7 +62,7 @@ class Server(fedbase.BasicServer):
                         loss.backward()
                         if config.get('clip_grad', -1) > 0: torch.nn.utils.clip_grad_norm_(parameters=model.parameters(), max_norm=config.get('clip_grad', 0.))
                         optimizer.step()
-                return {'model': model}
+                return {'model': model.to('cpu')}
             self.model = self.model.to(torch.device('cpu'))
             if not hasattr(self, '_client_data_sharable'):
                 if paralleltype != 'obj':
