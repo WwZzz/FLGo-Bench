@@ -20,6 +20,7 @@ def read_args():
     parser.add_argument('--config', type=str, help='configuration of hypara', default='')
     parser.add_argument('--load_mode', help = 'load_mode', type=str, default='')
     parser.add_argument('--num_client_parallel', help = 'num of client processes', type=int, default=0)
+    parser.add_argument('--test_parallel', help='test parallel',  action="store_true", default=False)
     return parser.parse_known_args()
 
 args = read_args()[0]
@@ -86,5 +87,5 @@ if __name__=='__main__':
     if acce and args.num_client_parallel>0:
         optimal_option['num_parallels'] =args.num_client_parallel
         optimal_option['parallel_type'] = 'else'
-    optimal_option['num_parallels'] = args.num_client_parallel
+    if args.test_parallel: optimal_option['test_parallel'] = True
     flgo.init(os.path.join('task', task), algo, optimal_option, model=model, Logger=FullLogger).run()
