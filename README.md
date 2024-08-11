@@ -470,6 +470,7 @@ seed: [2,4388,15,333,967] # results are averaged over five random seeds
 | fedavg        | M5        | 69.11±0.91    |
 | scaffold      | M5        | 64.40±0.42    |
 | feddyn        | M5        | 60.65±0.76    |
+| moon          | M5        | 69.08±0.86    |
 
 <div style="text-align: right;">
 <a href="#Nevigation" style="text-decoration: none; background-color: #0366d6; color: white; padding: 5px 10px; border-radius: 5px;">Back</a>
