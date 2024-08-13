@@ -468,6 +468,7 @@ seed: [2,4388,15,333,967] # results are averaged over five random seeds
 | **Algorithm** | **model** | **client-id** |   
 |---------------|-----------|---------------|
 | fedavg        | M5        | 69.11±0.91    |
+| fedprox       | M5        | 69.30±0.87    |
 | scaffold      | M5        | 64.40±0.42    |
 | feddyn        | M5        | 60.65±0.76    |
 | moon          | M5        | 69.08±0.86    |
