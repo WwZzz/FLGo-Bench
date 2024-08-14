@@ -41,6 +41,19 @@ python performance_analyze.py --task TASK --algorithm ALGORITHM --model MODEL --
 python show_result.py --task TASK --algorithm ALGORITHM --model MODEL --config CONFIG_PATH 
 ```
 
+## Algorithmic Configuration
+We search the algorithmic hyper-parameter for each algorihtm according to the table below
+
+| **Algorithm** | **Hyper-Parameter**                 |
+|---------------|-------------------------------------|
+| fedavg        | -                                   |
+| fedprox       | μ ∈ [0.0001, 0.001, 0.01, 0.1, 1.0] | 
+| scaffold      | η = 1.0                             |
+| feddyn        | α ∈ [0.001, 0.01, 0.03, 0.1]        |
+| moon          | μ ∈ [0.1, 1.0, 5.0, 10.0], τ=0.5    | 
+
+
+**Remark:** To specify the search space of the hyper-parameters, add `algo_para: [V1, V2, ...]` in the corresponding config file.
 # Experimental Results
 ## Nevigation
 
