@@ -60,6 +60,7 @@ We search the algorithmic hyper-parameter for each algorihtm according to the ta
 - [CIFAR10](#CIFAR10)
 - [CIFAR100](#CIFAR100)
 - [MNIST](#MNIST)
+- [FEMNIST](#FEMNIST)
 - [AgNews](#AGNEWS)
 - [Office-Caltech10](#Office-Caltech10)
 - [DomainNet](#DomainNet)
@@ -260,6 +261,68 @@ proportion: 0.2
 <div style="text-align: right;">
 <a href="#Nevigation" style="text-decoration: none; background-color: #0366d6; color: white; padding: 5px 10px; border-radius: 5px;">Back</a>
 </div>
+
+## FEMNIST
+### 3597 Clients
+```
+learning_rate: [0.001, 0.005, 0.01, 0.05, 0.1]
+batch_size: 50
+weight_decay: 1e-3
+lr_scheduler: 0
+learning_rate_decay: 0.9998
+num_rounds: 2000
+num_epochs: 5
+clip_grad: 10
+proportion: 0.2
+early_stop: 400
+train_holdout: 0.2
+local_test: True
+no_log_console: True
+log_file: True
+```
+
+| **Algorithm** | **model** | **client-id** |   
+|---------------|-----------|---------------|
+| fedavg        | CNN       | lr=0.1        |
+| fedprox       | CNN       |               |
+| scaffold      | CNN       |               |
+| feddyn        | CNN       |               |
+| moon          | CNN       |               |
+
+
+
+#### Main Results
+```
+seed: [2,4388,15,333,967] # results are averaged over five random seeds
+proportion: 0.2
+```
+*Global Test*
+
+| **Algorithm** | **model** | **client-id** |   
+|---------------|-----------|---------------|
+| fedavg        | CNN       | lr=0.1        |
+| fedprox       | CNN       |               |
+| scaffold      | CNN       |               |
+| feddyn        | CNN       |               |
+| moon          | CNN       |               |
+
+
+*Local Test*
+
+| **Algorithm** | **model** | **client-id** |   
+|---------------|-----------|---------------|
+| fedavg        | CNN       | lr=0.1        |
+| fedprox       | CNN       |               |
+| scaffold      | CNN       |               |
+| feddyn        | CNN       |               |
+| moon          | CNN       |               |
+
+
+
+<div style="text-align: right;">
+<a href="#Nevigation" style="text-decoration: none; background-color: #0366d6; color: white; padding: 5px 10px; border-radius: 5px;">Back</a>
+</div>
+
 
 ## AGNEWS
 ### 100 Clients
