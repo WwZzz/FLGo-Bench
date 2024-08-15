@@ -1,5 +1,21 @@
 # FLGo-Bench
 Produce results of federated algorithms on various benchmarks
+
+## Citation
+
+Please cite our paper in your publications if this code helps your research.
+
+```
+@misc{wang2023flgo,
+      title={FLGo: A Fully Customizable Federated Learning Platform}, 
+      author={Zheng Wang and Xiaoliang Fan and Zhaopeng Peng and Xueheng Li and Ziqi Yang and Mingkuan Feng and Zhicheng Yang and Xiao Liu and Cheng Wang},
+      year={2023},
+      eprint={2306.12079},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG}
+}
+```
+
 ## Usage
 - **Tuning Command**
 ```
