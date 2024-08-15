@@ -276,7 +276,7 @@ proportion: 0.2
 
 | client-id            |
 | :-------------------------:|
-| ![femnist_img](/task/femnist_c3597/res.png)  |
+| <img src="/task/femnist_c3597/res.png" alt="Alt text" width="500" height="300"> |
 
 ```
 learning_rate: [0.001, 0.005, 0.01, 0.05, 0.1]
@@ -343,7 +343,7 @@ proportion: 0.2
 
 | dir1.0            |
 | :-------------------------:|
-| ![agnew_dir1.0_img](/task/agnews_dir1.0_c100/res.png)  |
+|  <img src="/task/agnews_dir1.0_c100/res.png" alt="Alt text" width="500" height="300"> |
 
 
 ```
@@ -466,7 +466,7 @@ Size-Weighted *Local Test*
 
 | domain           |
 | :-------------------------:|
-| ![domainnet_img](/task/domainnet_c6/res.png)  |
+|  <img src="/task/domainnet_c6/res.png" alt="Alt text" width="500" height="300"> |
 
 ```
 learning_rate: [0.001, 0.005, 0.01, 0.05, 0.1]
@@ -539,7 +539,7 @@ seed: [2,4388,15,333,967] # results are averaged over five random seeds
 
 | client-id            |
 | :-------------------------:|
-| ![speech_img](/task/speechcommand_c2112/res.png)  |
+|  <img src="/task/speechcommand_c2112/res.png" alt="Alt text" width="500" height="300">  |
 
 
 ```
@@ -590,7 +590,7 @@ seed: [2,4388,15,333,967] # results are averaged over five random seeds
 
 | client-id            |
 | :-------------------------:|
-| ![shakespeare_img](/task/shakespeare_c1012/res.png)  |
+| <img src="/task/shakespeare_c1012/res.png" alt="Alt text" width="500" height="300">  |
 
 
 ```
