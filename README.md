@@ -68,6 +68,11 @@ We search the algorithmic hyper-parameter for each algorihtm according to the ta
 - [Shakespeare](#Shakespeare)
 ## CIFAR10
 ### 100 Clients
+
+| iid            |  dir5.0 |dir2.0 |dir1.0 |dir0.1 |
+| :-------------------------:|:-------------------------: |:-------------------------: |:-------------------------: |:-------------------------: |
+| ![iid_img](/task/cifar10_iid_c100/res.png)  |  ![d5_img](/task/cifar10_dir5.0_c100/res.png) |  ![d2_img](/task/cifar10_dir2.0_c100/res.png) |  ![d1_img](/task/cifar10_dir1.0_c100/res.png) |  ![d0_img](/task/cifar10_dir0.1_c100/res.png) |
+
 #### Configuration
 ```
 learning_rate: [0.001, 0.005, 0.01, 0.05, 0.1]
@@ -92,11 +97,6 @@ no_log_console: True
 | scaffold      | CNN       | lr=0.1           | lr=0.1         | lr=0.1          | lr=0.1         | lr=0.1           |
 | moon          | CNN       | lr=0.1, μ=0.1    | lr=0.1, μ=0.1  | lr=0.05, μ=0.1  | lr=0.1, μ=0.1  | lr=0.1, μ=0.1    |
 | feddyn        | CNN       | lr=0.1, α=0.1    | lr=0.1, α=0.1  | lr=0.05, α=0.1  | lr=0.1, α=0.03 | lr=0.05, α=0.03  |
-
-```
-fedprox: μ ∈ [0.0001, 0.001, 0.01, 0.1, 1.0]
-moon: μ ∈ [0.1, 1.0, 5.0, 10.0]
-```
 
 #### Main Results
 ```
@@ -137,6 +137,10 @@ proportion: 0.2
 
 ## CIFAR100
 ### 100 Clients
+
+| iid      |dir1.0 |dir0.1 |
+|:-------------------------:|:-------------------------: |:-------------------------: |
+| ![cifar100_iid_img](/task/cifar100_iid_c100/res.png)  |  ![cifar100_d1_img](/task/cifar100_dir1.0_c100/res.png) |  ![cifar100_d0_img](/task/cifar10_dir0.1_c100/res.png) |
 #### Configuration
 ```
 learning_rate: [0.001, 0.005, 0.01, 0.05, 0.1]
@@ -196,6 +200,11 @@ proportion: 0.2
 
 ## MNIST
 ### 100 Clients
+
+| iid            |  dir5.0 |dir2.0 |dir1.0 |dir0.1 |
+| :-------------------------:|:-------------------------: |:-------------------------: |:-------------------------: |:-------------------------: |
+| ![mnistiid_img](/task/mnist_iid_c100/res.png)  |  ![mnistd5_img](/task/mnist_dir5.0_c100/res.png) |  ![mnistd2_img](/task/mnist_dir2.0_c100/res.png) |  ![mnistd1_img](/task/mnist_dir1.0_c100/res.png) |  ![mnistd0_img](/task/mnist_dir0.1_c100/res.png) |
+
 ```
 learning_rate: [0.001, 0.005, 0.01, 0.05, 0.1]
 proportion: 0.2
@@ -264,6 +273,11 @@ proportion: 0.2
 
 ## FEMNIST
 ### 3597 Clients
+
+| client-id            |
+| :-------------------------:|
+| ![femnist_img](/task/femnist_c3597/res.png)  |
+
 ```
 learning_rate: [0.001, 0.005, 0.01, 0.05, 0.1]
 batch_size: 50
@@ -326,6 +340,12 @@ proportion: 0.2
 
 ## AGNEWS
 ### 100 Clients
+
+| dir1.0            |
+| :-------------------------:|
+| ![agnew_dir1.0_img](/task/agnews_dir1.0_c100/res.png)  |
+
+
 ```
 learning_rate: [0.1, 0.5, 1.0, 5.0, 10.0]
 batch_size: 50
@@ -384,6 +404,7 @@ proportion: 0.2
 
 ## Office-Caltech10
 ### 4 Clients
+
 ```
 learning_rate: [0.001, 0.005, 0.01, 0.05, 0.1]
 batch_size: 50
@@ -442,6 +463,11 @@ Size-Weighted *Local Test*
 
 ## DomainNet
 ### 6 Clients
+
+| domain           |
+| :-------------------------:|
+| ![domainnet_img](/task/domainnet_c6/res.png)  |
+
 ```
 learning_rate: [0.001, 0.005, 0.01, 0.05, 0.1]
 batch_size: 50
