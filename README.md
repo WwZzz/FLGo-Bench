@@ -536,6 +536,12 @@ seed: [2,4388,15,333,967] # results are averaged over five random seeds
 
 ## SpeechCommand
 ### 2112 Clients
+
+| client-id            |
+| :-------------------------:|
+| ![speech_img](/task/speechcommand_c2112/res.png)  |
+
+
 ```
 learning_rate: [0.001, 0.005, 0.01, 0.05, 0.1]
 batch_size: 50
@@ -581,6 +587,12 @@ seed: [2,4388,15,333,967] # results are averaged over five random seeds
 
 ## Shakespeare
 ### 1012 Clients
+
+| client-id            |
+| :-------------------------:|
+| ![shakespeare_img](/task/shakespeare_c1012/res.png)  |
+
+
 ```
 learning_rate: [0.1, 0.5, 1.0, 5.0, 10.0]
 batch_size: 50
