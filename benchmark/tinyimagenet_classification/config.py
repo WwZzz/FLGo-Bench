@@ -158,7 +158,7 @@ test_data = TinyImageNet(root, 'test', data_transforms['test'], resolution=224)
 val_data = TinyImageNet(root, 'val', data_transforms['val'], resolution=224)
 
 def get_model():
-    model_ft = models.resnet18(models.ResNet18_Weights)
+    model_ft = models.resnet18()
     # Finetune Final few layers to adjust for tiny imagenet input
     model_ft.avgpool = nn.AdaptiveAvgPool2d(1)
     num_features = model_ft.fc.in_features
