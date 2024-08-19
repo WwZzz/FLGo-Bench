@@ -56,10 +56,15 @@ def optimal_round_by_val(x, op={}):
     res = x.log.get('val_accuracy', None)
     return np.argmax(res) if res is not None else -np.inf
 
+def optimal_round_by_local_val(x, op={}):
+    res = x.log.get('local_val_accuracy', None)
+    return np.argmax(res) if res is not None else -np.inf
+
 tb.add_column(max_local_val_acc)
 tb.add_column(max_global_val_acc)
 tb.add_column(lr)
 tb.add_column(optimal_round_by_val)
+tb.add_column(optimal_round_by_local_val)
 sort_key =  max_local_val_acc.__name__
 gv = get_column(tb, max_global_val_acc.__name__)
 if len(gv)>0 and gv[0] is not None and gv[0]!=-np.inf:
