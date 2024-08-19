@@ -54,7 +54,8 @@ class Server(fedbase.BasicServer):
                 optimizer = calculator.get_optimizer(model, lr=config['lr'], weight_decay=config['weight_decay'], momentum=config['momentum'])
                 model.to(device)
                 model.train()
-                for epoch in range(config['num_epochs']):
+                num_steps = 0
+                while num_steps < config['num_steps']:
                     for i, batch in enumerate(data_loader):
                         batch = calculator.to_device(batch)
                         model.zero_grad()
@@ -62,6 +63,9 @@ class Server(fedbase.BasicServer):
                         loss.backward()
                         if config.get('clip_grad', -1) > 0: torch.nn.utils.clip_grad_norm_(parameters=model.parameters(), max_norm=config.get('clip_grad', 0.))
                         optimizer.step()
+                        num_steps += 1
+                        if num_steps>=config['num_steps']:
+                            break
                 return {'model': model.to('cpu')}
             self.model = self.model.to(torch.device('cpu'))
             if not hasattr(self, '_client_data_sharable'):
@@ -74,7 +78,7 @@ class Server(fedbase.BasicServer):
             for client_id in communicate_clients:
                 c = self.clients[client_id]
                 model = self.model
-                config = {'lr':c.learning_rate, 'weight_decay':c.weight_decay, 'momentum':c.momentum, 'batch_size':c.batch_size, 'num_epochs':c.num_epochs, 'clip_grad':c.clip_grad}
+                config = {'num_steps':c.num_steps, 'lr':c.learning_rate, 'weight_decay':c.weight_decay, 'momentum':c.momentum, 'batch_size':c.batch_size, 'num_epochs':c.num_epochs, 'clip_grad':c.clip_grad}
                 config['parallel_type'] = paralleltype
                 calculator = self.gv.TaskCalculator(device='cuda',  optimizer_name=self.option.get('optimizer', 'SGD'),)
                 # cpkg = client_train_fedavg.remote(self._client_data_refs[client_id], model, config, calculator)
