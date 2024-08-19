@@ -153,9 +153,9 @@ class TinyImageNet(ImageFolder):
             for image in t:
                 resize_img(image, 224)
 
-train_data = TinyImageNet(root, 'train', data_transforms['train'], resolution=224)
-test_data = TinyImageNet(root, 'test', data_transforms['test'], resolution=224)
-val_data = TinyImageNet(root, 'val', data_transforms['val'], resolution=224)
+train_data = TinyImageNet(root, 'train', data_transforms['train'], resolution=64)
+test_data = TinyImageNet(root, 'test', data_transforms['test'], resolution=64)
+val_data = TinyImageNet(root, 'val', data_transforms['val'], resolution=64)
 
 def get_model():
     model_ft = models.resnet18()

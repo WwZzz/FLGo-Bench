@@ -1,4 +1,4 @@
-from .model import vit, default_model, resnet18_gn
+from .model import vit, default_model, resnet18_gn, resnet18
 import flgo.benchmark.toolkits.visualization
 import flgo.benchmark.toolkits.partition
 
