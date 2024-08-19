@@ -311,13 +311,13 @@ no_log_console: True
 log_file: True
 ```
 
-| **Algorithm** | **model** | **client-id** |   
-|---------------|-----------|---------------|
-| fedavg        | CNN       | lr=0.1        |
-| fedprox       | CNN       |               |
-| scaffold      | CNN       |               |
-| feddyn        | CNN       |               |
-| moon          | CNN       |               |
+| **Algorithm** | **model** | **client-id**    |   
+|---------------|-----------|------------------|
+| fedavg        | CNN       | lr=0.1           |
+| fedprox       | CNN       | lr=0.1, μ=0.0001 |
+| scaffold      | CNN       |                  |
+| feddyn        | CNN       |                  |
+| moon          | CNN       |                  |
 
 
 
