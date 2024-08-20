@@ -90,13 +90,18 @@ class DomainDataset(torchvision.datasets.VisionDataset):
 
 class DomainNet(torch.utils.data.ConcatDataset):
     domains = ('clipart', 'infograph', 'painting', 'quickdraw', 'real', 'sketch')
-    def __init__(self, root, split:str='train', classes=None, download=True, transform=None, target_transform=None, transforms=None) -> None:
+    def __init__(self, root, split:str='all', classes=None, download=True, transform=None, target_transform=None, transforms=None) -> None:
         datasets = []
         for i, domain in enumerate(self.domains):
             transform = transform[i] if transform is list and len(transform) > i else transform
             target_transform = target_transform[i] if target_transform is list and len(target_transform) > i else target_transform
             transforms = transforms[i] if transforms is list and len(transforms) > i else transforms
-            datasets.append(DomainDataset(root, domain=domain, split=split, classes=classes, download=download, transform=transform, target_transform=target_transform, transforms=transforms))
+            if split!='all':
+                datasets.append(DomainDataset(root, domain=domain, split=split, classes=classes, download=download, transform=transform, target_transform=target_transform, transforms=transforms))
+            else:
+                data_train = DomainDataset(root, domain=domain, split='train', classes=classes, download=download, transform=transform, target_transform=target_transform, transforms=transforms)
+                data_test = DomainDataset(root, domain=domain, split='test', classes=classes, download=download, transform=transform, target_transform=target_transform, transforms=transforms)
+                datasets.append(torch.utils.data.ConcatDataset([data_train, data_test]))
         super().__init__(datasets)
         self.domain_ids = []
         g = 0
@@ -120,8 +125,9 @@ transform = transforms.Compose([
     transforms.Resize([256, 256]),
     transforms.PILToTensor(),
 ])
-train_data = DomainNet(path, 'train', classes=classes, transform=transform)
-test_data = DomainNet(path, 'test', classes=classes, transform=transform)
+train_data = DomainNet(path,
+                       classes=classes, transform=transform)
+test_data = None
 import torch.nn as nn
 from collections import OrderedDict
 
