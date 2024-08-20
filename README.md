@@ -636,10 +636,11 @@ no_log_console: True
 log_file: True
 ```
 
-| **Algorithm** | **model** | **client-id** |   
-|---------------|-----------|---------------|
-| fedavg        | LSTM      | lr=0.1        |
-| scaffold      | LSTM      | lr=0.5        |
+| **Algorithm** | **model** | **client-id**    |   
+|---------------|-----------|------------------|
+| fedavg        | LSTM      | lr=0.1           |
+| fedprox       | LSTM      | lr=0.1, μ=0.0001 |
+| scaffold      | LSTM      | lr=0.5           |
 
 
 #### Main Results
