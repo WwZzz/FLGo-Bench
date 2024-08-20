@@ -360,7 +360,6 @@ seed: [2,4388,15,333,967] # results are averaged over five random seeds
 <a href="#Nevigation" style="text-decoration: none; background-color: #0366d6; color: white; padding: 5px 10px; border-radius: 5px;">Back</a>
 </div>
 
-
 ## AGNEWS
 ### 100 Clients
 
@@ -570,6 +569,10 @@ seed: [2,4388,15,333,967] # results are averaged over five random seeds
 
 ```
 ```
+
+<div style="text-align: right;">
+<a href="#Nevigation" style="text-decoration: none; background-color: #0366d6; color: white; padding: 5px 10px; border-radius: 5px;">Back</a>
+</div>
 
 ## SpeechCommand
 ### 2112 Clients
