@@ -331,7 +331,6 @@ log_file: True
 #### Main Results
 ```
 seed: [2,4388,15,333,967] # results are averaged over five random seeds
-proportion: 0.2
 ```
 *Global Test*
 
@@ -427,6 +426,10 @@ proportion: 0.2
 
 ## Office-Caltech10
 ### 4 Clients
+
+| domain           |
+| :-------------------------:|
+|  <img src="/task/office_caltech10_c4/res.png" alt="Alt text" width="300" height="300"> |
 
 ```
 learning_rate: [0.001, 0.005, 0.01, 0.05, 0.1]
