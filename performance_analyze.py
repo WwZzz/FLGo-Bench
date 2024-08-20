@@ -49,6 +49,9 @@ def max_local_val_acc(x, op={}):
 def max_global_val_acc(x, op={}):
     return max_log(x, {'x': 'val_accuracy'})
 
+def col_model(x, op={}):
+    return x.option['model']
+
 def lr(x, op={}):
     return x.option['learning_rate']
 
@@ -63,6 +66,7 @@ def optimal_round_by_local_val(x, op={}):
 tb.add_column(max_local_val_acc)
 tb.add_column(max_global_val_acc)
 tb.add_column(lr)
+tb.add_column(col_model)
 tb.add_column(optimal_round_by_val)
 tb.add_column(optimal_round_by_local_val)
 sort_key =  max_local_val_acc.__name__
