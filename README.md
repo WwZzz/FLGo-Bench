@@ -18,12 +18,12 @@ Please cite our paper in your publications if this code helps your research.
 
 ## Usage
 - **Tuning Command**
-```
+```python
 python tune.py --task TASKNAME --algorithm ALGORITHM --config CONFIG_PATH --gpu GPUids 
 ```
 
 - **Running Command**
-```
+```python
 python run.py --task TASKNAME --algorithm ALGORITHM --config CONFIG_PATH --gpu GPUids 
 ```
 - **Optional Args**
@@ -51,10 +51,10 @@ python run.py --task mnist_iid_c100 --algorithm fedavg --config ./config/general
 ## Analysis 
 ```python
 # Show tuning Result
-python performance_analyze.py --task TASK --algorithm ALGORITHM --model MODEL --config CONFIG_PATH 
+python get_tune_res.py --task TASK --algorithm ALGORITHM --model MODEL --config CONFIG_PATH 
 
 # Show Running Result
-python show_result.py --task TASK --algorithm ALGORITHM --model MODEL --config CONFIG_PATH 
+python get_run_res.py --task TASK --algorithm ALGORITHM --model MODEL --config CONFIG_PATH 
 ```
 
 ## Algorithmic Configuration
