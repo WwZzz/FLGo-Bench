@@ -429,7 +429,7 @@ proportion: 0.2
 
 | domain           |
 | :-------------------------:|
-|  <img src="/task/office_caltech10_c4/res.png" alt="Alt text" width="300" height="300"> |
+|  <img src="/task/office_caltech10_c4/res.png" alt="Alt text" width="500" height="500"> |
 
 ```
 learning_rate: [0.001, 0.005, 0.01, 0.05, 0.1]
