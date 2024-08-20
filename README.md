@@ -115,7 +115,7 @@ no_log_console: True
 | feddyn        | CNN         | lr=0.1, α=0.1    | lr=0.1, α=0.1  | lr=0.05, α=0.1  | lr=0.1, α=0.03 | lr=0.05, α=0.03  |
 |               |             |                  |                |                 |                |                  |
 | fedavg        | ResNet18    |                  |                |                 |                |                  |
-| fedavg        | ResNet18-GN |                  |                |                 |                |                  |
+| fedavg        | ResNet18-GN | lr=0.1           | lr=0.1         | lr=0.1          | lr=0.1         |                  |
 
 
 
