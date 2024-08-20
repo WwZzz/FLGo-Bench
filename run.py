@@ -1,16 +1,14 @@
 import argparse
 import warnings
-
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 import flgo
-from flgo.experiment.logger import BasicLogger
 import flgo.experiment.device_scheduler as ds
-import numpy as np
 import torch.multiprocessing
 import yaml
 import importlib
-import os
-import flgo.utils.fflow as fuf
-import time
+import logger
 
 def read_args():
     parser = argparse.ArgumentParser()
@@ -28,6 +26,7 @@ def read_args():
     parser.add_argument('--seq', help='run sequencially',  action="store_true", default=False)
     parser.add_argument('--num_client_parallel', help = 'number of parallel processing', type=int, default=0)
     parser.add_argument('--test_parallel', help='test parallel',  action="store_true", default=False)
+    parser.add_argument('--logger', help='test parallel', type=str, default='FullLogger')
     return parser.parse_known_args()
 
 args = read_args()[0]
@@ -40,36 +39,6 @@ with open(config, 'r') as inf:
 option['gpu'] = gpus
 optimal_option = option
 optimal_option['load_mode'] = args.load_mode
-class FullLogger(BasicLogger):
-    def log_once(self, *args, **kwargs):
-        test_metric = self.server.test()
-        for met_name, met_val in test_metric.items():
-            self.output['test_' + met_name].append(met_val)
-        val_metric = self.server.test(flag='val')
-        for met_name, met_val in val_metric.items():
-            self.output['val_' + met_name].append(met_val)
-        # calculate weighted averaging of metrics on training datasets across participants
-        local_data_vols = [c.datavol for c in self.clients]
-        total_data_vol = sum(local_data_vols)
-        train_metrics = self.server.global_test(flag='train')
-        for met_name, met_val in train_metrics.items():
-            self.output['train_' + met_name + '_dist'].append(met_val)
-            self.output['train_' + met_name].append(1.0 * sum([client_vol * client_met for client_vol, client_met in zip(local_data_vols, met_val)]) / total_data_vol)
-        # calculate weighted averaging and other statistics of metrics on validation datasets across clients
-        local_val_metrics = self.server.global_test(flag='val')
-        for met_name, met_val in local_val_metrics.items():
-            self.output['local_val_'+met_name+'_dist'].append(met_val)
-            self.output['local_val_' + met_name].append(1.0 * sum([client_vol * client_met for client_vol, client_met in zip(local_data_vols, met_val)]) / total_data_vol)
-            self.output['mean_local_val_' + met_name].append(np.mean(met_val))
-            self.output['std_local_val_' + met_name].append(np.std(met_val))
-        local_test_metrics = self.server.global_test(flag='test')
-        for met_name, met_val in local_test_metrics.items():
-            self.output['local_test_'+met_name+'_dist'].append(met_val)
-            self.output['local_test_' + met_name].append(1.0 * sum([client_vol * client_met for client_vol, client_met in zip(local_data_vols, met_val)]) / total_data_vol)
-            self.output['mean_local_test_' + met_name].append(np.mean(met_val))
-            self.output['std_local_test_' + met_name].append(np.std(met_val))
-        # output to stdout
-        self.show_current_output()
 
 def fedrun(task, algo, optimal_option={}, seeds=[0], Logger=None, model=None, put_interval=10, available_interval=10, max_processes_per_device=10, mmap=False, seq=False):
     runner_dict = []
@@ -122,4 +91,5 @@ if __name__=='__main__':
         optimal_option['parallel_type'] = 'else'
     if args.test_parallel:
         optimal_option['test_parallel'] = True
-    fedrun(os.path.join('task', task), algo, optimal_option=optimal_option, seeds=seeds, Logger=FullLogger, model=model, put_interval=args.put_interval, available_interval=args.available_interval, max_processes_per_device=args.max_pdev, mmap=args.mmap, seq=args.seq)
+    Logger = getattr(logger, args.logger)
+    fedrun(os.path.join('task', task), algo, optimal_option=optimal_option, seeds=seeds, Logger=Logger, model=model, put_interval=args.put_interval, available_interval=args.available_interval, max_processes_per_device=args.max_pdev, mmap=args.mmap, seq=args.seq)

@@ -1,46 +1,14 @@
 import sys
 import os.path
 import warnings
-
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 import importlib
 import argparse
 import os.path
-import torch.utils.data as tud
 import flgo
-from flgo.experiment.logger import BasicLogger
 import torch.multiprocessing as mlp
 import yaml
-import collections
-import numpy as np
-
-class TuneLogger(BasicLogger):
-    def initialize(self, *args, **kwargs):
-        if self.server.val_data is not None and len(self.server.val_data) > 0:
-            self.set_es_key("val_accuracy")
-        else:
-            self.set_es_key("local_val_accuracy")
-        self.set_es_direction(1)
-    def log_once(self, *args, **kwargs):
-        if self.server.val_data is not None and len(self.server.val_data)>0:
-            sval = self.server.test(self.server.model, 'val')
-            for met_name in sval.keys():
-                self.output['val_'+met_name].append(sval[met_name])
-        else:
-            cvals = [c.test(self.server.model, 'val') for c in self.clients]
-            cdatavols = np.array([len(c.val_data) for c in self.clients])
-            cdatavols = cdatavols/cdatavols.sum()
-            cval_dict = {}
-            if len(cvals) > 0:
-                for met_name in cvals[0].keys():
-                    if met_name not in cval_dict.keys(): cval_dict[met_name] = []
-                    for cid in range(len(cvals)):
-                        cval_dict[met_name].append(cvals[cid][met_name])
-                    self.output['local_val_' + met_name].append(float((np.array(cval_dict[met_name])*cdatavols).sum()))
-                    self.output['min_local_val_' + met_name].append(float(np.array(cval_dict[met_name]).min()))
-                    self.output['max_local_val_' + met_name].append(float(np.array(cval_dict[met_name]).max()))
-        self.show_current_output()
-
+import logger
 
 def read_option():
     parser = argparse.ArgumentParser()
@@ -59,6 +27,7 @@ def read_option():
     parser.add_argument('--seq', help='tune sequencially',  action="store_true", default=False)
     parser.add_argument('--num_client_parallel', help='number of parallel processing',   type=int, default=0)
     parser.add_argument('--test_parallel', help='test parallel',  action="store_true", default=False)
+    parser.add_argument('--logger', help='test parallel', type=str, default='TuneLogger')
     try:
         option = vars(parser.parse_known_args()[0])
     except IOError as msg:
@@ -117,7 +86,8 @@ if __name__=='__main__':
         paras['num_parallels'] = option['num_client_parallel']
         paras['parallel_type'] = 'else'
     if option['test_parallel']: paras['test_parallel'] = True
+    Logger = getattr(logger, option['logger'])
     if option['seq']:
-        res = flgo.tune_sequencially(task, method, paras, model=model, Logger=TuneLogger, mmap=mmap)
+        res = flgo.tune_sequencially(task, method, paras, model=model, Logger=Logger, mmap=mmap)
     else:
-        res = flgo.tune(task, method, paras, model=model, Logger=TuneLogger, scheduler=scheduler, mmap=mmap)
+        res = flgo.tune(task, method, paras, model=model, Logger=Logger, scheduler=scheduler, mmap=mmap)

@@ -1,15 +1,12 @@
 import argparse
 import warnings
-
+import logger
 import flgo
 from flgo.experiment.logger import BasicLogger
-import flgo.experiment.device_scheduler as ds
 import numpy as np
-import torch.multiprocessing
 import yaml
 import importlib
 import os
-import time
 
 def read_args():
     parser = argparse.ArgumentParser()
@@ -18,6 +15,7 @@ def read_args():
     parser.add_argument('--model', help = 'model name', type=str, default='')
     parser.add_argument('--gpu', help='GPU IDs and empty input is equal to using CPU', type=int, default=[0])
     parser.add_argument('--config', type=str, help='configuration of hypara', default='')
+    parser.add_argument('--logger', help='test parallel', type=str, default='SimpleLogger')
     parser.add_argument('--load_mode', help = 'load_mode', type=str, default='')
     parser.add_argument('--num_client_parallel', help = 'num of client processes', type=int, default=0)
     parser.add_argument('--test_parallel', help='test parallel',  action="store_true", default=False)
@@ -27,8 +25,11 @@ args = read_args()[0]
 task = args.task
 gpus = args.gpu
 config = args.config
-with open(config, 'r') as inf:
-    option = yaml.load(inf, Loader=yaml.FullLoader)
+if config!='' and os.path.exists(config):
+    with open(config, 'r') as inf:
+        option = yaml.load(inf, Loader=yaml.FullLoader)
+else:
+    option = {}
 option['gpu'] = gpus
 optimal_option = option
 
@@ -88,4 +89,5 @@ if __name__=='__main__':
         optimal_option['num_parallels'] =args.num_client_parallel
         optimal_option['parallel_type'] = 'else'
     if args.test_parallel: optimal_option['test_parallel'] = True
-    flgo.init(os.path.join('task', task), algo, optimal_option, model=model, Logger=FullLogger).run()
+    Logger = getattr(logger, args.logger)
+    flgo.init(os.path.join('task', task), algo, optimal_option, model=model, Logger=Logger).run()
