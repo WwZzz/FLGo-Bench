@@ -214,3 +214,52 @@ class AlexNet(nn.Module):
 def get_model():
     # return torchvision.models.get_model('resnet18', num_classes = len(classes))
     return AlexNet(len(classes))
+
+if __name__=='__main__':
+    import matplotlib.pyplot as plt
+    import numpy as np
+    from PIL import Image
+    t2i = transforms.Compose([transforms.ToPILImage(), ])
+    WIDTH = 2
+    COLS = 3
+    for k, dk in enumerate(train_data):
+        fig, ax = plt.subplots(nrows=WIDTH, ncols=WIDTH, sharex='all', sharey='all')
+        ax = ax.flatten()
+        for i in range(WIDTH**2):
+            dk_train = dk.datasets[0]
+            idx = np.random.choice(range(len(dk_train)))
+            img = t2i(dk_train[idx][0])
+            ax[i].set_title(classes[int(dk_train[idx][1])], loc='center',pad=0, fontsize=11, fontweight='bold')
+            ax[i].imshow(img, interpolation='nearest')
+        ax[0].set_xticks([])
+        ax[0].set_yticks([])
+        plt.axis('off')
+        # plt.tight_layout()
+        # fig.suptitle(domains[k], fontsize=14, fontweight='bold')
+        plt.savefig(f'tmp_{domains[k]}.png', dpi=300)
+    imgs = [Image.open(f'tmp_{domain}.png') for k, domain in enumerate(domains)]
+    n = len(imgs)
+    ROWS = int(n/COLS)
+    if n % COLS != 0: ROWS+=1
+    fig, axs = plt.subplots(ROWS, COLS, figsize=(5,3),sharex='all', sharey='all')
+    axs = axs.flatten()
+    # 遍历图像并绘制
+    for k, (ax, img) in enumerate(zip(axs, imgs)):
+        ax.imshow(img, interpolation='nearest')
+        ax.set_title(f"Client-{domains[k]}", loc='center', pad=0, fontsize=11, fontweight='bold')
+        ax.axis('off')  # 不显示坐标轴
+    # 显示拼接后的图形
+    axs[0].set_xticks([])
+    axs[0].set_yticks([])
+    # plt.subplots_adjust(left=0.1, right=0.9, top=0.9, bottom=0.1, wspace=0., hspace=0.)
+    plt.tight_layout()
+    plt.axis('off')
+    plt.savefig('res.png', dpi=300)
+    [os.remove(f'tmp_{domain}.png') for k, domain in enumerate(domains)]
+    # plt.show()
+    # img = data[0].datasets[0][0][0]
+    # img = tensor2img(img)
+    # import matplotlib.pyplot as plt
+    # plt.imshow(img)
+    # plt.show()
+    print('ok')
