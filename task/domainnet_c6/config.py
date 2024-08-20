@@ -9,7 +9,7 @@ from collections import OrderedDict
 domain_list = [
     'clipart', 'infograph', 'painting', 'quickdraw', 'real', 'sketch'
 ]
-path = '/data/wz/domainnet'
+path = os.path.dirname(os.path.abspath(__file__))
 classes = [
     'bird',
     'feather',
