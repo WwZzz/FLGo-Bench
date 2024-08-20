@@ -258,24 +258,31 @@ class SyntheticDigits(VisionDataset):
     def extra_repr(self):
         return "Split: {}".format("Train" if self.train is True else "Test")
 
-usps_train = datasets.USPS(root=root, train=True, download=True, transform=transforms.Compose([transforms.Resize([28,28]),transforms.Grayscale(num_output_channels=3),transforms.ToTensor(),transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))]))
-usps_test = datasets.USPS(root=root, train=False, download=True, transform=transforms.Compose([transforms.Resize([28,28]),transforms.Grayscale(num_output_channels=3),transforms.ToTensor(),transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))]))
+trans_usps = transforms.Compose([transforms.Resize([28,28]),transforms.Grayscale(num_output_channels=3),transforms.ToTensor(),transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
+trans_svhn = transforms.Compose([transforms.Resize([28,28]),transforms.ToTensor(),transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
+trans_mnist = transforms.Compose([transforms.Grayscale(num_output_channels=3),transforms.ToTensor(),transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
+trans_syn = transforms.Compose([transforms.Resize([28,28]),transforms.ToTensor(),transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
+trans_mnistm = transforms.Compose([transforms.ToTensor(),transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
+trans_usps = trans_svhn = trans_mnist = trans_syn = trans_mnistm = transforms.Compose([transforms.Resize([28,28]),transforms.ToTensor()])
+
+usps_train = datasets.USPS(root=root, train=True, download=True, transform=trans_usps)
+usps_test = datasets.USPS(root=root, train=False, download=True, transform=trans_usps)
 usps = tud.ConcatDataset([usps_train, usps_test])
 
-svhn_train = datasets.SVHN(root=root, split='train', download=True, transform=transforms.Compose([transforms.Resize([28,28]),transforms.ToTensor(),transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))]))
-svhn_test = datasets.SVHN(root=root, split='test', download=True, transform=transforms.Compose([transforms.Resize([28,28]),transforms.ToTensor(),transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))]))
+svhn_train = datasets.SVHN(root=root, split='train', download=True, transform=trans_svhn)
+svhn_test = datasets.SVHN(root=root, split='test', download=True, transform=trans_svhn)
 svhn = tud.ConcatDataset([svhn_train, svhn_test])
 
-mnist_train = datasets.MNIST(root=root, train=True, download=True, transform=transforms.Compose([transforms.Grayscale(num_output_channels=3),transforms.ToTensor(),transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))]))
-mnist_test = datasets.MNIST(root=root, train=False, download=True, transform=transforms.Compose([transforms.Grayscale(num_output_channels=3),transforms.ToTensor(),transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))]))
+mnist_train = datasets.MNIST(root=root, train=True, download=True, transform=trans_mnist)
+mnist_test = datasets.MNIST(root=root, train=False, download=True, transform=trans_mnist)
 mnist = tud.ConcatDataset([mnist_train, mnist_test])
 
-synthetic_train = SyntheticDigits(root=root, train=True, download=True, transform=transforms.Compose([transforms.Resize([28,28]),transforms.ToTensor(),transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))]))
-synthetic_test = SyntheticDigits(root=root, train=False, download=True, transform=transforms.Compose([transforms.Resize([28,28]),transforms.ToTensor(),transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))]))
+synthetic_train = SyntheticDigits(root=root, train=True, download=True, transform=trans_syn)
+synthetic_test = SyntheticDigits(root=root, train=False, download=True, transform=trans_syn)
 synthetic = tud.ConcatDataset([synthetic_train, synthetic_test])
 
-mnistm_train = MNISTM(root=root, train=True, download=True, transform=transforms.Compose([transforms.ToTensor(),transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))]))
-mnistm_test = MNISTM(root=root, train=False, download=True, transform=transforms.Compose([transforms.ToTensor(),transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))]))
+mnistm_train = MNISTM(root=root, train=True, download=True, transform=trans_mnistm)
+mnistm_test = MNISTM(root=root, train=False, download=True, transform=trans_mnistm)
 mnistm = tud.ConcatDataset([mnistm_train, mnistm_test])
 
 train_data = [usps, svhn, mnist, synthetic, mnistm]
@@ -367,7 +374,52 @@ def get_model(*args, **kwargs) -> torch.nn.Module:
 
 
 if __name__ == '__main__':
-    model = get_model()
-    x = torch.randn(1, 3, 28, 28)
-    y = model(x)
-    print(y.shape)
+    import matplotlib.pyplot as plt
+    import numpy as np
+    from PIL import Image
+
+    domains = ['usps', 'svhn', 'mnist', 'synthetic', 'mnistm']
+    t2i = transforms.Compose([transforms.ToPILImage(), ])
+    WIDTH = 3
+    COLS = 5
+    for k, dk in enumerate(train_data):
+        fig, ax = plt.subplots(nrows=WIDTH, ncols=WIDTH, sharex='all', sharey='all')
+        ax = ax.flatten()
+        for i in range(WIDTH**2):
+            dk_train = dk.datasets[0]
+            idx = np.random.choice(range(len(dk_train)))
+            img = t2i(dk_train[idx][0])
+            ax[i].set_title(f"{int(dk_train[idx][1])}", loc='center',pad=0, fontsize=20, fontweight='bold')
+            ax[i].imshow(img, interpolation='nearest')
+        ax[0].set_xticks([])
+        ax[0].set_yticks([])
+        plt.axis('off')
+        # plt.tight_layout()
+        # fig.suptitle(domains[k], fontsize=14, fontweight='bold')
+        plt.savefig(f'tmp_{domains[k]}.png', dpi=300)
+    imgs = [Image.open(f'tmp_{domain}.png') for k, domain in enumerate(domains)]
+    n = len(imgs)
+    ROWS = int(n/COLS)
+    if n % COLS != 0: ROWS+=1
+    fig, axs = plt.subplots(ROWS, COLS, figsize=(15,3),sharex='all', sharey='all')
+    axs = axs.flatten()
+    # 遍历图像并绘制
+    for k, (ax, img) in enumerate(zip(axs, imgs)):
+        ax.imshow(img, interpolation='nearest')
+        ax.set_title(f"Client-{domains[k]}", loc='center', pad=0, fontsize=11, fontweight='bold')
+        ax.axis('off')  # 不显示坐标轴
+    # 显示拼接后的图形
+    axs[0].set_xticks([])
+    axs[0].set_yticks([])
+    # plt.subplots_adjust(left=0.1, right=0.9, top=0.9, bottom=0.1, wspace=0., hspace=0.)
+    plt.tight_layout()
+    plt.axis('off')
+    plt.savefig('res.png', dpi=300)
+    [os.remove(f'tmp_{domain}.png') for k, domain in enumerate(domains)]
+    # plt.show()
+    # img = data[0].datasets[0][0][0]
+    # img = tensor2img(img)
+    # import matplotlib.pyplot as plt
+    # plt.imshow(img)
+    # plt.show()
+    print('ok')
