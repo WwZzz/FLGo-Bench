@@ -363,9 +363,9 @@ seed: [2,4388,15,333,967] # results are averaged over five random seeds
 ## AGNEWS
 ### 100 Clients
 
-| dir1.0            |
-| :-------------------------:|
-|  <img src="/task/agnews_dir1.0_c100/res.png" alt="Alt text" width="500" height="300"> |
+| dir1.0            |                                        dir0.1                                        |
+| :-------------------------:|:------------------------------------------------------------------------------------:|
+|  <img src="/task/agnews_dir1.0_c100/res.png" alt="Alt text" width="500" height="300"> | <img src="/task/agnews_dir0.1_c100/res.png" alt="Alt text" width="500" height="300"> |
 
 
 ```
