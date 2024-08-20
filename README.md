@@ -161,7 +161,7 @@ proportion: 0.2
 
 | iid      |dir1.0 |dir0.1 |
 |:-------------------------:|:-------------------------: |:-------------------------: |
-| ![cifar100_iid_img](/task/cifar100_iid_c100/res.png)  |  ![cifar100_d1_img](/task/cifar100_dir1.0_c100/res.png) |  ![cifar100_d0_img](/task/cifar10_dir0.1_c100/res.png) |
+| ![cifar100_iid_img](/task/cifar100_iid_c100/res.png)  |  ![cifar100_d1_img](/task/cifar100_dir1.0_c100/res.png) |  ![cifar100_d0_img](/task/cifar100_dir0.1_c100/res.png) |
 #### Configuration
 ```
 learning_rate: [0.001, 0.005, 0.01, 0.05, 0.1]
