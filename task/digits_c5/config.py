@@ -17,7 +17,7 @@ import torch.utils.data as tud
 from torchvision.datasets.utils import download_and_extract_archive
 import torch.nn.functional as F
 
-root = '/data/wz/digit'
+root = os.path.dirname(os.path.abspath(__file__))
 class MNISTM(VisionDataset):
     """MNIST-M Dataset.
     """
