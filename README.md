@@ -574,6 +574,21 @@ seed: [2,4388,15,333,967] # results are averaged over five random seeds
 <a href="#Nevigation" style="text-decoration: none; background-color: #0366d6; color: white; padding: 5px 10px; border-radius: 5px;">Back</a>
 </div>
 
+
+## ProstateMRI
+### 6 Clients
+
+|                                      domain                                      |
+|:--------------------------------------------------------------------------------:|
+| <img src="/task/prostateMRI_c6/res.png" alt="Alt text" width="600" height="300"> |
+
+```
+```
+
+<div style="text-align: right;">
+<a href="#Nevigation" style="text-decoration: none; background-color: #0366d6; color: white; padding: 5px 10px; border-radius: 5px;">Back</a>
+</div>
+
 ## SpeechCommand
 ### 2112 Clients
 
