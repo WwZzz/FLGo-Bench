@@ -581,7 +581,7 @@ seed: [2,4388,15,333,967] # results are averaged over five random seeds
 
 |                                   domain                                    |
 |:---------------------------------------------------------------------------:|
-| <img src="/task/digits_c5/res.png" alt="Alt text" width="600" height="100"> |
+| <img src="/task/digits_c5/res.png" alt="Alt text" width="800" height="200"> |
 
 ```
 ```
