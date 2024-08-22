@@ -80,6 +80,7 @@ We search the algorithmic hyper-parameter for each algorihtm according to the ta
 - [AgNews](#AGNEWS)
 - [Office-Caltech10](#Office-Caltech10)
 - [DomainNet](#DomainNet)
+- [PACS](#PACS)
 - [Digits](#Digits)
 - [ProstateMRI](#ProstateMRI)
 - [Camelyon17](#Camelyon17)
@@ -562,12 +563,26 @@ seed: [2,4388,15,333,967] # results are averaged over five random seeds
 <a href="#Nevigation" style="text-decoration: none; background-color: #0366d6; color: white; padding: 5px 10px; border-radius: 5px;">Back</a>
 </div>
 
+## PACS
+### 4 Clients
+
+|                                  domain                                   |
+|:-------------------------------------------------------------------------:|
+| <img src="/task/PACS_c4/res.png" alt="Alt text" width="500" height="400"> |
+
+```
+```
+
+<div style="text-align: right;">
+<a href="#Nevigation" style="text-decoration: none; background-color: #0366d6; color: white; padding: 5px 10px; border-radius: 5px;">Back</a>
+</div>
+
 ## Digits
 ### 5 Clients
 
 |                                   domain                                    |
 |:---------------------------------------------------------------------------:|
-| <img src="/task/digits_c5/res.png" alt="Alt text" width="600" height="100"> |
+| <img src="/task/digits_c5/res.png" alt="Alt text" width="800" height="200"> |
 
 ```
 ```
