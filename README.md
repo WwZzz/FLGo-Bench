@@ -81,6 +81,7 @@ We search the algorithmic hyper-parameter for each algorihtm according to the ta
 - [Office-Caltech10](#Office-Caltech10)
 - [DomainNet](#DomainNet)
 - [Digits](#Digits)
+- [ProstateMRI](#ProstateMRI)
 - [SpeechCommand](#SpeechCommand)
 - [Shakespeare](#Shakespeare)
 ## CIFAR10
