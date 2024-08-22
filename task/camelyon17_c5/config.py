@@ -12,7 +12,7 @@ from collections import OrderedDict
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-root = '/data/wz/camelyon17'
+root = os.path.dirname(__file__)
 
 
 class Camelyon17(Dataset):
