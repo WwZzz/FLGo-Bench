@@ -217,7 +217,7 @@ if __name__=='__main__':
     # 遍历图像并绘制
     for k, (ax, img) in enumerate(zip(axs, imgs)):
         ax.imshow(img, interpolation='nearest')
-        ax.set_title(f"Client-{domains[k]}", loc='center', pad=0, fontsize=suptitle_size, fontweight='bold')
+        ax.set_title(f"Hospital-{domains[k]}", loc='center', pad=0, fontsize=suptitle_size, fontweight='bold')
         ax.axis('off')  # 不显示坐标轴
     # 显示拼接后的图形
     axs[0].set_xticks([])

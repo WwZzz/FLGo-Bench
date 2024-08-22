@@ -610,7 +610,7 @@ seed: [2,4388,15,333,967] # results are averaged over five random seeds
 ## Camelyon17
 ### 5 Clients
 
-|                                     domain                                      |
+|                                    hospital                                     |
 |:-------------------------------------------------------------------------------:|
 | <img src="/task/camelyon17_c5/res.png" alt="Alt text" width="800" height="160"> |
 
