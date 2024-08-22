@@ -9,14 +9,19 @@ def read_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('--task', help='name of task', type=str, default='')
     parser.add_argument('--algorithm', help='name of method', type=str, default='fedavg')
+    parser.add_argument('--model', help='name of method', type=str, default='')
     parser.add_argument('--config', type=str, help='configuration of hypara', default='')
     return parser.parse_known_args()
 
 args = read_args()[0]
 task =args.task
 
-with open(args.config, 'r') as inf:
-    option = yaml.load(inf, Loader=yaml.FullLoader)
+if args.config!='' and os.path.exists(args.config):
+    with open(args.config, 'r') as inf:
+        option = yaml.load(inf, Loader=yaml.FullLoader)
+else:
+    option = {}
+if args.model != '': option['model'] = [args.model]
 algorithm = args.algorithm
 config = args.config
 
