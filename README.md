@@ -80,6 +80,7 @@ We search the algorithmic hyper-parameter for each algorihtm according to the ta
 - [AgNews](#AGNEWS)
 - [Office-Caltech10](#Office-Caltech10)
 - [DomainNet](#DomainNet)
+- [PACS](#PACS)
 - [Digits](#Digits)
 - [ProstateMRI](#ProstateMRI)
 - [SpeechCommand](#SpeechCommand)
@@ -556,6 +557,20 @@ seed: [2,4388,15,333,967] # results are averaged over five random seeds
 | scaffold      | AlexNet   | 73.35±0.50 |
 | feddyn        | AlexNet   | 72.20±0.30 |
 | moon          | AlexNet   | 71.88±0.37 |
+
+<div style="text-align: right;">
+<a href="#Nevigation" style="text-decoration: none; background-color: #0366d6; color: white; padding: 5px 10px; border-radius: 5px;">Back</a>
+</div>
+
+## PACS
+### 4 Clients
+
+|                                  domain                                   |
+|:-------------------------------------------------------------------------:|
+| <img src="/task/PACS_c4/res.png" alt="Alt text" width="500" height="400"> |
+
+```
+```
 
 <div style="text-align: right;">
 <a href="#Nevigation" style="text-decoration: none; background-color: #0366d6; color: white; padding: 5px 10px; border-radius: 5px;">Back</a>
