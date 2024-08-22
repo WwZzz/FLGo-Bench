@@ -20,7 +20,6 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 root = os.path.dirname(os.path.abspath(__file__))
-
 def convert_from_nii_to_png(img):
     high = np.quantile(img, 0.99)
     low = np.min(img)
@@ -351,6 +350,7 @@ if __name__ == '__main__':
     for k, (ax, img) in enumerate(zip(axs, imgs)):
         ax.imshow(img, interpolation='nearest')
         ax.set_title(f"Client-{domains[k]}", loc='center', pad=0, fontsize=11, fontweight='bold')
+        ax.text(0.5, -0.005, f'size={len(train_data[k])}', ha='center', va='top', transform=ax.transAxes)
         ax.axis('off')  # 不显示坐标轴
     # 显示拼接后的图形
     axs[0].set_xticks([])
