@@ -84,6 +84,7 @@ We search the algorithmic hyper-parameter for each algorihtm according to the ta
 - [Digits](#Digits)
 - [ProstateMRI](#ProstateMRI)
 - [Camelyon17](#Camelyon17)
+- [Fundus](#Fundus)
 - [SpeechCommand](#SpeechCommand)
 - [Shakespeare](#Shakespeare)
 ## CIFAR10
@@ -621,6 +622,20 @@ seed: [2,4388,15,333,967] # results are averaged over five random seeds
 <a href="#Nevigation" style="text-decoration: none; background-color: #0366d6; color: white; padding: 5px 10px; border-radius: 5px;">Back</a>
 </div>
 
+
+## Fundus
+### 4 Clients
+
+|                                  hospital                                   |
+|:---------------------------------------------------------------------------:|
+| <img src="/task/fundus_c4/res.png" alt="Alt text" width="500" height="500"> |
+
+```
+```
+
+<div style="text-align: right;">
+<a href="#Nevigation" style="text-decoration: none; background-color: #0366d6; color: white; padding: 5px 10px; border-radius: 5px;">Back</a>
+</div>
 
 ## SpeechCommand
 ### 2112 Clients
