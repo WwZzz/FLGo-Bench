@@ -85,6 +85,7 @@ We search the algorithmic hyper-parameter for each algorihtm according to the ta
 - [ProstateMRI](#ProstateMRI)
 - [Camelyon17](#Camelyon17)
 - [Fundus](#Fundus)
+- [EndoPolyp](#EndoPolyp)
 - [SpeechCommand](#SpeechCommand)
 - [Shakespeare](#Shakespeare)
 ## CIFAR10
@@ -636,6 +637,22 @@ seed: [2,4388,15,333,967] # results are averaged over five random seeds
 <div style="text-align: right;">
 <a href="#Nevigation" style="text-decoration: none; background-color: #0366d6; color: white; padding: 5px 10px; border-radius: 5px;">Back</a>
 </div>
+
+
+## EndoPolyp
+### 5 Clients
+
+|                                    hospital                                    |
+|:------------------------------------------------------------------------------:|
+| <img src="/task/endopolyp_c5/res.png" alt="Alt text" width="800" height="160"> |
+
+```
+```
+
+<div style="text-align: right;">
+<a href="#Nevigation" style="text-decoration: none; background-color: #0366d6; color: white; padding: 5px 10px; border-radius: 5px;">Back</a>
+</div>
+
 
 ## SpeechCommand
 ### 2112 Clients
