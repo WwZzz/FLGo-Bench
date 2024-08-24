@@ -397,13 +397,13 @@ no_log_console: True
 log_file: True
 ```
 
-| **Algorithm** | **model**           | **dir1.0**     |   
-|---------------|---------------------|----------------|
-| fedavg        | EmbeddingBag+Linear | lr=1.0         |
-| fedprox       | EmbeddingBag+Linear | lr=1.0, μ=0.01 |
-| scaffold      | EmbeddingBag+Linear | lr=1.0         |
-| feddyn        | EmbeddingBag+Linear | lr=0.5, α=0.01 |
-| moon          | EmbeddingBag+Linear | lr=0.5, μ=10.0 |
+| **Algorithm** | **model**           | **dir1.0**     | **dir0.1**       |     
+|---------------|---------------------|----------------|------------------|
+| fedavg        | EmbeddingBag+Linear | lr=1.0         | lr=0.5           |
+| fedprox       | EmbeddingBag+Linear | lr=1.0, μ=0.01 | lr=0.5, μ=0.0001 |
+| scaffold      | EmbeddingBag+Linear | lr=1.0         | lr=0.5           |
+| feddyn        | EmbeddingBag+Linear | lr=0.5, α=0.01 |                  |
+| moon          | EmbeddingBag+Linear | lr=0.5, μ=10.0 | lr=0.5, μ=0.1    |
 
 
 #### Main Results
