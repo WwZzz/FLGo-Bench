@@ -141,7 +141,7 @@ proportion: 0.2
 | feddyn        | CNN         | 85.09±0.22 | 83.65±0.09 | 81.54±0.30 | 80.26±0.40 | 70.82±0.50 |
 |               |             |            |            |            |            |            |
 | fedavg        | ResNet18    | 94.07±0.12 |            |            |            |            |
-| fedavg        | ResNet18-GN | 91.25±0.23 |            |            |            |            |
+| fedavg        | ResNet18-GN | 91.25±0.23 | 89.93±0.24 |            |            |            |
 
 *Local Test*
 
@@ -154,7 +154,7 @@ proportion: 0.2
 | feddyn        | CNN         | 85.25±0.26 | 83.99±0.17 | 81.76±0.17 | 80.48±0.42 | 71.69±0.29 |
 |               |             |            |            |            |            |            |
 | fedavg        | ResNet18    | 94.58±0.08 |            |            |            |            |
-| fedavg        | ResNet18-GN | 91.69±0.19 |            |            |            |            |
+| fedavg        | ResNet18-GN | 91.69±0.19 | 90.04±0.26 |            |            |            |
 
 #### Impact of Sampling Ratio
 
