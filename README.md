@@ -544,13 +544,13 @@ seed: [2,4388,15,333,967] # results are averaged over five random seeds
 
 *Local Test*
 
-| **Algorithm** | **model** | **Clipart** | **Infograph* | **Painting** | **Quickdraw** | **Real**    | **Sketch**  | **Mean**     | **Weighted-Mean** |   
-|---------------|-----------|-------------|--------------|--------------|---------------|-------------|-------------|--------------|-------------------|
-| fedavg        | AlexNet   | 74.54±0.96  | 38.42±0.63   | 64.56±0.60   | 78.44±0.92    | 74.67±0.32  | 72.76±0.92  | 67.23±0.20   | 68.90±0.20    |
-| fedprox       | AlexNet   |             |              |              |               |             |             |              |                   |
-| scaffold      | AlexNet   |             |              |              |               |             |             |              |                   |
-| feddyn        | AlexNet   |             |              |              |               |             |             |              |                   |
-| moon          | AlexNet   |             |              |              |               |             |             |              |                   |
+| **Algorithm** | **model** | **Clipart** | **Infograph** | **Painting** | **Quickdraw** | **Real**    | **Sketch**  | **Mean**     | **Weighted-Mean** |   
+|---------------|-----------|-------------|---------------|--------------|---------------|-------------|-------------|--------------|-------------------|
+| fedavg        | AlexNet   | 74.54±0.96  | 38.42±0.63    | 64.56±0.60   | 78.44±0.92    | 74.67±0.32  | 72.76±0.92  | 67.23±0.20   | 68.90±0.20    |
+| fedprox       | AlexNet   |             |               |              |               |             |             |              |                   |
+| scaffold      | AlexNet   |             |               |              |               |             |             |              |                   |
+| feddyn        | AlexNet   |             |               |              |               |             |             |              |                   |
+| moon          | AlexNet   |             |               |              |               |             |             |              |                   |
 
 
 <div style="text-align: right;">
