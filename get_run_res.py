@@ -4,6 +4,8 @@ import os.path
 import numpy as np
 import yaml
 import flgo.experiment.analyzer as fea
+import prettytable
+
 
 def read_args():
     parser = argparse.ArgumentParser()
@@ -81,11 +83,12 @@ def get_column(tb, name):
 
 def get_final_res(tb, name):
     res = get_column(tb, name)
-    if len(res)==0 or res[0] is None: return
+    if len(res)==0 or res[0] is None: return np.inf, np.inf
     mean_res = np.mean(res)
     std_res = np.std(res)
     print(f"Mean {name}:{mean_res}")
     print(f"std {name}:{std_res}")
+    return mean_res, std_res
 
 def get_seed(x, op={}):
     return get_option(x, {'x':'seed'})
@@ -102,10 +105,14 @@ tb.add_column(optimal_mean_ltest_by_lval)
 tb.add_column(optimal_round_by_lval)
 tb.add_column(optimal_round_by_gval)
 tb.print()
-get_final_res(tb,  optimal_gtest_by_gval.__name__)
-get_final_res(tb,  optimal_gtest_by_lval.__name__)
-get_final_res(tb, optimal_ltest_by_lval.__name__)
-get_final_res(tb, optimal_mean_ltest_by_lval.__name__)
+col_names = [optimal_gtest_by_gval.__name__, optimal_gtest_by_lval.__name__, optimal_ltest_by_lval.__name__, optimal_mean_ltest_by_lval.__name__]
+res = prettytable.PrettyTable(col_names)
+row = []
+for n in col_names:
+    a,b = get_final_res(tb,  n)
+    row.append("{:.2f}±{:.2f}".format(a*100 ,b*100))
+res.add_row(row)
+print(res)
 # testaccs = get_column(tb, optimal_testacc_by_val.__name__)
 # mean_testacc = np.mean(testaccs)
 # std_testacc = np.std(testaccs)
