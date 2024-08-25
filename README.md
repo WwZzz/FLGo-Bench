@@ -537,35 +537,16 @@ seed: [2,4388,15,333,967] # results are averaged over five random seeds
 ```
 
 
-*Global Test*
-
-| **Algorithm** | **model** | **domain** |   
-|---------------|-----------|------------|
-| fedavg        | AlexNet   | 71.44±0.35 |
-| fedprox       | AlexNet   | 71.41±0.29 |
-| scaffold      | AlexNet   | 72.31±0.64 |
-| feddyn        | AlexNet   | 71.65±0.27 |
-| moon          | AlexNet   | 71.37±0.18 |
-
 *Local Test*
 
-| **Algorithm** | **model** | **domain** |   
-|---------------|-----------|------------|
-| fedavg        | AlexNet   | 71.06±0.73 |
-| fedprox       | AlexNet   | 71.04±0.44 |
-| scaffold      | AlexNet   | 72.14±0.52 |
-| feddyn        | AlexNet   | 70.79±0.47 |
-| moon          | AlexNet   | 70.33±0.36 |
+| **Algorithm** | **model** | **Clipart** | **Infograph* | **Painting** | **Quickdraw** | **Real**    | **Sketch**  | **Mean**     | **Weighted-Mean** |   
+|---------------|-----------|-------------|--------------|--------------|---------------|-------------|-------------|--------------|-------------------|
+| fedavg        | AlexNet   | 74.54±0.96  | 38.42±0.63   | 64.56±0.60   | 78.44±0.92    | 74.67±0.32  | 72.76±0.92  | 67.23±0.20   | 68.90±0.20    |
+| fedprox       | AlexNet   |             |              |              |               |             |             |              |                   |
+| scaffold      | AlexNet   |             |              |              |               |             |             |              |                   |
+| feddyn        | AlexNet   |             |              |              |               |             |             |              |                   |
+| moon          | AlexNet   |             |              |              |               |             |             |              |                   |
 
-*Sized-weighted Local Test*
-
-| **Algorithm** | **model** | **domain** |   
-|---------------|-----------|------------|
-| fedavg        | AlexNet   | 72.68±0.65 |
-| fedprox       | AlexNet   | 72.40±0.49 |
-| scaffold      | AlexNet   | 73.35±0.50 |
-| feddyn        | AlexNet   | 72.20±0.30 |
-| moon          | AlexNet   | 71.88±0.37 |
 
 <div style="text-align: right;">
 <a href="#Nevigation" style="text-decoration: none; background-color: #0366d6; color: white; padding: 5px 10px; border-radius: 5px;">Back</a>
