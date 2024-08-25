@@ -10,6 +10,7 @@ domain_list = [
     'clipart', 'infograph', 'painting', 'quickdraw', 'real', 'sketch'
 ]
 path = os.path.dirname(os.path.abspath(__file__))
+path = '/data/wz/domainnet_classification'
 classes = [
     'bird',
     'feather',

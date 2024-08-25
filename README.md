@@ -478,26 +478,16 @@ log_file: True
 seed: [2,4388,15,333,967] # results are averaged over five random seeds
 ```
 
-
 *Local Test*
 
-| **Algorithm** | **model** | **domain** |   
-|---------------|-----------|------------|
-| fedavg        | AlexNet   | 81.34±0.75 |
-| fedprox       | AlexNet   | 83.21±0.78 |
-| scaffold      | AlexNet   | 82.82±1.31 |
-| feddyn        | AlexNet   | 83.61±1.66 |
-| moon          | AlexNet   | 80.52±1.48 |
+| **Algorithm** | **model** | **Caltech** | **Amazon**  | **Dslr**   | **Webcam** | **Mean**   | **Weighted-Mean** |      
+|---------------|-----------|-------------|-------------|------------|------------|------------|-------------------|
+| fedavg        | AlexNet   | 71.25±1.99  | 88.00±0.84  | 80.00±0.00 | 84.14±4.14 | 80.85±1.37 | 79.63±1.11        |
+| fedprox       | AlexNet   |             |             |            |            |            |                   |
+| scaffold      | AlexNet   |             |             |            |            |            |                   |
+| feddyn        | AlexNet   |             |             |            |            |            |                   |
+| moon          | AlexNet   |             |             |            |            |            |                   |
 
-Size-Weighted *Local Test*
-
-| **Algorithm** | **model** | **domain** |   
-|---------------|-----------|------------|
-| fedavg        | AlexNet   | 78.67±0.46 |
-| fedprox       | AlexNet   | 78.06±1.01 |
-| scaffold      | AlexNet   | 75.93±1.55 |
-| feddyn        | AlexNet   | 76.18±1.76 |
-| moon          | AlexNet   | 76.46±0.68 |
 
 <div style="text-align: right;">
 <a href="#Nevigation" style="text-decoration: none; background-color: #0366d6; color: white; padding: 5px 10px; border-radius: 5px;">Back</a>
