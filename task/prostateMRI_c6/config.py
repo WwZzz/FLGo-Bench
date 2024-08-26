@@ -1,7 +1,6 @@
 import sys, os
 
-base_path = '/data/wz/ProstateMRI'
-sys.path.append(base_path)
+
 import numpy as np
 from torch.utils.data import Dataset
 from PIL import Image
@@ -12,13 +11,10 @@ import torch
 import torchvision.transforms as transforms
 import torchvision.datasets.utils as tdu
 import sys, os
-base_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.append(base_path)
 from collections import OrderedDict
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-
 root = os.path.dirname(os.path.abspath(__file__))
 def convert_from_nii_to_png(img):
     high = np.quantile(img, 0.99)
