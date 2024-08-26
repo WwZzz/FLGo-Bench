@@ -218,7 +218,7 @@ proportion: 0.2
 | moon          | CNN         | 41.49±0.40 | 37.28±0.37 | 21.09±0.32 |
 |               |             |            |            |            |    
 | fedavg        | ResNet18    |            |            |            |     
-| fedavg        | ResNet18-GN | 52.71±0.68 | 34.20±0.83 |            | 
+| fedavg        | ResNet18-GN | 52.71±0.68 | 34.20±0.83 | 19.45±0.53 | 
 
 *Local Test*
 
@@ -232,7 +232,7 @@ proportion: 0.2
 | moon          | CNN         | 40.91±0.30 | 36.22±0.34 | 20.67±0.26 |
 |               |             |            |            |            |    
 | fedavg        | ResNet18    |            |            |            |     
-| fedavg        | ResNet18-GN | 51.87±0.62 | 33.02±1.11 |            | 
+| fedavg        | ResNet18-GN | 51.87±0.62 | 33.02±1.11 | 19.20±0.22 | 
 
 <div style="text-align: right;">
 <a href="#Nevigation" style="text-decoration: none; background-color: #0366d6; color: white; padding: 5px 10px; border-radius: 5px;">Back</a>
