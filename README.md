@@ -339,9 +339,7 @@ log_file: True
 |---------------|-----------|------------------|
 | fedavg        | CNN       | lr=0.1           |
 | fedprox       | CNN       | lr=0.1, μ=0.0001 |
-| scaffold      | CNN       |                  |
-| feddyn        | CNN       |                  |
-| moon          | CNN       |                  |
+
 
 
 
@@ -354,10 +352,7 @@ seed: [2,4388,15,333,967] # results are averaged over five random seeds
 | **Algorithm** | **model** | **client-id** |   
 |---------------|-----------|---------------|
 | fedavg        | CNN       | 86.25±0.04    |
-| fedprox       | CNN       |               |
-| scaffold      | CNN       |               |
-| feddyn        | CNN       |               |
-| moon          | CNN       |               |
+| fedprox       | CNN       | 86.24±0.02    |
 
 
 *Local Test*
@@ -365,10 +360,7 @@ seed: [2,4388,15,333,967] # results are averaged over five random seeds
 | **Algorithm** | **model** | **client-id** |   
 |---------------|-----------|---------------|
 | fedavg        | CNN       | 84.91±0.05    |
-| fedprox       | CNN       |               |
-| scaffold      | CNN       |               |
-| feddyn        | CNN       |               |
-| moon          | CNN       |               |
+| fedprox       | CNN       | 84.76±0.06    |
 
 
 
