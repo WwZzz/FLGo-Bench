@@ -353,7 +353,7 @@ seed: [2,4388,15,333,967] # results are averaged over five random seeds
 
 | **Algorithm** | **model** | **client-id** |   
 |---------------|-----------|---------------|
-| fedavg        | CNN       | lr=0.1        |
+| fedavg        | CNN       | 86.25±0.04    |
 | fedprox       | CNN       |               |
 | scaffold      | CNN       |               |
 | feddyn        | CNN       |               |
@@ -364,7 +364,7 @@ seed: [2,4388,15,333,967] # results are averaged over five random seeds
 
 | **Algorithm** | **model** | **client-id** |   
 |---------------|-----------|---------------|
-| fedavg        | CNN       | lr=0.1        |
+| fedavg        | CNN       | 84.91±0.05    |
 | fedprox       | CNN       |               |
 | scaffold      | CNN       |               |
 | feddyn        | CNN       |               |
