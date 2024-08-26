@@ -418,23 +418,23 @@ proportion: 0.2
 ```
 *Global Test*
 
-| **Algorithm** | **model**           | **dir1.0** |   
-|---------------|---------------------|------------|
-| fedavg        | EmbeddingBag+Linear | 89.37±0.14 |
-| fedprox       | EmbeddingBag+Linear | 89.39±0.12 |
-| scaffold      | EmbeddingBag+Linear | 87.98±0.65 |
-| feddyn        | EmbeddingBag+Linear | 91.02±0.02 |
-| moon          | EmbeddingBag+Linear | 90.28±0.07 |
+| **Algorithm** | **model**           | **dir1.0** | **dir0.1** |   
+|---------------|---------------------|------------|------------|
+| fedavg        | EmbeddingBag+Linear | 89.37±0.14 |            |
+| fedprox       | EmbeddingBag+Linear | 89.39±0.12 |            |
+| scaffold      | EmbeddingBag+Linear | 87.98±0.65 |            |
+| feddyn        | EmbeddingBag+Linear | 91.02±0.02 |            |
+| moon          | EmbeddingBag+Linear | 90.28±0.07 |            |
 
 *Local Test*
 
-| **Algorithm** | **model**           | **dir1.0** |   
-|---------------|---------------------|------------|
-| fedavg        | EmbeddingBag+Linear | 89.84±0.08 |
-| fedprox       | EmbeddingBag+Linear | 89.87±0.06 |
-| scaffold      | EmbeddingBag+Linear | 88.31±0.69 |
-| feddyn        | EmbeddingBag+Linear | 91.11±0.01 |
-| moon          | EmbeddingBag+Linear | 90.64±0.04 |
+| **Algorithm** | **model**           | **dir1.0** | **dir0.1** |  
+|---------------|---------------------|------------|------------|
+| fedavg        | EmbeddingBag+Linear | 89.84±0.08 |            |
+| fedprox       | EmbeddingBag+Linear | 89.87±0.06 |            |
+| scaffold      | EmbeddingBag+Linear | 88.31±0.69 |            |
+| feddyn        | EmbeddingBag+Linear | 91.11±0.01 |            |
+| moon          | EmbeddingBag+Linear | 90.64±0.04 |            |
 
 <div style="text-align: right;">
 <a href="#Nevigation" style="text-decoration: none; background-color: #0366d6; color: white; padding: 5px 10px; border-radius: 5px;">Back</a>
