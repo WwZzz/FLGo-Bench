@@ -407,7 +407,7 @@ log_file: True
 | fedavg        | EmbeddingBag+Linear | lr=1.0         | lr=0.5           |
 | fedprox       | EmbeddingBag+Linear | lr=1.0, μ=0.01 | lr=0.5, μ=0.0001 |
 | scaffold      | EmbeddingBag+Linear | lr=1.0         | lr=0.5           |
-| feddyn        | EmbeddingBag+Linear | lr=0.5, α=0.01 |                  |
+| feddyn        | EmbeddingBag+Linear | lr=0.5, α=0.01 | lr=0.5, α=0.01   |
 | moon          | EmbeddingBag+Linear | lr=0.5, μ=10.0 | lr=0.5, μ=0.1    |
 
 
