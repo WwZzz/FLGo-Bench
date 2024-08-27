@@ -1,5 +1,5 @@
 learning_rate: [0.00005, 0.0001, 0.0005, 0.001, 0.005]
-batch_size: 50
+batch_size: 16
 weight_decay: 1e-4
 lr_scheduler: 0
 learning_rate_decay: 0.9998
@@ -10,5 +10,6 @@ proportion: 1.0
 early_stop: 100
 train_holdout: 0.2
 local_test: True
+optimizer: Adam
 no_log_console: True
 log_file: True
