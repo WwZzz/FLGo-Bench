@@ -115,7 +115,7 @@ if __name__=='__main__':
         if len(algos)==1:
             algo = algos[0]
             paras = configs[0]
-            model = models[0]
+            model = models[0] if len(models)>0 else None
             res = flgo.tune(task, algo, paras, model=model, Logger=Logger, scheduler=scheduler, mmap=mmap, target_path=os.path.join(os.path.dirname(__file__), 'config'))
         else:
             task_dict = {'task':task, 'algorithm':algos, 'option': configs, 'Logger':Logger}
