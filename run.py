@@ -40,6 +40,7 @@ for config in args.config:
     with open(config, 'r') as inf:
         option = yaml.load(inf, Loader=yaml.FullLoader)
     option['load_mode'] = args.load_mode
+    if 'early_stop' in option.keys(): option.pop('early_stop')
     optimal_options.append(option)
 
 def fedrun(task, algos=[], optimal_options=[], seeds=[0], Logger=None, model=None, put_interval=10, available_interval=10, max_processes_per_device=10, mmap=False, seq=False):

@@ -140,8 +140,8 @@ proportion: 0.2
 | moon          | CNN         | 80.88±0.27 | 79.63±0.20 | 77.21±0.33 | 75.67±0.26 | 62.44±1.10 |
 | feddyn        | CNN         | 85.09±0.22 | 83.65±0.09 | 81.54±0.30 | 80.26±0.40 | 70.82±0.50 |
 |               |             |            |            |            |            |            |
-| fedavg        | ResNet18    | 94.07±0.12 | 93.56±0.18 | 92.59±0.09 | 91.53±0.11 |            |
-| fedavg        | ResNet18-GN | 91.25±0.23 | 89.93±0.24 | 88.21±0.40 |            |            |
+| fedavg        | ResNet18    | 94.07±0.12 | 93.56±0.18 | 92.59±0.09 | 91.53±0.11 | 78.79±0.56 |
+| fedavg        | ResNet18-GN | 91.25±0.23 | 89.93±0.24 | 88.21±0.40 | 86.42±0.73 |            |
 
 *Local Test*
 
@@ -153,8 +153,8 @@ proportion: 0.2
 | moon          | CNN         | 80.26±0.38 | 79.29±0.29 | 76.81±0.58 | 76.12±0.45 | 62.26±1.09 |
 | feddyn        | CNN         | 85.25±0.26 | 83.99±0.17 | 81.76±0.17 | 80.48±0.42 | 71.69±0.29 |
 |               |             |            |            |            |            |            |
-| fedavg        | ResNet18    | 94.58±0.08 | 93.54±0.11 | 93.12±0.23 | 91.67±0.25 |            |
-| fedavg        | ResNet18-GN | 91.69±0.19 | 90.04±0.26 | 87.84±0.48 |            |            |
+| fedavg        | ResNet18    | 94.58±0.08 | 93.54±0.11 | 93.12±0.23 | 91.67±0.25 | 79.46±0.77 |
+| fedavg        | ResNet18-GN | 91.69±0.19 | 90.04±0.26 | 87.84±0.48 | 86.52±0.69 |            |
 
 #### Impact of Sampling Ratio
 
@@ -412,21 +412,21 @@ proportion: 0.2
 
 | **Algorithm** | **model**           | **dir1.0** | **dir0.1** |   
 |---------------|---------------------|------------|------------|
-| fedavg        | EmbeddingBag+Linear | 89.37±0.14 |            |
-| fedprox       | EmbeddingBag+Linear | 89.39±0.12 |            |
-| scaffold      | EmbeddingBag+Linear | 87.98±0.65 |            |
-| feddyn        | EmbeddingBag+Linear | 91.02±0.02 |            |
-| moon          | EmbeddingBag+Linear | 90.28±0.07 |            |
+| fedavg        | EmbeddingBag+Linear | 89.37±0.14 | 87.87±0.15 |
+| fedprox       | EmbeddingBag+Linear | 89.39±0.12 | 87.97±0.11 |
+| scaffold      | EmbeddingBag+Linear | 87.98±0.65 | 85.96±0.45 |
+| feddyn        | EmbeddingBag+Linear | 91.02±0.02 | 91.14±0.04 |
+| moon          | EmbeddingBag+Linear | 90.28±0.07 | 87.61±0.13 |
 
 *Local Test*
 
 | **Algorithm** | **model**           | **dir1.0** | **dir0.1** |  
 |---------------|---------------------|------------|------------|
-| fedavg        | EmbeddingBag+Linear | 89.84±0.08 |            |
-| fedprox       | EmbeddingBag+Linear | 89.87±0.06 |            |
-| scaffold      | EmbeddingBag+Linear | 88.31±0.69 |            |
-| feddyn        | EmbeddingBag+Linear | 91.11±0.01 |            |
-| moon          | EmbeddingBag+Linear | 90.64±0.04 |            |
+| fedavg        | EmbeddingBag+Linear | 89.84±0.08 | 88.35±0.16 |
+| fedprox       | EmbeddingBag+Linear | 89.87±0.06 | 88.30±0.20 |
+| scaffold      | EmbeddingBag+Linear | 88.31±0.69 | 86.50±0.49 |
+| feddyn        | EmbeddingBag+Linear | 91.11±0.01 | 91.04±0.01 |
+| moon          | EmbeddingBag+Linear | 90.64±0.04 | 88.08±0.19 |
 
 <div style="text-align: right;">
 <a href="#Nevigation" style="text-decoration: none; background-color: #0366d6; color: white; padding: 5px 10px; border-radius: 5px;">Back</a>
