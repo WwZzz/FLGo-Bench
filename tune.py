@@ -118,5 +118,5 @@ if __name__=='__main__':
             model = models[0] if len(models)>0 else None
             res = flgo.tune(task, algo, paras, model=model, Logger=Logger, scheduler=scheduler, mmap=mmap, target_path=os.path.join(os.path.dirname(__file__), 'config'))
         else:
-            task_dict = {'task':task, 'algorithm':algos, 'option': configs, 'Logger':Logger, 'model':models}
+            task_dict = {'task':task, 'algorithm':algos, 'option': configs, 'Logger':Logger, 'model':models if len(models)>0 else None}
             flgo.multi_tune(task_dict, scheduler=scheduler, target_path=os.path.join(os.path.dirname(__file__), 'config'))
