@@ -217,7 +217,7 @@ proportion: 0.2
 | feddyn        | CNN         | 52.64±0.15 | 40.19±0.36 | 26.20±0.44 | 
 | moon          | CNN         | 41.49±0.40 | 37.28±0.37 | 21.09±0.32 |
 |               |             |            |            |            |    
-| fedavg        | ResNet18    |            |            |            |     
+| fedavg        | ResNet18    | 72.91±0.33 |            |            |     
 | fedavg        | ResNet18-GN | 52.71±0.68 | 34.20±0.83 | 19.45±0.53 | 
 
 *Local Test*
@@ -231,7 +231,7 @@ proportion: 0.2
 | feddyn        | CNN         | 52.48±0.49 | 38.92±0.37 | 26.08±0.15 | 
 | moon          | CNN         | 40.91±0.30 | 36.22±0.34 | 20.67±0.26 |
 |               |             |            |            |            |    
-| fedavg        | ResNet18    |            |            |            |     
+| fedavg        | ResNet18    | 73.72±0.33 |            |            |     
 | fedavg        | ResNet18-GN | 51.87±0.62 | 33.02±1.11 | 19.20±0.22 | 
 
 <div style="text-align: right;">
