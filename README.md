@@ -242,9 +242,9 @@ proportion: 0.2
 ## TinyImageNet
 ### 100 Clients
 
-|                           iid                            |                          dir1.0                           |dir0.1 |
-|:--------------------------------------------------------:|:---------------------------------------------------------:|:-------------------------: |
-| ![tinyimagenet_iid_img](/task/tinyimagenet_c100/res.png) | ![tinyimagenet_d_img](/task/tinyimagenet_dir1.0_c100/res.png) |  ![tinyimagenet_d0_img](/task/tinyimagenet_dir0.1_c100/res.png) |
+|                             iid                              |                          dir1.0                           |dir0.1 |
+|:------------------------------------------------------------:|:---------------------------------------------------------:|:-------------------------: |
+| ![tinyimagenet_iid_img](/task/tinyimagenet_iid_c100/res.png) | ![tinyimagenet_d_img](/task/tinyimagenet_dir1.0_c100/res.png) |  ![tinyimagenet_d0_img](/task/tinyimagenet_dir0.1_c100/res.png) |
 #### Configuration
 ```
 learning_rate: [0.001, 0.005, 0.01, 0.05, 0.1]
