@@ -75,6 +75,7 @@ We search the algorithmic hyper-parameter for each algorihtm according to the ta
 
 - [CIFAR10](#CIFAR10)
 - [CIFAR100](#CIFAR100)
+- [TinyImageNet](#TinyImageNet)
 - [MNIST](#MNIST)
 - [FEMNIST](#FEMNIST)
 - [AgNews](#AGNEWS)
@@ -237,6 +238,58 @@ proportion: 0.2
 <div style="text-align: right;">
 <a href="#Nevigation" style="text-decoration: none; background-color: #0366d6; color: white; padding: 5px 10px; border-radius: 5px;">Back</a>
 </div>
+
+## TinyImageNet
+### 100 Clients
+
+|                           iid                            |                          dir1.0                           |dir0.1 |
+|:--------------------------------------------------------:|:---------------------------------------------------------:|:-------------------------: |
+| ![tinyimagenet_iid_img](/task/tinyimagenet_c100/res.png) | ![tinyimagenet_d_img](/task/tinyimagenet_dir1.0_c100/res.png) |  ![tinyimagenet_d0_img](/task/tinyimagenet_dir0.1_c100/res.png) |
+#### Configuration
+```
+learning_rate: [0.001, 0.005, 0.01, 0.05, 0.1]
+proportion: 0.2
+batch_size: 50
+weight_decay: 1e-3
+lr_scheduler: 0
+learning_rate_decay: 0.9998
+num_rounds: 2000
+num_epochs: [5]
+clip_grad: 10
+early_stop: 500
+train_holdout: 0.2
+local_test: True
+no_log_console: True
+```
+
+| **Algorithm** | **model** | **iid** | **dir1.0** | **dir0.1** | 
+|---------------|-----------|---------|------------|------------|
+| fedavg        |           |         |            |            | 
+
+#### Main Results
+```
+seed: [2,4388,15,333,967] # results are averaged over five random seeds
+proportion: 0.2
+```
+*Global Test*
+
+| **Algorithm** | **model** | **iid** | **dir1.0** | **dir0.1** | 
+|---------------|-----------|---------|------------|------------|
+| fedavg        |           |         |            |            | 
+
+
+*Local Test*
+
+
+| **Algorithm** | **model** | **iid** | **dir1.0** | **dir0.1** | 
+|---------------|-----------|---------|------------|------------|
+| fedavg        |           |         |            |            | 
+
+
+<div style="text-align: right;">
+<a href="#Nevigation" style="text-decoration: none; background-color: #0366d6; color: white; padding: 5px 10px; border-radius: 5px;">Back</a>
+</div>
+
 
 ## MNIST
 ### 100 Clients
