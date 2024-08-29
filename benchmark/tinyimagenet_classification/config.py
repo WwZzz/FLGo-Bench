@@ -107,7 +107,7 @@ class TinyImageNet(ImageFolder):
                 else:
                     val_dict[split_line[1]].append(split_line[0])
 
-        def split_list_randomly(input_list: list[str], split_ratio=0.5) -> dict[str, list[str]]:
+        def split_list_randomly(input_list, split_ratio=0.5):
             # Shuffle the input list in-place
             random.shuffle(input_list)
 
