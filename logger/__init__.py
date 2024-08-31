@@ -77,3 +77,31 @@ class SimpleLogger(BasicLogger):
             self.output['std_local_val_' + met_name].append(np.std(met_val))
         # output to stdout
         self.show_current_output()
+
+class SegTuneLogger(BasicLogger):
+    def initialize(self, *args, **kwargs):
+        if self.server.val_data is not None and len(self.server.val_data) > 0:
+            self.set_es_key("val_Dice")
+        else:
+            self.set_es_key("local_val_Dice")
+        self.set_es_direction(1)
+    def log_once(self, *args, **kwargs):
+        if self.server.val_data is not None and len(self.server.val_data)>0:
+            sval = self.server.test(self.server.model, 'val')
+            for met_name in sval.keys():
+                self.output['val_'+met_name].append(sval[met_name])
+        else:
+            cvals = [c.test(self.server.model, 'val') for c in self.clients]
+            cdatavols = np.array([len(c.val_data) for c in self.clients])
+            cdatavols = cdatavols/cdatavols.sum()
+            cval_dict = {}
+            if len(cvals) > 0:
+                for met_name in cvals[0].keys():
+                    if met_name not in cval_dict.keys(): cval_dict[met_name] = []
+                    for cid in range(len(cvals)):
+                        cval_dict[met_name].append(cvals[cid][met_name])
+                    self.output['local_val_' + met_name].append(float((np.array(cval_dict[met_name])*cdatavols).sum()))
+                    self.output['min_local_val_' + met_name].append(float(np.array(cval_dict[met_name]).min()))
+                    self.output['max_local_val_' + met_name].append(float(np.array(cval_dict[met_name]).max()))
+        self.show_current_output()
+
