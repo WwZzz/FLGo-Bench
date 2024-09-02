@@ -424,9 +424,9 @@ seed: [2,4388,15,333,967] # results are averaged over five random seeds
 ## AGNEWS
 ### 100 Clients
 
-| dir1.0            |                                        dir0.1                                        |
-| :-------------------------:|:------------------------------------------------------------------------------------:|
-|  <img src="/task/agnews_dir1.0_c100/res.png" alt="Alt text" width="500" height="300"> | <img src="/task/agnews_dir0.1_c100/res.png" alt="Alt text" width="500" height="300"> |
+|                                        iid                                        | dir1.0            |                                        dir0.1                                        |
+|:---------------------------------------------------------------------------------:| :-------------------------:|:------------------------------------------------------------------------------------:|
+| <img src="/task/agnews_iid_c100/res.png" alt="Alt text" width="500" height="300"> |  <img src="/task/agnews_dir1.0_c100/res.png" alt="Alt text" width="500" height="300"> | <img src="/task/agnews_dir0.1_c100/res.png" alt="Alt text" width="500" height="300"> |
 
 
 ```
@@ -447,13 +447,13 @@ no_log_console: True
 log_file: True
 ```
 
-| **Algorithm** | **model**           | **dir1.0**     | **dir0.1**       |     
-|---------------|---------------------|----------------|------------------|
-| fedavg        | EmbeddingBag+Linear | lr=1.0         | lr=0.5           |
-| fedprox       | EmbeddingBag+Linear | lr=1.0, μ=0.01 | lr=0.5, μ=0.0001 |
-| scaffold      | EmbeddingBag+Linear | lr=1.0         | lr=0.5           |
-| feddyn        | EmbeddingBag+Linear | lr=0.5, α=0.01 | lr=0.5, α=0.01   |
-| moon          | EmbeddingBag+Linear | lr=0.5, μ=10.0 | lr=0.5, μ=0.1    |
+| **Algorithm** | **model**           | **iid**        | **dir1.0**     | **dir0.1**       |     
+|---------------|---------------------|----------------|----------------|------------------|
+| fedavg        | EmbeddingBag+Linear | lr=1.0         | lr=1.0         | lr=0.5           |
+| fedprox       | EmbeddingBag+Linear | lr=1.0, μ=0.01 | lr=1.0, μ=0.01 | lr=0.5, μ=0.0001 |
+| scaffold      | EmbeddingBag+Linear | lr=1.0         | lr=1.0         | lr=0.5           |
+| feddyn        | EmbeddingBag+Linear | lr=0.1, α=0.01 | lr=0.5, α=0.01 | lr=0.5, α=0.01   |
+| moon          | EmbeddingBag+Linear | lr=1.0, μ=10.0 | lr=0.5, μ=10.0 | lr=0.5, μ=0.1    |
 
 
 #### Main Results
