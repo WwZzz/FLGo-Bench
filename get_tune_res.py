@@ -8,8 +8,9 @@ def read_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('--task', help='name of task', type=str, default='')
     parser.add_argument('--algorithm', help='name of method', type=str, default='fedavg')
-    parser.add_argument('--model', help='name of method', type=str, default='')
+    parser.add_argument('--model', help='name of model', type=str, default='')
     parser.add_argument('--config', type=str, help='configuration of hypara', default='')
+    parser.add_argument('--metric', type=str, help='the name of metric', default='accuracy')
     return parser.parse_known_args()
 
 args = read_args()[0]
@@ -43,11 +44,11 @@ def max_log(x, op={}):
     res = x.log.get(op['x'], None)
     return max(res) if res is not None else -np.inf
 
-def max_local_val_acc(x, op={}):
-    return max_log(x, {'x': 'local_val_accuracy'})
+def max_local_val(x, op={'metric': 'accuracy'}):
+    return max_log(x, {'x': 'local_val_'+op['metric']})
 
-def max_global_val_acc(x, op={}):
-    return max_log(x, {'x': 'val_accuracy'})
+def max_global_val(x, op={'metric': 'accuracy'}):
+    return max_log(x, {'x': 'val_'+op['metric']})
 
 def col_model(x, op={}):
     return x.option['model']
@@ -55,24 +56,25 @@ def col_model(x, op={}):
 def lr(x, op={}):
     return x.option['learning_rate']
 
-def optimal_round_by_val(x, op={}):
-    res = x.log.get('val_accuracy', None)
+def optimal_round_by_val(x, op={'metric': 'accuracy'}):
+    res = x.log.get('val_'+op['metric'], None)
     return np.argmax(res) if res is not None else -np.inf
 
-def optimal_round_by_local_val(x, op={}):
-    res = x.log.get('local_val_accuracy', None)
+def optimal_round_by_local_val(x, op={'metric': 'accuracy'}):
+    res = x.log.get('local_val_'+op['metric'], None)
     return np.argmax(res) if res is not None else -np.inf
 
-tb.add_column(max_local_val_acc)
-tb.add_column(max_global_val_acc)
+tb.add_column(max_local_val, {'metric':args.metric})
+tb.add_column(max_global_val, {'metric':args.metric})
 tb.add_column(lr)
 tb.add_column(col_model)
-tb.add_column(optimal_round_by_val)
-tb.add_column(optimal_round_by_local_val)
-sort_key =  max_local_val_acc.__name__
-gv = get_column(tb, max_global_val_acc.__name__)
+tb.add_column(optimal_round_by_val, {'metric':args.metric})
+tb.add_column(optimal_round_by_local_val, {'metric':args.metric})
+sort_key =  max_local_val.__name__+'-'+args.metric
+gv = get_column(tb, max_global_val.__name__+'-'+args.metric)
 if len(gv)>0 and gv[0] is not None and gv[0]!=-np.inf:
-    sort_key = max_global_val_acc.__name__
+    sort_key = max_global_val.__name__+'-'+args.metric
+
 tb.tb.sortby = sort_key
 tb.print()
 # selector = fea.Selector({'task': task, 'header':[method], 'filter':config2filter(option)})

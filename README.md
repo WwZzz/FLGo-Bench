@@ -424,9 +424,9 @@ seed: [2,4388,15,333,967] # results are averaged over five random seeds
 ## AGNEWS
 ### 100 Clients
 
-| dir1.0            |                                        dir0.1                                        |
-| :-------------------------:|:------------------------------------------------------------------------------------:|
-|  <img src="/task/agnews_dir1.0_c100/res.png" alt="Alt text" width="500" height="300"> | <img src="/task/agnews_dir0.1_c100/res.png" alt="Alt text" width="500" height="300"> |
+|                                        iid                                        | dir1.0            |                                        dir0.1                                        |
+|:---------------------------------------------------------------------------------:| :-------------------------:|:------------------------------------------------------------------------------------:|
+| <img src="/task/agnews_iid_c100/res.png" alt="Alt text" width="500" height="300"> |  <img src="/task/agnews_dir1.0_c100/res.png" alt="Alt text" width="500" height="300"> | <img src="/task/agnews_dir0.1_c100/res.png" alt="Alt text" width="500" height="300"> |
 
 
 ```
@@ -447,13 +447,13 @@ no_log_console: True
 log_file: True
 ```
 
-| **Algorithm** | **model**           | **dir1.0**     | **dir0.1**       |     
-|---------------|---------------------|----------------|------------------|
-| fedavg        | EmbeddingBag+Linear | lr=1.0         | lr=0.5           |
-| fedprox       | EmbeddingBag+Linear | lr=1.0, μ=0.01 | lr=0.5, μ=0.0001 |
-| scaffold      | EmbeddingBag+Linear | lr=1.0         | lr=0.5           |
-| feddyn        | EmbeddingBag+Linear | lr=0.5, α=0.01 | lr=0.5, α=0.01   |
-| moon          | EmbeddingBag+Linear | lr=0.5, μ=10.0 | lr=0.5, μ=0.1    |
+| **Algorithm** | **model**           | **iid**        | **dir1.0**     | **dir0.1**       |     
+|---------------|---------------------|----------------|----------------|------------------|
+| fedavg        | EmbeddingBag+Linear | lr=1.0         | lr=1.0         | lr=0.5           |
+| fedprox       | EmbeddingBag+Linear | lr=1.0, μ=0.01 | lr=1.0, μ=0.01 | lr=0.5, μ=0.0001 |
+| scaffold      | EmbeddingBag+Linear | lr=1.0         | lr=1.0         | lr=0.5           |
+| feddyn        | EmbeddingBag+Linear | lr=0.1, α=0.01 | lr=0.5, α=0.01 | lr=0.5, α=0.01   |
+| moon          | EmbeddingBag+Linear | lr=1.0, μ=10.0 | lr=0.5, μ=10.0 | lr=0.5, μ=0.1    |
 
 
 #### Main Results
@@ -629,7 +629,30 @@ seed: [2,4388,15,333,967] # results are averaged over five random seeds
 | <img src="/task/prostateMRI_c6/res.png" alt="Alt text" width="600" height="300"> |
 
 ```
+learning_rate: [0.00005, 0.0001, 0.0005, 0.001, 0.005]
+batch_size: 16
+weight_decay: 1e-4
+lr_scheduler: 0
+learning_rate_decay: 0.9998
+num_rounds: 500
+num_epochs: 1
+clip_grad: 10
+proportion: 1.0
+early_stop: 100
+train_holdout: 0.2
+local_test: True
+optimizer: Adam
+no_log_console: True
+log_file: True
 ```
+
+| **Algorithm** | **model** | **domain**          |   
+|---------------|-----------|---------------------|
+| fedavg        | UNet      | lr=0.0001           |
+| fedprox       | UNet      | lr=0.0001, μ=0.0001 |
+| scaffold      | UNet      | lr=0.0001           |
+| feddyn        | UNet      | lr=0.00005, α=0.1   |
+| moon          | UNet      |                     |
 
 <div style="text-align: right;">
 <a href="#Nevigation" style="text-decoration: none; background-color: #0366d6; color: white; padding: 5px 10px; border-radius: 5px;">Back</a>
