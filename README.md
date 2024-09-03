@@ -797,6 +797,9 @@ seed: [2,4388,15,333,967] # results are averaged over five random seeds
 | **Algorithm** | **model** | **client-id** |   
 |---------------|-----------|---------------|
 | fedavg        | LSTM      | 52.85±0.06    |
+| fedprox       | LSTM      | 53.09±0.06    |
+| scaffold      | LSTM      | 49.93±0.09    |
+
 
 
 *Local Test*
@@ -804,6 +807,9 @@ seed: [2,4388,15,333,967] # results are averaged over five random seeds
 | **Algorithm** | **model** | **client-id** |   
 |---------------|-----------|---------------|
 | fedavg        | LSTM      | 52.76±0.17    |
+| fedprox       | LSTM      | 53.31±0.04    |
+| scaffold      | LSTM      | 50.01±0.14    |
+
 
 <div style="text-align: right;">
 <a href="#Nevigation" style="text-decoration: none; background-color: #0366d6; color: white; padding: 5px 10px; border-radius: 5px;">Back</a>
