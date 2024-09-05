@@ -463,23 +463,23 @@ proportion: 0.2
 ```
 *Global Test*
 
-| **Algorithm** | **model**           | **dir1.0** | **dir0.1** |   
-|---------------|---------------------|------------|------------|
-| fedavg        | EmbeddingBag+Linear | 89.37±0.14 | 87.87±0.15 |
-| fedprox       | EmbeddingBag+Linear | 89.39±0.12 | 87.97±0.11 |
-| scaffold      | EmbeddingBag+Linear | 87.98±0.65 | 85.96±0.45 |
-| feddyn        | EmbeddingBag+Linear | 91.02±0.02 | 91.14±0.04 |
-| moon          | EmbeddingBag+Linear | 90.28±0.07 | 87.61±0.13 |
+| **Algorithm** | **model**           | **iid**    | **dir1.0** | **dir0.1** |   
+|---------------|---------------------|------------|------------|------------|
+| fedavg        | EmbeddingBag+Linear | 90.93±0.06 | 89.37±0.14 | 87.87±0.15 |
+| fedprox       | EmbeddingBag+Linear | 90.94±0.11 | 89.39±0.12 | 87.97±0.11 |
+| scaffold      | EmbeddingBag+Linear |            | 87.98±0.65 | 85.96±0.45 |
+| feddyn        | EmbeddingBag+Linear | 91.04±0.06 | 91.02±0.02 | 91.14±0.04 |
+| moon          | EmbeddingBag+Linear | 89.37±0.14 | 90.28±0.07 | 87.61±0.13 |
 
 *Local Test*
 
-| **Algorithm** | **model**           | **dir1.0** | **dir0.1** |  
-|---------------|---------------------|------------|------------|
-| fedavg        | EmbeddingBag+Linear | 89.84±0.08 | 88.35±0.16 |
-| fedprox       | EmbeddingBag+Linear | 89.87±0.06 | 88.30±0.20 |
-| scaffold      | EmbeddingBag+Linear | 88.31±0.69 | 86.50±0.49 |
-| feddyn        | EmbeddingBag+Linear | 91.11±0.01 | 91.04±0.01 |
-| moon          | EmbeddingBag+Linear | 90.64±0.04 | 88.08±0.19 |
+| **Algorithm** | **model**           | **iid**    | **dir1.0** | **dir0.1** |  
+|---------------|---------------------|------------|------------|------------|
+| fedavg        | EmbeddingBag+Linear | 91.53±0.03 | 89.84±0.08 | 88.35±0.16 |
+| fedprox       | EmbeddingBag+Linear | 91.50±0.01 | 89.87±0.06 | 88.30±0.20 |
+| scaffold      | EmbeddingBag+Linear |            | 88.31±0.69 | 86.50±0.49 |
+| feddyn        | EmbeddingBag+Linear | 91.59±0.04 | 91.11±0.01 | 91.04±0.01 |
+| moon          | EmbeddingBag+Linear | 89.84±0.08 | 90.64±0.04 | 88.08±0.19 |
 
 <div style="text-align: right;">
 <a href="#Nevigation" style="text-decoration: none; background-color: #0366d6; color: white; padding: 5px 10px; border-radius: 5px;">Back</a>

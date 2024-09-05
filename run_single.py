@@ -19,11 +19,17 @@ def read_args():
     parser.add_argument('--load_mode', help = 'load_mode', type=str, default='')
     parser.add_argument('--num_client_parallel', help = 'num of client processes', type=int, default=0)
     parser.add_argument('--test_parallel', help='test parallel',  action="store_true", default=False)
+    parser.add_argument('--data_root', help = 'the root of dataset', type=str, default='')
     return parser.parse_known_args()
 
 args = read_args()[0]
 task = args.task
 gpus = args.gpu
+if args.data_root!='':
+    if os.path.exists(args.data_root) and os.path.isdir(args.data_root):
+        flgo.set_data_root(args.data_root)
+    else:
+        warnings.warn("Failed to change data root.")
 config = args.config
 if config!='' and os.path.exists(config):
     with open(config, 'r') as inf:

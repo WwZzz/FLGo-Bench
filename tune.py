@@ -28,12 +28,18 @@ def read_args():
     parser.add_argument('--num_client_parallel', help='number of parallel processing',   type=int, default=0)
     parser.add_argument('--test_parallel', help='test parallel',  action="store_true", default=False)
     parser.add_argument('--logger', help='test parallel', type=str, default=['TuneLogger'], nargs='*')
+    parser.add_argument('--data_root', help = 'the root of dataset', type=str, default='')
     return parser.parse_known_args()
 
 if __name__=='__main__':
     mlp.set_sharing_strategy("file_system")
     mlp.set_start_method("spawn", force=True)
     args = read_args()[0]
+    if args.data_root != '':
+        if os.path.exists(args.data_root) and os.path.isdir(args.data_root):
+            flgo.set_data_root(args.data_root)
+        else:
+            warnings.warn("Failed to change data root.")
     tasks = args.task
     if len(tasks)==1:
         task = tasks[0]

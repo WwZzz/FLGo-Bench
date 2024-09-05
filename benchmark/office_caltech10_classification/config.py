@@ -1,3 +1,4 @@
+import flgo.benchmark
 import torchvision
 import torchvision.utils
 import torch.utils.data
@@ -63,7 +64,7 @@ transform = transforms.Compose([
     transforms.PILToTensor(),
     # transforms.Lambda(lambda x: x.float())
 ])
-path = os.path.dirname(__file__)
+path = os.path.join(flgo.benchmark.data_root, 'office_caltech10')
 train_data = OfficeCaltech10(path, transform=transform)
 
 class AlexNet(nn.Module):

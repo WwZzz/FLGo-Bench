@@ -1,3 +1,4 @@
+import flgo.benchmark
 import torchvision.utils
 import torch.utils.data
 from torchvision.datasets.utils import download_and_extract_archive, download_url, extract_archive
@@ -9,8 +10,7 @@ from collections import OrderedDict
 domain_list = [
     'clipart', 'infograph', 'painting', 'quickdraw', 'real', 'sketch'
 ]
-path = os.path.dirname(os.path.abspath(__file__))
-path = '/data/wz/domainnet_classification'
+path = os.path.join(flgo.benchmark.data_root, 'domainnet')
 classes = [
     'bird',
     'feather',
