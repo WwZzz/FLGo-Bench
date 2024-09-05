@@ -652,7 +652,7 @@ log_file: True
 | fedprox       | UNet      | lr=0.0001, μ=0.0001 |
 | scaffold      | UNet      | lr=0.0001           |
 | feddyn        | UNet      | lr=0.00005, α=0.1   |
-| moon          | UNet      |                     |
+| moon          | UNet      | lr=0.0001, μ=0.1    |
 
 <div style="text-align: right;">
 <a href="#Nevigation" style="text-decoration: none; background-color: #0366d6; color: white; padding: 5px 10px; border-radius: 5px;">Back</a>
