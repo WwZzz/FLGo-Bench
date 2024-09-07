@@ -16,6 +16,7 @@ def read_args():
     parser.add_argument('--gpu', help='GPU IDs and empty input is equal to using CPU', type=int, default=[0])
     parser.add_argument('--config', type=str, help='configuration of hypara', default='')
     parser.add_argument('--logger', help='test parallel', type=str, default='SimpleLogger')
+    parser.add_argument('--check_interval', help='interval (s) to save checkpoints', type=int, default=-1)
     parser.add_argument('--load_mode', help = 'load_mode', type=str, default='')
     parser.add_argument('--num_client_parallel', help = 'num of client processes', type=int, default=0)
     parser.add_argument('--test_parallel', help='test parallel',  action="store_true", default=False)
@@ -94,6 +95,10 @@ if __name__=='__main__':
     if acce and args.num_client_parallel>0:
         optimal_option['num_parallels'] =args.num_client_parallel
         optimal_option['parallel_type'] = 'else'
+    if args.check_interval>0:
+        optimal_option['check_interval'] = args.check_interval
+        optimal_option['save_checkpoint'] = algo.__name__
+        optimal_option['load_checkpoint'] = algo.__name__
     if args.test_parallel: optimal_option['test_parallel'] = True
     Logger = getattr(logger, args.logger)
     flgo.init(os.path.join('task', task), algo, optimal_option, model=model, Logger=Logger).run()

@@ -17,6 +17,7 @@ def read_args():
     parser.add_argument('--gpu', nargs='*', help='GPU IDs and empty input is equal to using CPU', type=int, default=[0])
     parser.add_argument('--config', help='congiguration', type=str, default=[], nargs='*')
     parser.add_argument('--model', help = 'model name', type=str, default=[], nargs='*')
+    parser.add_argument('--check_interval', help='interval (s) to save checkpoints', type=int, default=-1)
     parser.add_argument('--put_interval', help='interval (s) to put command into devices', type=int, default=5)
     parser.add_argument('--max_pdev', help='interval (s) to put command into devices', type=int, default=7)
     parser.add_argument('--available_interval', help='check availability of devices every x seconds', type=int, default=5)
@@ -67,7 +68,8 @@ if __name__=='__main__':
                 algo_para = algo_para_config.get(algo, None)
                 if algo_para is not None: config_tmp['algo_para'] = algo_para
                 configs.append(config_tmp)
-        for config in configs: config['load_mode'] = args.load_mode
+        for config in configs:
+            config['load_mode'] = args.load_mode
         import flgo.experiment.device_scheduler as fed
         scheduler = None if args.gpu is None else fed.AutoScheduler(args.gpu, put_interval=args.put_interval, available_interval=args.available_interval, mean_memory_occupated=args.memory, dynamic_memory_occupated=not args.no_dynmem, max_processes_per_device=args.max_pdev)
         #
@@ -134,6 +136,11 @@ if __name__=='__main__':
             for config in configs:
                 config['test_parallel'] = True
         Logger = getattr(logger, args.logger[0])
+        if args.check_interval >0:
+            for algo, config in zip(algos, configs):
+                config['check_interval'] = args.check_interval
+                config['save_checkpoint'] = algo.__name__
+                config['load_checkpoint'] = algo.__name__
         if args.seq:
             if len(models)==0: models = [None for _ in algos]
             for algo, para, model in zip(algos, configs, models):
@@ -226,6 +233,11 @@ if __name__=='__main__':
                 Logger = getattr(logger, args.logger[0])
             else:
                 Logger = getattr(logger, args.logger[task_id])
+            if args.check_interval>0:
+                for algo, config in zip(algos, configs):
+                    config['check_interval'] = args.check_interval
+                    config['save_checkpoint'] = algo.__name__
+                    config['load_checkpoint'] = algo.__name__
             task_dict = {'task': task, 'algorithm': algos, 'option': configs, 'Logger': Logger, 'model': models if len(models) > 0 else None}
             task_dicts.append(task_dict)
         if args.seq:
