@@ -68,7 +68,7 @@ def fedrun(task, algos=[], optimal_options=[], seeds=[0], Logger=None, model=Non
             options = []
             for seed in seeds:
                 opi = optimal_option.copy()
-                opi.update({'seed': seed})
+                opi.update({'seed': seed, 'no_tqdm': True})
                 options.append(opi)
             res = flgo.run_in_sequencial(task, algo, options, model, Logger=Logger, mmap=mmap)
     return res

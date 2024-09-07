@@ -145,14 +145,17 @@ if __name__=='__main__':
             if len(models)==0: models = [None for _ in algos]
             for algo, para, model in zip(algos, configs, models):
                 para['gpu'] = args.gpu
+                para['no_tqdm'] = True
                 res = flgo.tune_sequencially(task, algo, para, model=model, Logger=Logger, mmap=args.mmap, target_path=os.path.join(os.path.dirname(__file__), 'config'))
         else:
             if len(algos)==1:
                 algo = algos[0]
                 paras = configs[0]
                 model = models[0] if len(models)>0 else None
+                paras['no_tqdm'] = True
                 res = flgo.tune(task, algo, paras, model=model, Logger=Logger, scheduler=scheduler, mmap=args.mmap, target_path=os.path.join(os.path.dirname(__file__), 'config'))
             else:
+                for config in configs: config['no_tqdm'] = True
                 task_dict = {'task':task, 'algorithm':algos, 'option': configs, 'Logger':Logger, 'model':models if len(models)>0 else None}
                 flgo.multi_tune(task_dict, scheduler=scheduler, target_path=os.path.join(os.path.dirname(__file__), 'config'))
     else:
@@ -238,6 +241,8 @@ if __name__=='__main__':
                     config['check_interval'] = args.check_interval
                     config['save_checkpoint'] = algo.__name__
                     config['load_checkpoint'] = algo.__name__
+            for config in configs:
+                config['no_tqdm'] = True
             task_dict = {'task': task, 'algorithm': algos, 'option': configs, 'Logger': Logger, 'model': models if len(models) > 0 else None}
             task_dicts.append(task_dict)
         if args.seq:
