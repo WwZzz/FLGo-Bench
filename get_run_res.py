@@ -42,11 +42,11 @@ def optimal_round_by_lval(x, op={'metric': 'accuracy'}):
 def optimal_round_by_gval(x, op={'metric': 'accuracy'}):
     res = x.log.get(f'val_{op["metric"]}', None)
     return np.argmax(res) if res is not None else None
-def max_local_val_acc(x, op={'metric': 'accuracy'}):
+def max_local_val(x, op={'metric': 'accuracy'}):
     return max_log(x, {'x': f'local_val_{op["metric"]}'})
-def max_global_val_acc(x, op={'metric': 'accuracy'}):
+def max_global_val(x, op={'metric': 'accuracy'}):
     return max_log(x, {'x': f'val_{op["metric"]}'})
-def max_global_test_acc(x, op={'metric': 'accuracy'}):
+def max_global_test(x, op={'metric': 'accuracy'}):
     return max_log(x, {'x': f'test_{op["metric"]}'})
 def lr(x, op={}):
     return x.option['learning_rate']
@@ -105,9 +105,9 @@ if __name__ == '__main__':
 
     if args.domain==0:
         tb.add_column(get_seed)
-        tb.add_column(max_local_val_acc, {'metric':args.metric})
-        tb.add_column(max_global_test_acc, {'metric':args.metric})
-        tb.add_column(max_global_val_acc, {'metric':args.metric})
+        tb.add_column(max_local_val, {'metric':args.metric})
+        tb.add_column(max_global_test, {'metric':args.metric})
+        tb.add_column(max_global_val, {'metric':args.metric})
         tb.add_column(lr)
         tb.add_column(optimal_gtest_by_lval, {'metric':args.metric})
         tb.add_column(optimal_gtest_by_gval, {'metric':args.metric})
@@ -120,7 +120,7 @@ if __name__ == '__main__':
         res = prettytable.PrettyTable(col_names)
         row = []
         for n in col_names:
-            a,b = get_final_res(tb,  n)
+            a,b = get_final_res(tb,  '-'.join([n, args.metric]))
             row.append("{:.2f}±{:.2f}".format(a*100 ,b*100))
         res.add_row(row)
         print(res)
