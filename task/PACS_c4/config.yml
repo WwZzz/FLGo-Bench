@@ -11,4 +11,4 @@ early_stop: 100
 train_holdout: 0.2
 local_test: True
 no_log_console: True
-log_file: Trues
+log_file: True
