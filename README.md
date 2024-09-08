@@ -197,16 +197,21 @@ local_test: True
 no_log_console: True
 ```
 
-| **Algorithm** | **model**   | **iid**         | **dir1.0**      | **dir0.1**        | 
-|---------------|-------------|-----------------|-----------------|-------------------|
-| fedavg        | CNN         | lr=0.1          | lr=0.1          | lr=0.1            | 
-| fedprox       | CNN         | lr=0.1, μ=0.001 | lr=0.1, μ=0.001 | lr=0.05, μ=0.0001 |
-| scaffold      | CNN         | lr=0.1          | lr=0.1          | lr=0.1            |
-| feddyn        | CNN         | lr=0.001, α=0.1 | lr=0.1, α=0.1   | lr=0.1, α=0.03    | 
-| moon          | CNN         | lr=0.1, μ=0.1   | lr=0.1, μ=0.1   | lr=0.05, μ=0.1    | 
-|               |             |                 |                 |                   |    
-| fedavg        | ResNet18    | lr=0.1          | lr=0.05         | lr=0.05           |     
-| fedavg        | ResNet18-GN | lr=0.1          | lr=0.1          | lr=0.01           | 
+| **Algorithm** | **model**   | **iid**          | **dir1.0**      | **dir0.1**        | 
+|---------------|-------------|------------------|-----------------|-------------------|
+| fedavg        | CNN         | lr=0.1           | lr=0.1          | lr=0.1            | 
+| fedprox       | CNN         | lr=0.1, μ=0.001  | lr=0.1, μ=0.001 | lr=0.05, μ=0.0001 |
+| scaffold      | CNN         | lr=0.1           | lr=0.1          | lr=0.1            |
+| feddyn        | CNN         | lr=0.001, α=0.1  | lr=0.1, α=0.1   | lr=0.1, α=0.03    | 
+| moon          | CNN         | lr=0.1, μ=0.1    | lr=0.1, μ=0.1   | lr=0.05, μ=0.1    | 
+|               |             |                  |                 |                   |    
+| fedavg        | ResNet18    | lr=0.1           | lr=0.05         | lr=0.05           |
+| fedprox       | ResNet18    | lr=0.1, μ=0.0001 |                 |                   |
+| scaffold      | ResNet18    | lr=0.1           |                 |                   |
+| feddyn        | ResNet18    | lr=0.1, α=0.1    |                 |                   |
+| moon          | ResNet18    | lr=0.1, μ=10.0   |                 |                   |
+|               |             |                  |                 |                   |
+| fedavg        | ResNet18-GN | lr=0.1           | lr=0.1          | lr=0.01           | 
 
 #### Main Results
 ```
