@@ -102,8 +102,8 @@ if __name__=='__main__':
         task = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'task', task)
         models = []
         if len(args.model) > 0:
-            assert len(args.model)==len(args.algos) or len(args.model)==1
-            if len(args.model)==len(args.algos) and len(args.model)>1:
+            assert len(args.model)==len(args.algorithm) or len(args.model)==1
+            if len(args.model)==len(args.algorithm) and len(args.model)>1:
                 for algo, amodel in zip(algos, args.model):
                     model = None
                     try:
@@ -118,7 +118,7 @@ if __name__=='__main__':
                             model = None
                     models.append(model)
             else:
-                amodel = models[0]
+                amodel = args.model[0]
                 for algo in algos:
                     model = None
                     try:
