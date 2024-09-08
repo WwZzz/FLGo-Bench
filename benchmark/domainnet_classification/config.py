@@ -9,7 +9,7 @@ import flgo.benchmark
 domain_list = [
     'clipart', 'infograph', 'painting', 'quickdraw', 'real', 'sketch'
 ]
-path = '/data/wz/domainnet'
+path = os.path.join(flgo.benchmark.data_root, 'domainnet')
 classes = [
     'bird',
     'feather',

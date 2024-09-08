@@ -7,6 +7,7 @@ and the model (torch.nn.Module) should be implemented here.
 import torch.nn as nn
 import torch.utils.data
 from typing import *
+import flgo
 from torchvision import datasets, transforms
 import os
 import warnings
@@ -16,8 +17,8 @@ from torchvision.datasets import VisionDataset
 import torch.utils.data as tud
 from torchvision.datasets.utils import download_and_extract_archive
 import torch.nn.functional as F
+root = os.path.join(flgo.benchmark.path, 'digits')
 
-root = os.path.dirname(os.path.abspath(__file__))
 class MNISTM(VisionDataset):
     """MNIST-M Dataset.
     """

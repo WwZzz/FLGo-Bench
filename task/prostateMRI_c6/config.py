@@ -1,6 +1,6 @@
 import sys, os
 
-
+import flgo.benchmark
 import numpy as np
 from torch.utils.data import Dataset
 from PIL import Image
@@ -15,7 +15,7 @@ from collections import OrderedDict
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-root = os.path.dirname(os.path.abspath(__file__))
+root = os.path.join(flgo.benchmark.data_root, 'ProstateMRI')
 def convert_from_nii_to_png(img):
     high = np.quantile(img, 0.99)
     low = np.min(img)

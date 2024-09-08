@@ -1,8 +1,7 @@
 import cv2
 import torchvision.datasets.utils as tdu
 import os
-
-root = '/data/wz/fundus'
+import flgo
 #
 import torchvision.transforms as transforms
 import os
@@ -13,6 +12,8 @@ from collections import OrderedDict
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+
+root = os.path.join(flgo.benchmark.path, 'fundus')
 
 class FundusDataset(tud.Dataset):
     def __init__(self, root, site, split='train', transform=None):

@@ -6,13 +6,14 @@ from urllib.request import urlretrieve
 from zipfile import ZipFile
 import cv2
 import os
+import flgo.benchmark
 import torchvision.transforms as transforms
 from torchvision.datasets import ImageFolder
 from tqdm import tqdm
 import torch.nn as nn
 import torchvision.models as models
 
-root = os.path.abspath(os.path.dirname(__file__))
+root = os.path.join(flgo.benchmark.data_root, 'TINYIMAGENET')
 data_transforms = {
     "train": transforms.Compose(
         [

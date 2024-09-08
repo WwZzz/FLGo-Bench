@@ -463,23 +463,23 @@ proportion: 0.2
 ```
 *Global Test*
 
-| **Algorithm** | **model**           | **dir1.0** | **dir0.1** |   
-|---------------|---------------------|------------|------------|
-| fedavg        | EmbeddingBag+Linear | 89.37±0.14 | 87.87±0.15 |
-| fedprox       | EmbeddingBag+Linear | 89.39±0.12 | 87.97±0.11 |
-| scaffold      | EmbeddingBag+Linear | 87.98±0.65 | 85.96±0.45 |
-| feddyn        | EmbeddingBag+Linear | 91.02±0.02 | 91.14±0.04 |
-| moon          | EmbeddingBag+Linear | 90.28±0.07 | 87.61±0.13 |
+| **Algorithm** | **model**           | **iid**    | **dir1.0** | **dir0.1** |   
+|---------------|---------------------|------------|------------|------------|
+| fedavg        | EmbeddingBag+Linear | 90.93±0.06 | 89.37±0.14 | 87.87±0.15 |
+| fedprox       | EmbeddingBag+Linear | 90.94±0.11 | 89.39±0.12 | 87.97±0.11 |
+| scaffold      | EmbeddingBag+Linear |            | 87.98±0.65 | 85.96±0.45 |
+| feddyn        | EmbeddingBag+Linear | 91.04±0.06 | 91.02±0.02 | 91.14±0.04 |
+| moon          | EmbeddingBag+Linear | 89.37±0.14 | 90.28±0.07 | 87.61±0.13 |
 
 *Local Test*
 
-| **Algorithm** | **model**           | **dir1.0** | **dir0.1** |  
-|---------------|---------------------|------------|------------|
-| fedavg        | EmbeddingBag+Linear | 89.84±0.08 | 88.35±0.16 |
-| fedprox       | EmbeddingBag+Linear | 89.87±0.06 | 88.30±0.20 |
-| scaffold      | EmbeddingBag+Linear | 88.31±0.69 | 86.50±0.49 |
-| feddyn        | EmbeddingBag+Linear | 91.11±0.01 | 91.04±0.01 |
-| moon          | EmbeddingBag+Linear | 90.64±0.04 | 88.08±0.19 |
+| **Algorithm** | **model**           | **iid**    | **dir1.0** | **dir0.1** |  
+|---------------|---------------------|------------|------------|------------|
+| fedavg        | EmbeddingBag+Linear | 91.53±0.03 | 89.84±0.08 | 88.35±0.16 |
+| fedprox       | EmbeddingBag+Linear | 91.50±0.01 | 89.87±0.06 | 88.30±0.20 |
+| scaffold      | EmbeddingBag+Linear |            | 88.31±0.69 | 86.50±0.49 |
+| feddyn        | EmbeddingBag+Linear | 91.59±0.04 | 91.11±0.01 | 91.04±0.01 |
+| moon          | EmbeddingBag+Linear | 89.84±0.08 | 90.64±0.04 | 88.08±0.19 |
 
 <div style="text-align: right;">
 <a href="#Nevigation" style="text-decoration: none; background-color: #0366d6; color: white; padding: 5px 10px; border-radius: 5px;">Back</a>
@@ -652,12 +652,16 @@ log_file: True
 | fedprox       | UNet      | lr=0.0001, μ=0.0001 |
 | scaffold      | UNet      | lr=0.0001           |
 | feddyn        | UNet      | lr=0.00005, α=0.1   |
-| moon          | UNet      |                     |
+| moon          | UNet      | lr=0.0001, μ=0.1    |
 
 <div style="text-align: right;">
 <a href="#Nevigation" style="text-decoration: none; background-color: #0366d6; color: white; padding: 5px 10px; border-radius: 5px;">Back</a>
 </div>
 
+| **Algorithm** | **model** | **BMC**    | **UCL**    | **BIDMC**  | **RUNMC**  | **HK**     | **I2CVB**  | **Mean**    | **Weighted-Mean** |   
+|---------------|-----------|------------|------------|------------|------------|------------|------------|-------------|-------------------|
+| fedavg        | UNet      | 91.09±0.69 | 90.74±0.99 | 93.02±0.69 | 94.32±0.39 | 94.84±0.54 | 95.98±0.10 | 93.33±0.12  | 93.59±0.13        |
+| fedprox       | UNet      | 91.94±0.67 | 90.83±0.70 | 93.27±0.29 | 94.87±0.19 | 94.84±0.29 | 95.67±0.32 | 93.57±0.23  | 93.86±0.24        |
 
 ## Camelyon17
 ### 5 Clients
@@ -797,6 +801,9 @@ seed: [2,4388,15,333,967] # results are averaged over five random seeds
 | **Algorithm** | **model** | **client-id** |   
 |---------------|-----------|---------------|
 | fedavg        | LSTM      | 52.85±0.06    |
+| fedprox       | LSTM      | 53.09±0.06    |
+| scaffold      | LSTM      | 49.93±0.09    |
+
 
 
 *Local Test*
@@ -804,6 +811,9 @@ seed: [2,4388,15,333,967] # results are averaged over five random seeds
 | **Algorithm** | **model** | **client-id** |   
 |---------------|-----------|---------------|
 | fedavg        | LSTM      | 52.76±0.17    |
+| fedprox       | LSTM      | 53.31±0.04    |
+| scaffold      | LSTM      | 50.01±0.14    |
+
 
 <div style="text-align: right;">
 <a href="#Nevigation" style="text-decoration: none; background-color: #0366d6; color: white; padding: 5px 10px; border-radius: 5px;">Back</a>

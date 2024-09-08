@@ -1,4 +1,3 @@
-
 import torchvision.utils
 import torch.utils.data
 from torchvision.datasets.utils import download_and_extract_archive
@@ -7,6 +6,7 @@ import os
 from PIL import Image
 import torch.nn as nn
 from collections import OrderedDict
+import flgo
 
 class PACSDomainDataset(torchvision.datasets.VisionDataset):
     classes = ('dog', 'elephant', 'giraffe', 'guitar', 'horse', 'house', 'person')
@@ -57,7 +57,7 @@ transform = transforms.Compose([
     transforms.Resize([256, 256]),
     transforms.PILToTensor(),
 ])
-path = os.path.dirname(__file__)
+path = os.path.join(flgo.benchmark.data_root, 'PACS')
 train_data = PACS(path, transform=transform).datasets
 val_data = None
 test_data = None

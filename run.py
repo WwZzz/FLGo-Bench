@@ -18,6 +18,7 @@ def read_args():
     parser.add_argument('--gpu', nargs='*', help='GPU IDs and empty input is equal to using CPU', type=int, default=[0])
     parser.add_argument('--seeds', nargs='+', help='seeds', type=int, default=[2,4388,15,333,967])
     parser.add_argument('--config', type=str, help='configuration of hypara', default='', nargs='*')
+    parser.add_argument('--check_interval', help='interval (s) to save checkpoints', type=int, default=-1)
     parser.add_argument('--put_interval', help='interval (s) to put command into devices', type=int, default=10)
     parser.add_argument('--max_pdev', help='interval (s) to put command into devices', type=int, default=7)
     parser.add_argument('--available_interval', help='check availability of devices every x seconds', type=int, default=10)
@@ -27,6 +28,7 @@ def read_args():
     parser.add_argument('--num_client_parallel', help = 'number of parallel processing', type=int, default=0)
     parser.add_argument('--test_parallel', help='test parallel',  action="store_true", default=False)
     parser.add_argument('--logger', help='test parallel', type=str, default='FullLogger')
+    parser.add_argument('--data_root', help = 'the root of dataset', type=str, default='')
     return parser.parse_known_args()
 
 args = read_args()[0]
@@ -35,6 +37,11 @@ seeds = args.seeds
 gpus = args.gpu
 assert len(args.config)==len(args.algorithm)
 assert len(args.config)>0
+if args.data_root!='':
+    if os.path.exists(args.data_root) and os.path.isdir(args.data_root):
+        flgo.set_data_root(args.data_root)
+    else:
+        warnings.warn("Failed to change data root.")
 optimal_options = []
 for config in args.config:
     with open(config, 'r') as inf:
@@ -43,7 +50,7 @@ for config in args.config:
     if 'early_stop' in option.keys(): option.pop('early_stop')
     optimal_options.append(option)
 
-def fedrun(task, algos=[], optimal_options=[], seeds=[0], Logger=None, model=None, put_interval=10, available_interval=10, max_processes_per_device=10, mmap=False, seq=False):
+def fedrun(task, algos=[], optimal_options=[], seeds=[0], Logger=None, model=None, put_interval=10, available_interval=10, max_processes_per_device=10, mmap=False, seq=False, check_interval=-1):
     assert len(algos)==len(optimal_options)
     runner_dict = []
     asc = ds.AutoScheduler(args.gpu, put_interval=put_interval, available_interval=available_interval, max_processes_per_device=max_processes_per_device)
@@ -52,6 +59,8 @@ def fedrun(task, algos=[], optimal_options=[], seeds=[0], Logger=None, model=Non
             for seed in seeds:
                 opi = optimal_option.copy()
                 opi.update({'seed': seed})
+                if check_interval>0:
+                    opi.update({'load_checkpoint': algo.__name__, 'save_checkpoint': algo.__name__, 'check_interval':check_interval})
                 runner_dict.append({'task': task, 'algorithm': algo, 'option': opi, 'model':model, 'Logger':Logger})
         res = flgo.multi_init_and_run(runner_dict, scheduler=asc, mmap=mmap)
     else:
@@ -59,7 +68,7 @@ def fedrun(task, algos=[], optimal_options=[], seeds=[0], Logger=None, model=Non
             options = []
             for seed in seeds:
                 opi = optimal_option.copy()
-                opi.update({'seed': seed})
+                opi.update({'seed': seed, 'no_tqdm': True})
                 options.append(opi)
             res = flgo.run_in_sequencial(task, algo, options, model, Logger=Logger, mmap=mmap)
     return res
@@ -109,4 +118,4 @@ if __name__=='__main__':
         for optimal_option in optimal_options:
             optimal_option['test_parallel'] = True
     Logger = getattr(logger, args.logger)
-    fedrun(os.path.join('task', task), algos, optimal_options=optimal_options, seeds=seeds, Logger=Logger, model=model, put_interval=args.put_interval, available_interval=args.available_interval, max_processes_per_device=args.max_pdev, mmap=args.mmap, seq=args.seq)
+    fedrun(os.path.join('task', task), algos, optimal_options=optimal_options, seeds=seeds, Logger=Logger, model=model, put_interval=args.put_interval, available_interval=args.available_interval, max_processes_per_device=args.max_pdev, mmap=args.mmap, seq=args.seq, check_interval=args.check_interval)
