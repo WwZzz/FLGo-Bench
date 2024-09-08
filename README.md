@@ -663,6 +663,10 @@ log_file: True
 <a href="#Nevigation" style="text-decoration: none; background-color: #0366d6; color: white; padding: 5px 10px; border-radius: 5px;">Back</a>
 </div>
 
+| **Algorithm** | **model** | **BMC**    | **UCL**    | **BIDMC**  | **RUNMC**  | **HK**     | **I2CVB**  | **Mean**    | **Weighted-Mean** |   
+|---------------|-----------|------------|------------|------------|------------|------------|------------|-------------|-------------------|
+| fedavg        | UNet      | 91.09±0.69 | 90.74±0.99 | 93.02±0.69 | 94.32±0.39 | 94.84±0.54 | 95.98±0.10 | 93.33±0.12  | 93.59±0.13        |
+| fedprox       | UNet      | 91.94±0.67 | 90.83±0.70 | 93.27±0.29 | 94.87±0.19 | 94.84±0.29 | 95.67±0.32 | 93.57±0.23  | 93.86±0.24        |
 
 ## Camelyon17
 ### 5 Clients
