@@ -122,6 +122,11 @@ no_log_console: True
 | feddyn        | CNN         | lr=0.1, α=0.1    | lr=0.1, α=0.1  | lr=0.05, α=0.1  | lr=0.1, α=0.03 | lr=0.05, α=0.03  |
 |               |             |                  |                |                 |                |                  |
 | fedavg        | ResNet18    | lr=0.1           | lr=0.1         | lr=0.1          | lr=0.05        | lr=0.1           |
+| fedprox       | ResNet18    | lr=0.05, μ=0.001 | lr=0.1, μ=0.1  |                 |                |                  |
+| scaffold      | ResNet18    | lr=0.1           |                |                 |                |                  |
+| moon          | ResNet18    | lr=0.1, μ=0.1    |                |                 |                |                  |
+| feddyn        | ResNet18    | lr=0.1, α=0.1    | lr=0.1, α=0.1  |                 |                |                  |
+|               |             |                  |                |                 |                |                  |
 | fedavg        | ResNet18-GN | lr=0.1           | lr=0.1         | lr=0.1          | lr=0.1         | lr=0.1           |
 
 
