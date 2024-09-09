@@ -21,6 +21,7 @@ def read_args():
     parser.add_argument('--num_client_parallel', help = 'num of client processes', type=int, default=0)
     parser.add_argument('--test_parallel', help='test parallel',  action="store_true", default=False)
     parser.add_argument('--data_root', help = 'the root of dataset', type=str, default='')
+    parser.add_argument('--use_cache', help='whether to use cache',  action="store_true", default=False)
     return parser.parse_known_args()
 
 args = read_args()[0]
@@ -38,6 +39,7 @@ if config!='' and os.path.exists(config):
 else:
     option = {}
 option['gpu'] = gpus
+option['use_cache'] = args.use_cache
 optimal_option = option
 
 class FullLogger(BasicLogger):

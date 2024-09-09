@@ -29,6 +29,7 @@ def read_args():
     parser.add_argument('--test_parallel', help='test parallel',  action="store_true", default=False)
     parser.add_argument('--logger', help='test parallel', type=str, default='FullLogger')
     parser.add_argument('--data_root', help = 'the root of dataset', type=str, default='')
+    parser.add_argument('--use_cache', help='whether to use cache',  action="store_true", default=False)
     return parser.parse_known_args()
 
 args = read_args()[0]
@@ -58,7 +59,7 @@ def fedrun(task, algos=[], optimal_options=[], seeds=[0], Logger=None, model=Non
         for algo, optimal_option in zip(algos, optimal_options):
             for seed in seeds:
                 opi = optimal_option.copy()
-                opi.update({'seed': seed})
+                opi.update({'seed': seed, 'use_cache': args.use_cache, })
                 if check_interval>0:
                     opi.update({'load_checkpoint': algo.__name__, 'save_checkpoint': algo.__name__, 'check_interval':check_interval})
                 runner_dict.append({'task': task, 'algorithm': algo, 'option': opi, 'model':model, 'Logger':Logger})

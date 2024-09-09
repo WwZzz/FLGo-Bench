@@ -30,6 +30,7 @@ def read_args():
     parser.add_argument('--test_parallel', help='test parallel',  action="store_true", default=False)
     parser.add_argument('--logger', help='test parallel', type=str, default=['TuneLogger'], nargs='*')
     parser.add_argument('--data_root', help = 'the root of dataset', type=str, default='')
+    parser.add_argument('--use_cache', help='whether to use cache',  action="store_true", default=False)
     return parser.parse_known_args()
 
 if __name__=='__main__':
@@ -70,6 +71,7 @@ if __name__=='__main__':
                 configs.append(config_tmp)
         for config in configs:
             config['load_mode'] = args.load_mode
+            config['use_cache'] = args.use_cache
         import flgo.experiment.device_scheduler as fed
         scheduler = None if args.gpu is None else fed.AutoScheduler(args.gpu, put_interval=args.put_interval, available_interval=args.available_interval, mean_memory_occupated=args.memory, dynamic_memory_occupated=not args.no_dynmem, max_processes_per_device=args.max_pdev)
         #
@@ -207,7 +209,9 @@ if __name__=='__main__':
                 algo_para = algo_para_config.get(algo_name, None)
                 if algo_para is not None: config_tmp['algo_para'] = algo_para
                 configs.append(config_tmp)
-            for config in configs: config['load_mode'] = args.load_mode
+            for config in configs:
+                config['load_mode'] = args.load_mode
+                config['use_cache'] = args.use_cache
             for algo_id, algo in enumerate(args.algorithm):
                 if acces[algo_id] and args.num_client_parallel > 0:
                     configs[algo_id]['num_parallels'] = args.num_client_parallel
