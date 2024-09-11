@@ -274,7 +274,7 @@ no_log_console: True
 
 | **Algorithm** | **model** | **iid**        | **dir1.0** | **dir0.1** | 
 |---------------|-----------|----------------|------------|------------|
-| fedavg        | ResNet18  | lr=0.1         |            |            | 
+| fedavg        | ResNet18  | lr=0.1         | lr=0.05    |            | 
 | fedprox       | ResNet18  | lr=0.1, μ=0.01 |            |            | 
 | scaffold      | ResNet18  | lr=0.05        |            |            | 
 | feddyn        | ResNet18  |                |            |            |
