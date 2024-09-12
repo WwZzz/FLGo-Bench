@@ -406,7 +406,8 @@ log_file: True
 |---------------|-----------|------------------|
 | fedavg        | CNN       | lr=0.1           |
 | fedprox       | CNN       | lr=0.1, μ=0.0001 |
-
+| scaffold      | CNN       | lr=0.05          |
+| feddyn        | CNN       | lr=0.05, α=0.03  |
 
 
 
