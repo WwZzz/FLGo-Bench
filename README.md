@@ -206,10 +206,10 @@ no_log_console: True
 | moon          | CNN         | lr=0.1, μ=0.1    | lr=0.1, μ=0.1   | lr=0.05, μ=0.1    | 
 |               |             |                  |                 |                   |    
 | fedavg        | ResNet18    | lr=0.1           | lr=0.05         | lr=0.05           |
-| fedprox       | ResNet18    | lr=0.1, μ=0.0001 |                 |                   |
-| scaffold      | ResNet18    | lr=0.1           |                 |                   |
-| feddyn        | ResNet18    | lr=0.1, α=0.1    |                 |                   |
-| moon          | ResNet18    | lr=0.1, μ=10.0   |                 |                   |
+| fedprox       | ResNet18    | lr=0.1, μ=0.0001 | lr=0.05, μ=0.01 |                   |
+| scaffold      | ResNet18    | lr=0.1           | lr=0.1          |                   |
+| feddyn        | ResNet18    | lr=0.1, α=0.1    | lr=0.05, α=0.1  |                   |
+| moon          | ResNet18    | lr=0.1, μ=10.0   | lr=0.05, μ=0.1  |                   |
 |               |             |                  |                 |                   |
 | fedavg        | ResNet18-GN | lr=0.1           | lr=0.1          | lr=0.01           | 
 
