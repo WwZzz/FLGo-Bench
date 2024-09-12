@@ -122,6 +122,11 @@ no_log_console: True
 | feddyn        | CNN         | lr=0.1, α=0.1    | lr=0.1, α=0.1  | lr=0.05, α=0.1  | lr=0.1, α=0.03 | lr=0.05, α=0.03  |
 |               |             |                  |                |                 |                |                  |
 | fedavg        | ResNet18    | lr=0.1           | lr=0.1         | lr=0.1          | lr=0.05        | lr=0.1           |
+| fedprox       | ResNet18    | lr=0.05, μ=0.001 | lr=0.1, μ=0.1  |                 |                |                  |
+| scaffold      | ResNet18    | lr=0.1           | lr=0.1         |                 |                |                  |
+| moon          | ResNet18    | lr=0.1, μ=0.1    | lr=0.05, μ=0.1 |                 |                |                  |
+| feddyn        | ResNet18    | lr=0.1, α=0.1    | lr=0.1, α=0.1  |                 |                |                  |
+|               |             |                  |                |                 |                |                  |
 | fedavg        | ResNet18-GN | lr=0.1           | lr=0.1         | lr=0.1          | lr=0.1         | lr=0.1           |
 
 
@@ -192,16 +197,21 @@ local_test: True
 no_log_console: True
 ```
 
-| **Algorithm** | **model**   | **iid**         | **dir1.0**      | **dir0.1**        | 
-|---------------|-------------|-----------------|-----------------|-------------------|
-| fedavg        | CNN         | lr=0.1          | lr=0.1          | lr=0.1            | 
-| fedprox       | CNN         | lr=0.1, μ=0.001 | lr=0.1, μ=0.001 | lr=0.05, μ=0.0001 |
-| scaffold      | CNN         | lr=0.1          | lr=0.1          | lr=0.1            |
-| feddyn        | CNN         | lr=0.001, α=0.1 | lr=0.1, α=0.1   | lr=0.1, α=0.03    | 
-| moon          | CNN         | lr=0.1, μ=0.1   | lr=0.1, μ=0.1   | lr=0.05, μ=0.1    | 
-|               |             |                 |                 |                   |    
-| fedavg        | ResNet18    | lr=0.1          | lr=0.05         | lr=0.05           |     
-| fedavg        | ResNet18-GN | lr=0.1          | lr=0.1          | lr=0.01           | 
+| **Algorithm** | **model**   | **iid**          | **dir1.0**      | **dir0.1**        | 
+|---------------|-------------|------------------|-----------------|-------------------|
+| fedavg        | CNN         | lr=0.1           | lr=0.1          | lr=0.1            | 
+| fedprox       | CNN         | lr=0.1, μ=0.001  | lr=0.1, μ=0.001 | lr=0.05, μ=0.0001 |
+| scaffold      | CNN         | lr=0.1           | lr=0.1          | lr=0.1            |
+| feddyn        | CNN         | lr=0.001, α=0.1  | lr=0.1, α=0.1   | lr=0.1, α=0.03    | 
+| moon          | CNN         | lr=0.1, μ=0.1    | lr=0.1, μ=0.1   | lr=0.05, μ=0.1    | 
+|               |             |                  |                 |                   |    
+| fedavg        | ResNet18    | lr=0.1           | lr=0.05         | lr=0.05           |
+| fedprox       | ResNet18    | lr=0.1, μ=0.0001 | lr=0.05, μ=0.01 |                   |
+| scaffold      | ResNet18    | lr=0.1           | lr=0.1          |                   |
+| feddyn        | ResNet18    | lr=0.1, α=0.1    | lr=0.05, α=0.1  |                   |
+| moon          | ResNet18    | lr=0.1, μ=10.0   | lr=0.05, μ=0.1  |                   |
+|               |             |                  |                 |                   |
+| fedavg        | ResNet18-GN | lr=0.1           | lr=0.1          | lr=0.01           | 
 
 #### Main Results
 ```
@@ -262,9 +272,13 @@ local_test: True
 no_log_console: True
 ```
 
-| **Algorithm** | **model** | **iid** | **dir1.0** | **dir0.1** | 
-|---------------|-----------|---------|------------|------------|
-| fedavg        |           |         |            |            | 
+| **Algorithm** | **model** | **iid**        | **dir1.0**      | **dir0.1** | 
+|---------------|-----------|----------------|-----------------|------------|
+| fedavg        | ResNet18  | lr=0.1         | lr=0.05         | lr=0.05    | 
+| fedprox       | ResNet18  | lr=0.1, μ=0.01 | lr=0.05, μ=1.0  |            | 
+| scaffold      | ResNet18  | lr=0.05        | lr=0.1          |            | 
+| feddyn        | ResNet18  |                | lr=0.05, α=0.03 |            |
+| moon          | ResNet18  |                |                 |            |
 
 #### Main Results
 ```
@@ -273,17 +287,17 @@ proportion: 0.2
 ```
 *Global Test*
 
-| **Algorithm** | **model** | **iid** | **dir1.0** | **dir0.1** | 
-|---------------|-----------|---------|------------|------------|
-| fedavg        |           |         |            |            | 
+| **Algorithm** | **model** | **iid**    | **dir1.0** | **dir0.1** | 
+|---------------|-----------|------------|------------|------------|
+| fedavg        | ResNet18  | 58.89±0.34 |            |            | 
 
 
 *Local Test*
 
 
-| **Algorithm** | **model** | **iid** | **dir1.0** | **dir0.1** | 
-|---------------|-----------|---------|------------|------------|
-| fedavg        |           |         |            |            | 
+| **Algorithm** | **model** | **iid**    | **dir1.0** | **dir0.1** | 
+|---------------|-----------|------------|------------|------------|
+| fedavg        | ResNet18  | 59.16±0.19 |            |            | 
 
 
 <div style="text-align: right;">
@@ -392,7 +406,8 @@ log_file: True
 |---------------|-----------|------------------|
 | fedavg        | CNN       | lr=0.1           |
 | fedprox       | CNN       | lr=0.1, μ=0.0001 |
-
+| scaffold      | CNN       | lr=0.05          |
+| feddyn        | CNN       | lr=0.05, α=0.03  |
 
 
 
@@ -467,9 +482,9 @@ proportion: 0.2
 |---------------|---------------------|------------|------------|------------|
 | fedavg        | EmbeddingBag+Linear | 90.93±0.06 | 89.37±0.14 | 87.87±0.15 |
 | fedprox       | EmbeddingBag+Linear | 90.94±0.11 | 89.39±0.12 | 87.97±0.11 |
-| scaffold      | EmbeddingBag+Linear |            | 87.98±0.65 | 85.96±0.45 |
+| scaffold      | EmbeddingBag+Linear | 90.28±0.28 | 87.98±0.65 | 85.96±0.45 |
 | feddyn        | EmbeddingBag+Linear | 91.04±0.06 | 91.02±0.02 | 91.14±0.04 |
-| moon          | EmbeddingBag+Linear | 89.37±0.14 | 90.28±0.07 | 87.61±0.13 |
+| moon          | EmbeddingBag+Linear | 91.54±0.11 | 90.28±0.07 | 87.61±0.13 |
 
 *Local Test*
 
@@ -477,9 +492,9 @@ proportion: 0.2
 |---------------|---------------------|------------|------------|------------|
 | fedavg        | EmbeddingBag+Linear | 91.53±0.03 | 89.84±0.08 | 88.35±0.16 |
 | fedprox       | EmbeddingBag+Linear | 91.50±0.01 | 89.87±0.06 | 88.30±0.20 |
-| scaffold      | EmbeddingBag+Linear |            | 88.31±0.69 | 86.50±0.49 |
+| scaffold      | EmbeddingBag+Linear | 90.58±0.50 | 88.31±0.69 | 86.50±0.49 |
 | feddyn        | EmbeddingBag+Linear | 91.59±0.04 | 91.11±0.01 | 91.04±0.01 |
-| moon          | EmbeddingBag+Linear | 89.84±0.08 | 90.64±0.04 | 88.08±0.19 |
+| moon          | EmbeddingBag+Linear | 92.03±0.05 | 90.64±0.04 | 88.08±0.19 |
 
 <div style="text-align: right;">
 <a href="#Nevigation" style="text-decoration: none; background-color: #0366d6; color: white; padding: 5px 10px; border-radius: 5px;">Back</a>
@@ -662,6 +677,9 @@ log_file: True
 |---------------|-----------|------------|------------|------------|------------|------------|------------|-------------|-------------------|
 | fedavg        | UNet      | 91.09±0.69 | 90.74±0.99 | 93.02±0.69 | 94.32±0.39 | 94.84±0.54 | 95.98±0.10 | 93.33±0.12  | 93.59±0.13        |
 | fedprox       | UNet      | 91.94±0.67 | 90.83±0.70 | 93.27±0.29 | 94.87±0.19 | 94.84±0.29 | 95.67±0.32 | 93.57±0.23  | 93.86±0.24        |
+| scaffold      | UNet      | 56.16±0.09 | 49.23±0.03 | 51.56±0.02 | 54.69±0.06 | 53.50±0.05 | 46.92±0.07 | 52.01±0.02  | 51.98±0.02        |
+| feddyn        | UNet      | 91.41±1.14 | 90.96±1.49 | 91.89±1.49 | 94.28±0.38 | 93.93±0.85 | 93.83±1.00 | 92.72±0.28  | 92.90±0.25        |
+| moon          | UNet      | 91.93±0.36 | 89.85±1.10 | 92.39±0.63 | 94.30±0.43 | 94.06±0.29 | 96.17±0.28 | 93.12±0.23  | 93.57±0.20        |
 
 ## Camelyon17
 ### 5 Clients
