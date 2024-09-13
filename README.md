@@ -617,6 +617,15 @@ seed: [2,4388,15,333,967] # results are averaged over five random seeds
 ```
 ```
 
+
+| **Algorithm** | **model** | **domain** |   
+|---------------|-----------|------------|
+| fedavg        | AlexNet   | lr=0.05    |
+| fedprox       | AlexNet   |            |
+| scaffold      | AlexNet   |            |
+| feddyn        | AlexNet   |            |
+| moon          | AlexNet   |            |
+
 <div style="text-align: right;">
 <a href="#Nevigation" style="text-decoration: none; background-color: #0366d6; color: white; padding: 5px 10px; border-radius: 5px;">Back</a>
 </div>
