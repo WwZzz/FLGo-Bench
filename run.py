@@ -9,12 +9,15 @@ import torch.multiprocessing
 import yaml
 import importlib
 import logger
+import simulator
+import flgo.simulator
 
 def read_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('--task', help='name of task', type=str, default='')
     parser.add_argument('--algorithm', help='name of method', type=str, nargs='*', default='fedavg')
     parser.add_argument('--model', help = 'model name', type=str, default='')
+    parser.add_argument('--simulator', help='test parallel', type=str, default='')
     parser.add_argument('--gpu', nargs='*', help='GPU IDs and empty input is equal to using CPU', type=int, default=[0])
     parser.add_argument('--seeds', nargs='+', help='seeds', type=int, default=[2,4388,15,333,967])
     parser.add_argument('--config', type=str, help='configuration of hypara', default='', nargs='*')
@@ -25,7 +28,7 @@ def read_args():
     parser.add_argument('--mmap', help='mmap',  action="store_true", default=False)
     parser.add_argument('--load_mode', help = 'load_mode', type=str, default='')
     parser.add_argument('--seq', help='run sequencially',  action="store_true", default=False)
-    parser.add_argument('--num_client_parallel', help = 'number of parallel processing', type=int, default=0)
+    parser.add_argument('--train_parallel', help = 'number of parallel processing', type=int, default=0)
     parser.add_argument('--test_parallel', help='test parallel',  action="store_true", default=False)
     parser.add_argument('--logger', help='test parallel', type=str, default='FullLogger')
     parser.add_argument('--data_root', help = 'the root of dataset', type=str, default='')
@@ -51,7 +54,7 @@ for config in args.config:
     if 'early_stop' in option.keys(): option.pop('early_stop')
     optimal_options.append(option)
 
-def fedrun(task, algos=[], optimal_options=[], seeds=[0], Logger=None, model=None, put_interval=10, available_interval=10, max_processes_per_device=10, mmap=False, seq=False, check_interval=-1):
+def fedrun(task, algos=[], optimal_options=[], seeds=[0], Logger=None, model=None, Simulator=flgo.simulator.DefaultSimulator, put_interval=10, available_interval=10, max_processes_per_device=10, mmap=False, seq=False, check_interval=-1):
     assert len(algos)==len(optimal_options)
     runner_dict = []
     asc = ds.AutoScheduler(args.gpu, put_interval=put_interval, available_interval=available_interval, max_processes_per_device=max_processes_per_device)
@@ -62,7 +65,7 @@ def fedrun(task, algos=[], optimal_options=[], seeds=[0], Logger=None, model=Non
                 opi.update({'seed': seed, 'use_cache': args.use_cache, })
                 if check_interval>0:
                     opi.update({'load_checkpoint': algo.__name__, 'save_checkpoint': algo.__name__, 'check_interval':check_interval})
-                runner_dict.append({'task': task, 'algorithm': algo, 'option': opi, 'model':model, 'Logger':Logger})
+                runner_dict.append({'task': task, 'algorithm': algo, 'option': opi, 'model':model, 'Logger':Logger, 'Simulator':Simulator})
         res = flgo.multi_init_and_run(runner_dict, scheduler=asc, mmap=mmap)
     else:
         for algo, optimal_option in zip(algos, optimal_options):
@@ -83,7 +86,7 @@ if __name__=='__main__':
         modules = [".".join(["algorithm", algoname]), ".".join(["develop", algoname]),
                    ".".join(["flgo", "algorithm", algoname])]
         algo = None
-        if args.num_client_parallel > 0:
+        if args.train_parallel > 0:
             try:
                 algo = importlib.import_module(".".join(["algorithm", "accelerate", algoname]))
                 acce = True
@@ -111,12 +114,13 @@ if __name__=='__main__':
             except:
                 print("using default model")
                 model = None
-    if acce and args.num_client_parallel>0:
+    if acce and args.train_parallel>0:
         for optimal_option in optimal_options:
-            optimal_option['num_parallels'] =args.num_client_parallel
+            optimal_option['num_parallels'] =args.train_parallel
             optimal_option['parallel_type'] = 'else'
     if args.test_parallel:
         for optimal_option in optimal_options:
             optimal_option['test_parallel'] = True
     Logger = getattr(logger, args.logger)
-    fedrun(os.path.join('task', task), algos, optimal_options=optimal_options, seeds=seeds, Logger=Logger, model=model, put_interval=args.put_interval, available_interval=args.available_interval, max_processes_per_device=args.max_pdev, mmap=args.mmap, seq=args.seq, check_interval=args.check_interval)
+    Simulator = getattr(simulator, args.simulator) if args.simulator!='' else flgo.simulator.DefaultSimulator
+    fedrun(os.path.join('task', task), algos, optimal_options=optimal_options, seeds=seeds, Logger=Logger, model=model, Simulator=Simulator, put_interval=args.put_interval, available_interval=args.available_interval, max_processes_per_device=args.max_pdev, mmap=args.mmap, seq=args.seq, check_interval=args.check_interval)

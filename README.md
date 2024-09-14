@@ -36,7 +36,7 @@ python run.py --task TASKNAME --algorithm ALGORITHM --config CONFIG_PATH --gpu G
 | available_interval  | int      | the time interval (s) to check whether a device is available                                                |
 | put_interval        | int      | the time interval (s) to put one process into device                                                        |
 | seq                 | bool     | whether to run each process in sequencial                                                                   |
-| num_client_parallel | int      | the number of parallel client local training processes, default is 0                                        |
+| train_parallel | int      | the number of parallel client local training processes, default is 0                                        |
 | test_parallel       | bool     | whether to use data parallel when evaluating model                                                          |
 
 - **Example**

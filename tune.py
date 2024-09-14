@@ -9,6 +9,8 @@ import flgo
 import torch.multiprocessing as mlp
 import yaml
 import logger
+import simulator
+import flgo.simulator
 
 def read_args():
     parser = argparse.ArgumentParser()
@@ -17,6 +19,7 @@ def read_args():
     parser.add_argument('--gpu', nargs='*', help='GPU IDs and empty input is equal to using CPU', type=int, default=[0])
     parser.add_argument('--config', help='congiguration', type=str, default=[], nargs='*')
     parser.add_argument('--model', help = 'model name', type=str, default=[], nargs='*')
+    parser.add_argument('--simulator', help='test parallel', type=str, default='')
     parser.add_argument('--check_interval', help='interval (s) to save checkpoints', type=int, default=-1)
     parser.add_argument('--put_interval', help='interval (s) to put command into devices', type=int, default=5)
     parser.add_argument('--max_pdev', help='interval (s) to put command into devices', type=int, default=7)
@@ -26,7 +29,7 @@ def read_args():
     parser.add_argument('--mmap', help='mmap',  action="store_true", default=False)
     parser.add_argument('--load_mode', help = 'load_mode', type=str, default='')
     parser.add_argument('--seq', help='tune sequencially',  action="store_true", default=False)
-    parser.add_argument('--num_client_parallel', help='number of parallel processing',   type=int, default=0)
+    parser.add_argument('--train_parallel', help='number of parallel processing',   type=int, default=0)
     parser.add_argument('--test_parallel', help='test parallel',  action="store_true", default=False)
     parser.add_argument('--logger', help='test parallel', type=str, default=['TuneLogger'], nargs='*')
     parser.add_argument('--data_root', help = 'the root of dataset', type=str, default='')
@@ -43,6 +46,7 @@ if __name__=='__main__':
         else:
             warnings.warn("Failed to change data root.")
     tasks = args.task
+    Simulator = getattr(simulator, args.simulator) if args.simulator!='' else flgo.simulator.DefaultSimulator
     if len(tasks)==1:
         task = tasks[0]
         assert len(args.logger)==1
@@ -82,7 +86,7 @@ if __name__=='__main__':
             algo = None
             acce = False
             modules = [".".join(["algorithm", algo_name]), ".".join(["develop", algo_name]),".".join(["flgo", "algorithm", algo_name])]
-            if args.num_client_parallel>0:
+            if args.train_parallel>0:
                 try:
                     algo = importlib.import_module(".".join(["algorithm", "accelerate", algo_name]))
                     acce = True
@@ -98,8 +102,8 @@ if __name__=='__main__':
                         continue
             if algo is None: raise ModuleNotFoundError("{} was not found".format(algo))
             algos.append(algo)
-            if acce and args.num_client_parallel>0:
-                configs[algo_id]['num_parallels'] = args.num_client_parallel
+            if acce and args.train_parallel>0:
+                configs[algo_id]['num_parallels'] = args.train_parallel
                 configs[algo_id]['parallel_type'] = 'else'
         task = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'task', task)
         models = []
@@ -148,7 +152,7 @@ if __name__=='__main__':
             for algo, para, model in zip(algos, configs, models):
                 para['gpu'] = args.gpu
                 para['no_tqdm'] = True
-                res = flgo.tune_sequencially(task, algo, para, model=model, Logger=Logger, mmap=args.mmap, target_path=os.path.join(os.path.dirname(__file__), 'config'))
+                res = flgo.tune_sequencially(task, algo, para, model=model, Logger=Logger, Simulator=Simulator, mmap=args.mmap, target_path=os.path.join(os.path.dirname(__file__), 'config'))
         else:
             if len(algos)==1:
                 algo = algos[0]
@@ -158,7 +162,7 @@ if __name__=='__main__':
                 res = flgo.tune(task, algo, paras, model=model, Logger=Logger, scheduler=scheduler, mmap=args.mmap, target_path=os.path.join(os.path.dirname(__file__), 'config'))
             else:
                 for config in configs: config['no_tqdm'] = True
-                task_dict = {'task':task, 'algorithm':algos, 'option': configs, 'Logger':Logger, 'model':models if len(models)>0 else None}
+                task_dict = {'task':task, 'algorithm':algos, 'option': configs, 'Logger':Logger, 'Simulator':Simulator, 'model':models if len(models)>0 else None}
                 flgo.multi_tune(task_dict, scheduler=scheduler, target_path=os.path.join(os.path.dirname(__file__), 'config'))
     else:
         import flgo.experiment.device_scheduler as fed
@@ -178,7 +182,7 @@ if __name__=='__main__':
             algo = None
             modules = [".".join(["algorithm", algo_name]), ".".join(["develop", algo_name]),
                        ".".join(["flgo", "algorithm", algo_name])]
-            if args.num_client_parallel > 0:
+            if args.train_parallel > 0:
                 try:
                     algo = importlib.import_module(".".join(["algorithm", "accelerate", algo_name]))
                     acces[algo_id] = True
@@ -213,8 +217,8 @@ if __name__=='__main__':
                 config['load_mode'] = args.load_mode
                 config['use_cache'] = args.use_cache
             for algo_id, algo in enumerate(args.algorithm):
-                if acces[algo_id] and args.num_client_parallel > 0:
-                    configs[algo_id]['num_parallels'] = args.num_client_parallel
+                if acces[algo_id] and args.train_parallel > 0:
+                    configs[algo_id]['num_parallels'] = args.train_parallel
                     configs[algo_id]['parallel_type'] = 'else'
             task = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'task', task)
             models = []
@@ -247,7 +251,7 @@ if __name__=='__main__':
                     config['load_checkpoint'] = algo.__name__
             for config in configs:
                 config['no_tqdm'] = True
-            task_dict = {'task': task, 'algorithm': algos, 'option': configs, 'Logger': Logger, 'model': models if len(models) > 0 else None}
+            task_dict = {'task': task, 'algorithm': algos, 'option': configs, 'Logger': Logger, 'Simulator':Simulator, 'model': models if len(models) > 0 else None}
             task_dicts.append(task_dict)
         if args.seq:
             for task_dict in task_dicts:
@@ -256,9 +260,10 @@ if __name__=='__main__':
                 models = task_dict['model'] if task_dict['model'] is not None else [None for _ in range(len(algos))]
                 options = task_dict['option']
                 Logger = task_dict['Logger']
+                Simulator = task_dict['Simulator']
                 for algo, para, model in zip(algos, options, models):
                     para['gpu'] = args.gpu
-                    res = flgo.tune_sequencially(task, algo, para, model=model, Logger=Logger, mmap=args.mmap,
+                    res = flgo.tune_sequencially(task, algo, para, model=model, Logger=Logger, Simulator=Simulator, mmap=args.mmap,
                                                  target_path=os.path.join(os.path.dirname(__file__), 'config'))
         else:
             flgo.multi_tune(task_dicts, scheduler=scheduler, target_path=os.path.join(os.path.dirname(__file__), 'config'))
