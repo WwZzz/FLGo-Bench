@@ -12,7 +12,7 @@ def read_args():
     parser.add_argument('--task', help='name of task', type=str, default='')
     parser.add_argument('--algorithm', help='name of method', type=str, default='fedavg')
     parser.add_argument('--model', help='name of method', type=str, default='')
-    parser.add_argument('--config', type=str, help='configuration of hypara', default='')
+    parser.add_argument('--config', type=str, help='configuration of hypara', default='./config/show_run.yml')
     parser.add_argument('--domain', help='name of method', type=int, default=0)
     parser.add_argument('--metric', type=str, help='the name of metric', default='accuracy')
     return parser.parse_known_args()
