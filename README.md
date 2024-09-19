@@ -291,8 +291,9 @@ proportion: 0.2
 |---------------|-----------|------------|------------|-------------|
 | fedavg        | ResNet18  | 58.89±0.34 | 19.10±0.51 | 6.42±0.17   | 
 | fedprox       | ResNet18  | 58.61±0.26 | 27.77±0.65 | 8.84±0.19   | 
-| scaffold      | ResNet18  | 60.02±0.33 |            |             | 
-| feddyn        | ResNet18  | 61.22±0.41 |            |             | 
+| scaffold      | ResNet18  | 60.02±0.33 | 24.89±0.74 |             | 
+| feddyn        | ResNet18  | 61.22±0.41 | 27.52±0.61 |             | 
+| moon          | ResNet18  | 58.70±0.26 |            |             |
 
 
 
@@ -302,8 +303,9 @@ proportion: 0.2
 |---------------|-----------|------------|------------|------------|
 | fedavg        | ResNet18  | 59.16±0.19 | 19.06±0.26 | 5.99±0.34  | 
 | fedprox       | ResNet18  | 59.33±0.20 | 28.03±0.14 | 8.38±0.16  | 
-| scaffold      | ResNet18  | 60.91±0.31 |            |            | 
-| feddyn        | ResNet18  | 62.07±0.20 |            |            | 
+| scaffold      | ResNet18  | 60.91±0.31 | 25.37±0.81 |            | 
+| feddyn        | ResNet18  | 62.07±0.20 | 27.25±0.68 |            | 
+| moon          | ResNet18  | 59.30±0.23 |            |            |
 
 <div style="text-align: right;">
 <a href="#Nevigation" style="text-decoration: none; background-color: #0366d6; color: white; padding: 5px 10px; border-radius: 5px;">Back</a>
