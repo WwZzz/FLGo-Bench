@@ -38,6 +38,7 @@ python run.py --task TASKNAME --algorithm ALGORITHM --config CONFIG_PATH --gpu G
 | seq                | bool     | whether to run each process in sequencial                                                                   |
 | train_parallel     | int      | the number of parallel client local training processes, default is 0                                        |
 | test_parallel      | bool     | whether to use data parallel when evaluating model                                                          |
+| use_cache          | bool     | whether to use the disk to dynamically cache clients' states                                                |
 
 - **Example**
 ```python
