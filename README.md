@@ -632,13 +632,13 @@ seed: [2,4388,15,333,967] # results are averaged over five random seeds
 ```
 
 
-| **Algorithm** | **model** | **domain** |   
-|---------------|-----------|------------|
-| fedavg        | AlexNet   | lr=0.05    |
-| fedprox       | AlexNet   |            |
-| scaffold      | AlexNet   |            |
-| feddyn        | AlexNet   |            |
-| moon          | AlexNet   |            |
+| **Algorithm** | **model** | **domain**        |   
+|---------------|-----------|-------------------|
+| fedavg        | AlexNet   | lr=0.05           |
+| fedprox       | AlexNet   | lr=0.05, μ=0.0001 |
+| scaffold      | AlexNet   |                   |
+| feddyn        | AlexNet   | lr=0.1, α=0.03    |
+| moon          | AlexNet   | lr=0.05, μ=1.0    |
 
 <div style="text-align: right;">
 <a href="#Nevigation" style="text-decoration: none; background-color: #0366d6; color: white; padding: 5px 10px; border-radius: 5px;">Back</a>
