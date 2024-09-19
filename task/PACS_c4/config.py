@@ -124,11 +124,9 @@ class AlexNet(nn.Module):
         )
         self.avgpool = nn.AdaptiveAvgPool2d((6, 6))
         self.fc1 = nn.Linear(256 * 6 * 6, 1024)
-        self.bn6 = nn.BatchNorm1d(1024)
-        self.relu = nn.ReLU()
         self.fc2 = nn.Linear(1024, 1024)
-        self.bn7 = nn.BatchNorm1d(1024)
         self.fc3 = nn.Linear(1024, num_classes)
+        self.relu = nn.ReLU()
 
     def forward(self, x):
         x = self.features(x)
