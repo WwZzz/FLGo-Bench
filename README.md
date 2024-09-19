@@ -28,16 +28,16 @@ python run.py --task TASKNAME --algorithm ALGORITHM --config CONFIG_PATH --gpu G
 ```
 - **Optional Args**
 
-| **Name**            | **Type** | **Desc.**                                                                                                   |   
-|---------------------|----------|-------------------------------------------------------------------------------------------------------------|
-| model               | str      | the file name in the dictionary `model/` that denotes a legal model in FLGo                                 |
-| load_mode           | str      | be one of ['', 'mmap', 'mem'], which respectively denotes DefaultIO, MemmapIO, and InMemory Dataset Loading |
-| max_pdev            | int      | the maximum number of processes on each gpu device                                                          |
-| available_interval  | int      | the time interval (s) to check whether a device is available                                                |
-| put_interval        | int      | the time interval (s) to put one process into device                                                        |
-| seq                 | bool     | whether to run each process in sequencial                                                                   |
-| train_parallel | int      | the number of parallel client local training processes, default is 0                                        |
-| test_parallel       | bool     | whether to use data parallel when evaluating model                                                          |
+| **Name**           | **Type** | **Desc.**                                                                                                   |   
+|--------------------|----------|-------------------------------------------------------------------------------------------------------------|
+| model              | str      | the file name in the dictionary `model/` that denotes a legal model in FLGo                                 |
+| load_mode          | str      | be one of ['', 'mmap', 'mem'], which respectively denotes DefaultIO, MemmapIO, and InMemory Dataset Loading |
+| max_pdev           | int      | the maximum number of processes on each gpu device                                                          |
+| available_interval | int      | the time interval (s) to check whether a device is available                                                |
+| put_interval       | int      | the time interval (s) to put one process into device                                                        |
+| seq                | bool     | whether to run each process in sequencial                                                                   |
+| train_parallel     | int      | the number of parallel client local training processes, default is 0                                        |
+| test_parallel      | bool     | whether to use data parallel when evaluating model                                                          |
 
 - **Example**
 ```python
@@ -428,6 +428,9 @@ seed: [2,4388,15,333,967] # results are averaged over five random seeds
 |---------------|-----------|---------------|
 | fedavg        | CNN       | 86.25±0.04    |
 | fedprox       | CNN       | 86.24±0.02    |
+| scaffold      | CNN       | 86.92±0.07    |
+| feddyn        | CNN       | 86.90±0.05    |
+| moon          | CNN       |               |
 
 
 *Local Test*
@@ -436,6 +439,9 @@ seed: [2,4388,15,333,967] # results are averaged over five random seeds
 |---------------|-----------|---------------|
 | fedavg        | CNN       | 84.91±0.05    |
 | fedprox       | CNN       | 84.76±0.06    |
+| scaffold      | CNN       | 87.39±0.08    |
+| feddyn        | CNN       | 87.30±0.08    |
+| moon          | CNN       |               |
 
 
 
