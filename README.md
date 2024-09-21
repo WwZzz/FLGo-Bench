@@ -629,6 +629,20 @@ seed: [2,4388,15,333,967] # results are averaged over five random seeds
 | <img src="/task/PACS_c4/res.png" alt="Alt text" width="500" height="400"> |
 
 ```
+learning_rate: [0.001, 0.01, 0.05, 0.1, 0.5]
+batch_size: 50
+weight_decay: 1e-3
+lr_scheduler: 0
+learning_rate_decay: 0.9998
+num_rounds: 500
+num_epochs: 5
+clip_grad: 10
+proportion: 1.0
+early_stop: 100
+train_holdout: 0.2
+local_test: True
+no_log_console: True
+log_file: True
 ```
 
 
@@ -636,9 +650,20 @@ seed: [2,4388,15,333,967] # results are averaged over five random seeds
 |---------------|-----------|-------------------|
 | fedavg        | AlexNet   | lr=0.05           |
 | fedprox       | AlexNet   | lr=0.05, μ=0.0001 |
-| scaffold      | AlexNet   |                   |
+| scaffold      | AlexNet   | lr=0.1            |
 | feddyn        | AlexNet   | lr=0.1, α=0.03    |
 | moon          | AlexNet   | lr=0.05, μ=1.0    |
+
+*Local Test*
+
+| **Algorithm** | **model** | **$\textbf{Client}_{ArtPainting}$** | **$\textbf{Client}_{Cartoon}$** | **$\textbf{Client}_{Photo}$** | **$\textbf{Client}_{Sketch}$** | **Mean**   | **Weighted-Mean** |      
+|---------------|-----------|-------------------------------------|---------------------------------|-------------------------------|--------------------------------|------------|-------------------|
+| fedavg        | AlexNet   | 61.47±1.47                          | 84.53±2.07                      | 71.14±3.54                    | 82.65±1.56                     | 74.95±0.73 | 76.83±0.78        |
+| fedprox       | AlexNet   | 65.78±2.55                          | 81.88±0.96                      | 76.05±2.18                    | 80.97±1.03                     | 76.17±0.78 | 77.25±0.46        |
+| scaffold      | AlexNet   |                                     |                                 |                               |                                |            |                   |
+| feddyn        | AlexNet   |                                     |                                 |                               |                                |            |                   |
+| moon          | AlexNet   |                                     |                                 |                               |                                |            |                   |
+
 
 <div style="text-align: right;">
 <a href="#Nevigation" style="text-decoration: none; background-color: #0366d6; color: white; padding: 5px 10px; border-radius: 5px;">Back</a>
