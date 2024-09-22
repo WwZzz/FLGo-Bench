@@ -24,7 +24,7 @@ class Server(BasicServer):
     def initialize(self, *args, **kwargs):
         self.init_algo_para({'mu': 0.1, 'tau':0.5})
         self.output_layer = "".join([f'[{m}]' if m.isdigit() else f'.{m}' for m in list(self.model.state_dict().keys())[-1].split('.')[:-1]])
-
+        self.register_cache_var('local_model')
 class Client(BasicClient):
     def initialize(self, *args, **kwargs):
         self.local_model = None
@@ -41,9 +41,10 @@ class Client(BasicClient):
         feature_maps = []
         def hook(model, input, output):
             feature_maps.append(input)
-        eval('global_model{}'.format(self.output_layer)).register_forward_hook(hook)
-        if self.local_model is not None: eval("self.local_model{}".format(self.output_layer)).register_forward_hook(hook)
-        eval('model{}'.format(self.output_layer)).register_forward_hook(hook)
+
+        global_hook = eval('global_model{}'.format(self.output_layer)).register_forward_hook(hook)
+        local_hook = eval("self.local_model{}".format(self.output_layer)).register_forward_hook(hook) if self.local_model is not None else None
+        model_hook = eval('model{}'.format(self.output_layer)).register_forward_hook(hook)
 
         model.train()
         optimizer = self.calculator.get_optimizer(model, lr=self.learning_rate, weight_decay=self.weight_decay, momentum=self.momentum)
@@ -65,7 +66,11 @@ class Client(BasicClient):
             loss.backward()
             if self.clip_grad>0:torch.nn.utils.clip_grad_norm_(parameters=model.parameters(), max_norm=self.clip_grad)
             optimizer.step()
-
+        # remove hook
+        global_hook.remove()
+        if local_hook is not None:
+            local_hook.remove()
+        model_hook.remove()
         self.local_model = copy.deepcopy(model).to(torch.device('cpu'))
         self.local_model.freeze_grad()
         return
