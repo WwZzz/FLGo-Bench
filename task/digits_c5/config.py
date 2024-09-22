@@ -264,7 +264,7 @@ trans_svhn = transforms.Compose([transforms.Resize([28,28]),transforms.ToTensor(
 trans_mnist = transforms.Compose([transforms.Grayscale(num_output_channels=3),transforms.ToTensor(),transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
 trans_syn = transforms.Compose([transforms.Resize([28,28]),transforms.ToTensor(),transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
 trans_mnistm = transforms.Compose([transforms.ToTensor(),transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
-trans_usps = trans_svhn = trans_mnist = trans_syn = trans_mnistm = transforms.Compose([transforms.Resize([28,28]),transforms.ToTensor()])
+# trans_usps = trans_svhn = trans_mnist = trans_syn = trans_mnistm = transforms.Compose([transforms.Resize([28,28]),transforms.ToTensor()])
 
 usps_train = datasets.USPS(root=root, train=True, download=True, transform=trans_usps)
 usps_test = datasets.USPS(root=root, train=False, download=True, transform=trans_usps)
@@ -352,9 +352,9 @@ class AlexNet(nn.Module):
         self.bn4 = nn.BatchNorm2d(256)
         self.conv5 = nn.Conv2d(in_channels=256, out_channels=512, kernel_size=3, stride=1, padding=1)
         self.bn5 = nn.BatchNorm2d(512)
-        self.fc1 = nn.Linear(512 * 3 * 3, 4096)
-        self.fc2 = nn.Linear(4096, 4096)
-        self.fc3 = nn.Linear(4096, num_classes)
+        self.fc1 = nn.Linear(512 * 3 * 3, 1024)
+        self.fc2 = nn.Linear(1024, 512)
+        self.fc3 = nn.Linear(512, num_classes)
         self.dropout = nn.Dropout(p=0.5)
 
     def forward(self, x):
