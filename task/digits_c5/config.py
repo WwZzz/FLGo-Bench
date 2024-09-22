@@ -286,7 +286,19 @@ mnistm_train = MNISTM(root=root, train=True, download=True, transform=trans_mnis
 mnistm_test = MNISTM(root=root, train=False, download=True, transform=trans_mnistm)
 mnistm = tud.ConcatDataset([mnistm_train, mnistm_test])
 
-train_data = [usps, svhn, mnist, synthetic, mnistm]
+idx_file = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'subset_indices.pth')
+datas = [usps, svhn, mnist, synthetic, mnistm]
+if not os.path.exists(idx_file):
+    data_sizes = [len(d) for d in datas]
+    min_size = min(data_sizes)
+    random_state = torch.random.get_rng_state()
+    torch.manual_seed(0)
+    subset_indices = torch.stack([torch.randperm(n)[:min_size] for n in data_sizes])
+    torch.save(subset_indices, idx_file)
+    torch.random.set_rng_state(random_state)
+else:
+    subset_indices = torch.load(idx_file)
+train_data = [torch.utils.data.Subset(datas[i], subset_indices[i]) for i in range(len(datas))]
 val_data = None
 test_data = None
 
@@ -387,7 +399,7 @@ if __name__ == '__main__':
         fig, ax = plt.subplots(nrows=WIDTH, ncols=WIDTH, sharex='all', sharey='all')
         ax = ax.flatten()
         for i in range(WIDTH**2):
-            dk_train = dk.datasets[0]
+            dk_train = dk
             idx = np.random.choice(range(len(dk_train)))
             img = t2i(dk_train[idx][0])
             ax[i].set_title(f"{int(dk_train[idx][1])}", loc='center',pad=0, fontsize=20, fontweight='bold')
