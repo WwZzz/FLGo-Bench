@@ -152,12 +152,12 @@ class PerRunLogger(BasicLogger):
             for met_name in ctests[0].keys():
                 if met_name not in ctest_dict.keys(): ctest_dict[met_name] = []
                 for cid in range(len(ctests)): ctest_dict[met_name].append(ctests[cid][met_name])
-                self.output['local_val_'+met_name+'_dist'].append(ctest_dict[met_name])
-                self.output['local_val_' + met_name].append(float((np.array(ctest_dict[met_name])*cdatavols).sum()))
-                self.output['mean_local_val_' + met_name].append(float(np.mean(np.array(ctest_dict[met_name]))))
-                self.output['std_local_val_' + met_name].append(float(np.std(np.array(ctest_dict[met_name]))))
-                self.output['min_local_val_' + met_name].append(float(np.array(ctest_dict[met_name]).min()))
-                self.output['max_local_val_' + met_name].append(float(np.array(ctest_dict[met_name]).max()))
+                self.output['local_test_'+met_name+'_dist'].append(ctest_dict[met_name])
+                self.output['local_test_' + met_name].append(float((np.array(ctest_dict[met_name])*cdatavols).sum()))
+                self.output['mean_local_test_' + met_name].append(float(np.mean(np.array(ctest_dict[met_name]))))
+                self.output['std_local_test_' + met_name].append(float(np.std(np.array(ctest_dict[met_name]))))
+                self.output['min_local_test_' + met_name].append(float(np.array(ctest_dict[met_name]).min()))
+                self.output['max_local_test_' + met_name].append(float(np.array(ctest_dict[met_name]).max()))
         self.show_current_output()
         # train_metrics = self.server.global_test(flag='train')
         # for met_name, met_val in train_metrics.items():
