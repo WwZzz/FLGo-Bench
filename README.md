@@ -304,7 +304,7 @@ proportion: 0.2
 | fedprox       | ResNet18  | 58.61±0.26 | 27.77±0.65 | 8.84±0.19   | 
 | scaffold      | ResNet18  | 60.02±0.33 | 24.89±0.74 |             | 
 | feddyn        | ResNet18  | 61.22±0.41 | 27.52±0.61 |             | 
-| moon          | ResNet18  | 58.70±0.26 |            |             |
+| moon          | ResNet18  | 58.70±0.26 | 22.55±0.47 |             |
 
 
 
@@ -316,7 +316,7 @@ proportion: 0.2
 | fedprox       | ResNet18  | 59.33±0.20 | 28.03±0.14 | 8.38±0.16  | 
 | scaffold      | ResNet18  | 60.91±0.31 | 25.37±0.81 |            | 
 | feddyn        | ResNet18  | 62.07±0.20 | 27.25±0.68 |            | 
-| moon          | ResNet18  | 59.30±0.23 |            |            |
+| moon          | ResNet18  | 59.30±0.23 | 22.80±0.38 |            |
 
 <div style="text-align: right;">
 <a href="#Nevigation" style="text-decoration: none; background-color: #0366d6; color: white; padding: 5px 10px; border-radius: 5px;">Back</a>
