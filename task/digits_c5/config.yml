@@ -8,7 +8,7 @@ num_epochs: 1
 clip_grad: 10
 sample: full
 proportion: 1.0
-early_stop: 100
+early_stop: 50
 train_holdout: 0.2
 local_test: True
 no_log_console: True
