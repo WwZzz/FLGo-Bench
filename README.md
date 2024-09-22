@@ -229,7 +229,12 @@ proportion: 0.2
 | feddyn        | CNN         | 52.64±0.15 | 40.19±0.36 | 26.20±0.44 | 
 | moon          | CNN         | 41.49±0.40 | 37.28±0.37 | 21.09±0.32 |
 |               |             |            |            |            |    
-| fedavg        | ResNet18    | 72.91±0.33 | 49.11±0.56 | 16.63±0.63 |     
+| fedavg        | ResNet18    | 72.91±0.33 | 49.11±0.56 | 16.63±0.63 | 
+| fedprox       | ResNet18    | 73.26±0.29 |            |            |
+| scaffold      | ResNet18    | 76.35±0.22 |            |            |
+| feddyn        | ResNet18    | 75.43±0.17 |            |            |
+| moon          | ResNet18    | 74.95±0.22 |            |            |
+|               |             |            |            |            |
 | fedavg        | ResNet18-GN | 52.71±0.68 | 34.20±0.83 | 19.45±0.53 | 
 
 *Local Test*
@@ -244,6 +249,11 @@ proportion: 0.2
 | moon          | CNN         | 40.91±0.30 | 36.22±0.34 | 20.67±0.26 |
 |               |             |            |            |            |    
 | fedavg        | ResNet18    | 73.72±0.33 | 48.75±1.08 | 16.56±0.48 |     
+| fedprox       | ResNet18    | 73.70±0.27 |            |            |
+| scaffold      | ResNet18    | 76.60±0.28 |            |            |
+| feddyn        | ResNet18    | 75.53±0.40 |            |            |
+| moon          | ResNet18    | 75.20±0.24 |            |            |
+|               |             |            |            |            |
 | fedavg        | ResNet18-GN | 51.87±0.62 | 33.02±1.11 | 19.20±0.22 | 
 
 <div style="text-align: right;">
