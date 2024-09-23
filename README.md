@@ -608,6 +608,7 @@ log_file: True
 
 | **Algorithm** | **model** | **domain**     |   
 |---------------|-----------|----------------|
+| standalone    | AlexNet   | lr=0.05        |
 | fedavg        | AlexNet   | lr=0.1         |
 | fedprox       | AlexNet   | lr=0.1, μ=0.01 |
 | scaffold      | AlexNet   | lr=0.1         |

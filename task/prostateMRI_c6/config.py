@@ -16,6 +16,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 root = os.path.join(flgo.benchmark.data_root, 'ProstateMRI')
+root = '/data/wz/ProstateMRI'
 def convert_from_nii_to_png(img):
     high = np.quantile(img, 0.99)
     low = np.min(img)
