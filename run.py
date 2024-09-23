@@ -14,7 +14,7 @@ import flgo.simulator
 
 def read_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--task', help='name of task', type=str, default='')
+    parser.add_argument('--task', help='name of task', type=str,  nargs='*', default=[])
     parser.add_argument('--algorithm', help='name of method', type=str, nargs='*', default='fedavg')
     parser.add_argument('--model', help = 'model name', type=str, default='')
     parser.add_argument('--simulator', help='test parallel', type=str, default='')
@@ -54,27 +54,36 @@ for config in args.config:
     if 'early_stop' in option.keys(): option.pop('early_stop')
     optimal_options.append(option)
 
-def fedrun(task, algos=[], optimal_options=[], seeds=[0], Logger=None, model=None, Simulator=flgo.simulator.DefaultSimulator, put_interval=10, available_interval=10, max_processes_per_device=10, mmap=False, seq=False, check_interval=-1):
-    assert len(algos)==len(optimal_options)
+def fedrun(tasks, algos=[], optimal_options=[], seeds=[0], Logger=None, model=None, Simulator=flgo.simulator.DefaultSimulator, put_interval=10, available_interval=10, max_processes_per_device=10, mmap=False, seq=False, check_interval=-1):
+    assert len(tasks)*len(algos)==len(optimal_options)
     runner_dict = []
     asc = ds.AutoScheduler(args.gpu, put_interval=put_interval, available_interval=available_interval, max_processes_per_device=max_processes_per_device)
     if not seq:
-        for algo, optimal_option in zip(algos, optimal_options):
-            for seed in seeds:
-                opi = optimal_option.copy()
-                opi.update({'seed': seed, 'use_cache': args.use_cache, })
-                if check_interval>0:
-                    opi.update({'load_checkpoint': algo.__name__, 'save_checkpoint': algo.__name__, 'check_interval':check_interval})
-                runner_dict.append({'task': task, 'algorithm': algo, 'option': opi, 'model':model, 'Logger':Logger, 'Simulator':Simulator})
+        oid = 0
+        for task in tasks:
+            for algo in algos:
+                optimal_option = optimal_options[oid]
+                for seed in seeds:
+                    opi = optimal_option.copy()
+                    opi.update({'seed': seed, 'use_cache': args.use_cache, })
+                    if check_interval > 0: opi.update({'load_checkpoint': algo.__name__, 'save_checkpoint': algo.__name__, 'check_interval': check_interval})
+                    runner_dict.append({'task': task, 'algorithm': algo, 'option': opi, 'model':model, 'Logger':Logger, 'Simulator':Simulator})
+                oid += 1
         res = flgo.multi_init_and_run(runner_dict, scheduler=asc, mmap=mmap)
     else:
-        for algo, optimal_option in zip(algos, optimal_options):
-            options = []
-            for seed in seeds:
-                opi = optimal_option.copy()
-                opi.update({'seed': seed, 'no_tqdm': True})
-                options.append(opi)
-            res = flgo.run_in_sequencial(task, algo, options, model, Logger=Logger, mmap=mmap)
+        res = []
+        oid = 0
+        for task in tasks:
+            for algo in algos:
+                options = []
+                optimal_option = optimal_options[oid]
+                for seed in seeds:
+                    opi = optimal_option.copy()
+                    opi.update({'seed': seed, 'no_tqdm': True})
+                    options.append(opi)
+                tmp = flgo.run_in_sequencial(task, algo, options, model, Logger=Logger, mmap=mmap)
+                oid += 1
+                res.append(tmp)
     return res
 
 if __name__=='__main__':
@@ -123,4 +132,5 @@ if __name__=='__main__':
             optimal_option['test_parallel'] = True
     Logger = getattr(logger, args.logger)
     Simulator = getattr(simulator, args.simulator) if args.simulator!='' else flgo.simulator.DefaultSimulator
-    fedrun(os.path.join('task', task), algos, optimal_options=optimal_options, seeds=seeds, Logger=Logger, model=model, Simulator=Simulator, put_interval=args.put_interval, available_interval=args.available_interval, max_processes_per_device=args.max_pdev, mmap=args.mmap, seq=args.seq, check_interval=args.check_interval)
+    tasks = [os.path.join('task', task) for task in args.task]
+    fedrun(tasks, algos, optimal_options=optimal_options, seeds=seeds, Logger=Logger, model=model, Simulator=Simulator, put_interval=args.put_interval, available_interval=args.available_interval, max_processes_per_device=args.max_pdev, mmap=args.mmap, seq=args.seq, check_interval=args.check_interval)
