@@ -39,7 +39,6 @@ args = read_args()[0]
 task = args.task
 seeds = args.seeds
 gpus = args.gpu
-assert len(args.config)==len(args.algorithm)
 assert len(args.config)>0
 if args.data_root!='':
     if os.path.exists(args.data_root) and os.path.isdir(args.data_root):
