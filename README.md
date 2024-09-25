@@ -695,7 +695,32 @@ log_file: True
 | <img src="/task/digits_c5/res.png" alt="Alt text" width="800" height="200"> |
 
 ```
+learning_rate: [0.001, 0.005, 0.01, 0.05, 0.1]
+batch_size: 50
+weight_decay: 1e-3
+lr_scheduler: 0
+learning_rate_decay: 0.9998
+num_rounds: 200
+num_epochs: 5
+clip_grad: 10
+sample: full
+proportion: 1.0
+early_stop: 50
+train_holdout: 0.2
+local_test: True
+no_log_console: True
+log_file: True
 ```
+| **Algorithm** | **model** | **dataset**    |   
+|---------------|-----------|----------------|
+| standalone    | AlexNet   |                |
+| fedavg        | AlexNet   | lr=0.05        |
+| fedprox       | AlexNet   | lr=0.05, μ=0.1 |
+| scaffold      | AlexNet   | lr=0.05        |
+| feddyn        | AlexNet   | lr=0.1, α=0.1  |
+| moon          | AlexNet   | lr=0.05, μ=0.1 |
+
+
 
 <div style="text-align: right;">
 <a href="#Nevigation" style="text-decoration: none; background-color: #0366d6; color: white; padding: 5px 10px; border-radius: 5px;">Back</a>

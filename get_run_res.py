@@ -9,12 +9,14 @@ import prettytable
 
 def read_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--task', help='name of task', type=str, default='')
-    parser.add_argument('--algorithm', help='name of method', type=str, default='fedavg')
+    parser.add_argument('--task', help='name of task', type=str, nargs='*', default=[])
+    parser.add_argument('--algorithm', help='name of method', type=str, nargs='*', default=['fedavg'])
     parser.add_argument('--model', help='name of method', type=str, default='')
-    parser.add_argument('--config', type=str, help='configuration of hypara', default='./config/show_run.yml')
+    parser.add_argument('--simulator', help='name of simulator', type=str, default='')
+    parser.add_argument('--config', type=str, help='configuration of hypara', nargs='*', default=['./config/show_run.yml'])
     parser.add_argument('--domain', help='name of method', type=int, default=0)
     parser.add_argument('--metric', type=str, help='the name of metric', default='accuracy')
+    parser.add_argument('--only_average', help='if only show the averaging result', action='store_true', default=False)
     return parser.parse_known_args()
 
 def max_log(x, op={}):
@@ -91,54 +93,64 @@ def get_client_performance(x, op={'metric': 'accuracy'}):
 
 if __name__ == '__main__':
     args = read_args()[0]
-    task =args.task
-    if args.config!='' and os.path.exists(args.config):
-        with open(args.config, 'r') as inf:
-            option = yaml.load(inf, Loader=yaml.FullLoader)
-    else:
-        option = {}
-    if args.model != '': option['model'] = [args.model]
-    algorithm = args.algorithm
-    config = args.config
-    records = fea.load_records(os.path.join('task', task), algorithm, option)
-    tb = fea.Table(records)
+    tasks = args.task
+    if len(args.config)==1: configs = [args.config[0] for _ in range(len(tasks)*len(args.algorithm))]
+    else: configs = args.config
+    assert len(configs)==len(tasks)*len(args.algorithm)
+    config_id = 0
+    for task in tasks:
+        for algorithm in args.algorithm:
+        # task =args.task
+            config = configs[config_id]
+            if config!='' and os.path.exists(config):
+                with open(config, 'r') as inf:
+                    option = yaml.load(inf, Loader=yaml.FullLoader)
+            else:
+                option = {}
+            if args.model != '': option['model'] = [args.model]
+            if args.simulator != '': option['simulator'] = [args.simulator]
+            # config = args.config
+            records = fea.load_records(os.path.join('task', task), algorithm, option)
+            tb = fea.Table(records)
 
-    if args.domain==0:
-        tb.add_column(get_seed)
-        tb.add_column(max_local_val, {'metric':args.metric})
-        tb.add_column(max_global_test, {'metric':args.metric})
-        tb.add_column(max_global_val, {'metric':args.metric})
-        tb.add_column(lr)
-        tb.add_column(optimal_gtest_by_lval, {'metric':args.metric})
-        tb.add_column(optimal_gtest_by_gval, {'metric':args.metric})
-        tb.add_column(optimal_ltest_by_lval, {'metric':args.metric})
-        tb.add_column(optimal_mean_ltest_by_lval, {'metric':args.metric})
-        tb.add_column(optimal_round_by_lval, {'metric':args.metric})
-        tb.add_column(optimal_round_by_gval, {'metric':args.metric})
-        tb.print()
-        col_names = [optimal_gtest_by_gval.__name__, optimal_gtest_by_lval.__name__, optimal_ltest_by_lval.__name__, optimal_mean_ltest_by_lval.__name__]
-        res = prettytable.PrettyTable(col_names)
-        row = []
-        for n in col_names:
-            a,b = get_final_res(tb,  '-'.join([n, args.metric]))
-            row.append("{:.2f}±{:.2f}".format(a*100 ,b*100))
-        res.add_row(row)
-        print(res)
-    else:
-        num_clients = args.domain
-        for k in range(num_clients):
-            tb.add_column(get_client_performance, {'i': k, 'name': f"Client-{k}", 'metric':args.metric})
-        tb.add_column(optimal_ltest_by_lval, {'name': 'Weighted-Mean', 'metric':args.metric})
-        tb.add_column(optimal_mean_ltest_by_lval, {'name': 'Mean', 'metric':args.metric})
-        row = ['', 'averaged', ]
-        for k in range(num_clients):
-            mk, sk = get_final_res(tb, f'Client-{k}')
-            row.append("{:.2f}±{:.2f}".format(mk * 100, sk * 100))
-        mk, sk = get_final_res(tb, 'Weighted-Mean')
-        row.append("{:.2f}±{:.2f}".format(mk * 100, sk * 100))
-        mk, sk = get_final_res(tb, 'Mean')
-        row.append("{:.2f}±{:.2f}".format(mk * 100, sk * 100))
-        # get_final_res(tb,  optimal_gtest_by_gval.__name__)
-        # get_final_res(tb,  optimal_gtest_by_lval.__name__)
-        tb.tb.add_row(row)
-        tb.print()
+            if args.domain==0:
+                tb.add_column(get_seed)
+                tb.add_column(max_local_val, {'metric':args.metric})
+                tb.add_column(max_global_test, {'metric':args.metric})
+                tb.add_column(max_global_val, {'metric':args.metric})
+                tb.add_column(lr)
+                tb.add_column(optimal_gtest_by_lval, {'metric':args.metric})
+                tb.add_column(optimal_gtest_by_gval, {'metric':args.metric})
+                tb.add_column(optimal_ltest_by_lval, {'metric':args.metric})
+                tb.add_column(optimal_mean_ltest_by_lval, {'metric':args.metric})
+                tb.add_column(optimal_round_by_lval, {'metric':args.metric})
+                tb.add_column(optimal_round_by_gval, {'metric':args.metric})
+                if not args.only_average: tb.print()
+                col_names = [optimal_gtest_by_gval.__name__, optimal_gtest_by_lval.__name__, optimal_ltest_by_lval.__name__, optimal_mean_ltest_by_lval.__name__]
+                res = prettytable.PrettyTable(['task', 'algorithm', 'num_records', ]+col_names)
+                row = [task, algorithm, len(records)]
+                for n in col_names:
+                    a,b = get_final_res(tb,  '-'.join([n, args.metric]))
+                    row.append("{:.2f}±{:.2f}".format(a*100 ,b*100))
+                res.add_row(row)
+                print(res)
+            else:
+                num_clients = args.domain
+                for k in range(num_clients):
+                    tb.add_column(get_client_performance, {'i': k, 'name': f"Client-{k}", 'metric':args.metric})
+                tb.add_column(optimal_ltest_by_lval, {'name': 'Weighted-Mean', 'metric':args.metric})
+                tb.add_column(optimal_mean_ltest_by_lval, {'name': 'Mean', 'metric':args.metric})
+                row = [f"{len(tb.tb)}", 'averaged', ]
+                for k in range(num_clients):
+                    mk, sk = get_final_res(tb, f'Client-{k}')
+                    row.append("{:.2f}±{:.2f}".format(mk * 100, sk * 100))
+                mk, sk = get_final_res(tb, 'Weighted-Mean')
+                row.append("{:.2f}±{:.2f}".format(mk * 100, sk * 100))
+                mk, sk = get_final_res(tb, 'Mean')
+                row.append("{:.2f}±{:.2f}".format(mk * 100, sk * 100))
+                # get_final_res(tb,  optimal_gtest_by_gval.__name__)
+                # get_final_res(tb,  optimal_gtest_by_lval.__name__)
+                if args.only_average: tb.tb.clear_rows()
+                tb.tb.add_row(row)
+                tb.tb.title = f"{task}-{algorithm}"
+                tb.print()
