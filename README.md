@@ -713,7 +713,7 @@ log_file: True
 ```
 | **Algorithm** | **model** | **dataset**    |   
 |---------------|-----------|----------------|
-| standalone    | AlexNet   |                |
+| standalone    | AlexNet   | lr=0.1         |
 | fedavg        | AlexNet   | lr=0.05        |
 | fedprox       | AlexNet   | lr=0.05, μ=0.1 |
 | scaffold      | AlexNet   | lr=0.05        |
