@@ -125,7 +125,7 @@ no_log_console: True
 | fedavg        | ResNet18    | lr=0.1           | lr=0.1         | lr=0.1          | lr=0.05           | lr=0.1           |
 | fedprox       | ResNet18    | lr=0.05, μ=0.001 | lr=0.1, μ=0.1  | lr=0.1, μ=0.001 | lr=0.05, μ=0.0001 | lr=0.05, μ=0.001 |
 | scaffold      | ResNet18    | lr=0.1           | lr=0.1         | lr=0.1          | lr=0.1            | lr=0.1           |
-| moon          | ResNet18    | lr=0.1, μ=0.1    | lr=0.05, μ=0.1 |                 |                   |                  |
+| moon          | ResNet18    | lr=0.1, μ=0.1    | lr=0.05, μ=0.1 | lr=0.05, μ=0.1  |                   |                  |
 | feddyn        | ResNet18    | lr=0.1, α=0.1    | lr=0.1, α=0.1  | lr=0.1, α=0.1   | lr=0.1, α=0.1     | lr=0.1, α=0.1    |
 |               |             |                  |                |                 |                   |                  |
 | fedavg        | ResNet18-GN | lr=0.1           | lr=0.1         | lr=0.1          | lr=0.1            | lr=0.1           |
@@ -306,7 +306,7 @@ proportion: 0.2
 | fedprox       | ResNet18  | 58.61±0.26 | 27.77±0.65 | 8.84±0.19   | 
 | scaffold      | ResNet18  | 60.02±0.33 | 24.89±0.74 | 8.54±0.79   | 
 | feddyn        | ResNet18  | 61.22±0.41 | 27.52±0.61 | 8.13±0.62   | 
-| moon          | ResNet18  | 58.70±0.26 | 22.55±0.47 |             |
+| moon          | ResNet18  | 58.70±0.26 | 22.55±0.47 | 6.78±0.22   |
 
 
 
@@ -318,7 +318,7 @@ proportion: 0.2
 | fedprox       | ResNet18  | 59.33±0.20 | 28.03±0.14 | 8.38±0.16  | 
 | scaffold      | ResNet18  | 60.91±0.31 | 25.37±0.81 | 8.74±0.61  | 
 | feddyn        | ResNet18  | 62.07±0.20 | 27.25±0.68 | 7.75±0.59  | 
-| moon          | ResNet18  | 59.30±0.23 | 22.80±0.38 |            |
+| moon          | ResNet18  | 59.30±0.23 | 22.80±0.38 | 6.33±0.28  |
 
 <div style="text-align: right;">
 <a href="#Nevigation" style="text-decoration: none; background-color: #0366d6; color: white; padding: 5px 10px; border-radius: 5px;">Back</a>
@@ -713,13 +713,23 @@ log_file: True
 ```
 | **Algorithm** | **model** | **dataset**    |   
 |---------------|-----------|----------------|
-| standalone    | AlexNet   |                |
+| standalone    | AlexNet   | lr=0.1         |
 | fedavg        | AlexNet   | lr=0.05        |
 | fedprox       | AlexNet   | lr=0.05, μ=0.1 |
 | scaffold      | AlexNet   | lr=0.05        |
 | feddyn        | AlexNet   | lr=0.1, α=0.1  |
 | moon          | AlexNet   | lr=0.05, μ=0.1 |
 
+*Local Test*
+
+| **Algorithm** | **model** | **$\textbf{Client}_{USPS}$** | **$\textbf{Client}_{SVHN}$** | **$\textbf{Client}_{MNIST}$** | **$\textbf{Client}_{Synthetic}$** | **$\textbf{Client}_{MNISTM}$** | **Mean**     | **Weighted-Mean** |      
+|---------------|-----------|------------------------------|------------------------------|-------------------------------|-----------------------------------|--------------------------------|--------------|-------------------|
+| standalone    | AlexNet   | 99.59±0.06                   | 18.03±0.00                   | 99.48±0.04                    | 98.77±0.04                        | 98.39±0.06                     | 82.85±0.02   | 82.85±0.02        |
+| fedavg        | AlexNet   | 99.54±0.10                   | 96.50±0.08                   | 99.75±0.03                    | 99.24±0.08                        | 97.88±0.20                     | 98.58±0.03   | 98.58±0.03        |
+| fedprox       | AlexNet   | 99.61±0.05                   | 96.67±0.16                   | 99.79±0.02                    | 99.30±0.04                        | 98.83±0.04                     | 98.84±0.04   | 98.84±0.04        |
+| scaffold      | AlexNet   | 99.62±0.03                   | 97.51±0.10                   | 99.84±0.02                    | 99.44±0.04                        | 98.86±0.07                     | 99.05±0.04   | 99.05±0.04        |
+| feddyn        | AlexNet   | 99.47±0.22                   | 96.82±0.46                   | 99.77±0.03                    | 99.39±0.04                        | 98.89±0.09                     | 98.87±0.07   | 98.87±0.07        |
+| moon          | AlexNet   | 99.57±0.08                   | 96.54±0.20                   | 99.77±0.03                    | 99.27±0.03                        | 97.94±0.25                     | 98.62±0.07   | 98.62±0.07        |
 
 
 <div style="text-align: right;">
