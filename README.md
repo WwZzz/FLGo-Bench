@@ -752,13 +752,14 @@ no_log_console: True
 log_file: True
 ```
 
-| **Algorithm** | **model** | **domain**          |   
-|---------------|-----------|---------------------|
-| fedavg        | UNet      | lr=0.0001           |
-| fedprox       | UNet      | lr=0.0001, μ=0.0001 |
-| scaffold      | UNet      | lr=0.0001           |
-| feddyn        | UNet      | lr=0.00005, α=0.1   |
-| moon          | UNet      | lr=0.0001, μ=0.1    |
+| **Algorithm** | **model** | **domain**           |   
+|---------------|-----------|----------------------|
+| standalone    | UNet      | lr=0.0005            |
+| fedavg        | UNet      | lr=0.0001            |
+| fedprox       | UNet      | lr=0.0001, μ=0.0001  |
+| scaffold      | UNet      | lr=0.0001            |
+| feddyn        | UNet      | lr=0.00005, α=0.1    |
+| moon          | UNet      | lr=0.0001, μ=0.1     |
 
 <div style="text-align: right;">
 <a href="#Nevigation" style="text-decoration: none; background-color: #0366d6; color: white; padding: 5px 10px; border-radius: 5px;">Back</a>
@@ -766,6 +767,7 @@ log_file: True
 
 | **Algorithm** | **model** | **BMC**    | **UCL**    | **BIDMC**  | **RUNMC**  | **HK**     | **I2CVB**  | **Mean**    | **Weighted-Mean** |   
 |---------------|-----------|------------|------------|------------|------------|------------|------------|-------------|-------------------|
+| standalone    | UNet      |            |            |            |            |            |            |             |                   |
 | fedavg        | UNet      | 91.09±0.69 | 90.74±0.99 | 93.02±0.69 | 94.32±0.39 | 94.84±0.54 | 95.98±0.10 | 93.33±0.12  | 93.59±0.13        |
 | fedprox       | UNet      | 91.94±0.67 | 90.83±0.70 | 93.27±0.29 | 94.87±0.19 | 94.84±0.29 | 95.67±0.32 | 93.57±0.23  | 93.86±0.24        |
 | scaffold      | UNet      | 56.16±0.09 | 49.23±0.03 | 51.56±0.02 | 54.69±0.06 | 53.50±0.05 | 46.92±0.07 | 52.01±0.02  | 51.98±0.02        |
