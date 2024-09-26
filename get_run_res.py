@@ -140,7 +140,7 @@ if __name__ == '__main__':
                     tb.add_column(get_client_performance, {'i': k, 'name': f"Client-{k}", 'metric':args.metric})
                 tb.add_column(optimal_ltest_by_lval, {'name': 'Weighted-Mean', 'metric':args.metric})
                 tb.add_column(optimal_mean_ltest_by_lval, {'name': 'Mean', 'metric':args.metric})
-                row = [f"{len(tb.tb)}", 'averaged', ]
+                row = [f"{len(tb.tb.rows)}", 'averaged', ]
                 for k in range(num_clients):
                     mk, sk = get_final_res(tb, f'Client-{k}')
                     row.append("{:.2f}±{:.2f}".format(mk * 100, sk * 100))
