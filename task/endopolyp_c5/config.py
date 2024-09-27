@@ -11,7 +11,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-root = os.path.join(flgo.benchmark.path, 'endopolyp')
+root = os.path.join(flgo.benchmark.data_root, 'endopolyp')
 
 class PolypDataset(tud.Dataset):
     sites = ['Kvasir', 'CVC-ColonDB', 'ETIS-LaribPolypDB', 'CVC-ClinicDB', 'CVC-300']

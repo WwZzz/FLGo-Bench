@@ -13,7 +13,7 @@ from collections import OrderedDict
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-root = os.path.join(flgo.benchmark.path, 'camelyon17')
+root = os.path.join(flgo.benchmark.data_root, 'camelyon17')
 
 class Camelyon17(Dataset):
 

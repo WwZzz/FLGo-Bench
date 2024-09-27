@@ -13,7 +13,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-root = os.path.join(flgo.benchmark.path, 'fundus')
+root = os.path.join(flgo.benchmark.data_root, 'fundus')
 
 class FundusDataset(tud.Dataset):
     def __init__(self, root, site, split='train', transform=None):

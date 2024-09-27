@@ -17,7 +17,7 @@ from torchvision.datasets import VisionDataset
 import torch.utils.data as tud
 from torchvision.datasets.utils import download_and_extract_archive
 import torch.nn.functional as F
-root = os.path.join(flgo.benchmark.path, 'digits')
+root = os.path.join(flgo.benchmark.data_root, 'digits')
 
 class MNISTM(VisionDataset):
     """MNIST-M Dataset.
