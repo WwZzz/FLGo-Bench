@@ -125,7 +125,7 @@ no_log_console: True
 | fedavg        | ResNet18    | lr=0.1           | lr=0.1         | lr=0.1          | lr=0.05           | lr=0.1           |
 | fedprox       | ResNet18    | lr=0.05, μ=0.001 | lr=0.1, μ=0.1  | lr=0.1, μ=0.001 | lr=0.05, μ=0.0001 | lr=0.05, μ=0.001 |
 | scaffold      | ResNet18    | lr=0.1           | lr=0.1         | lr=0.1          | lr=0.1            | lr=0.1           |
-| moon          | ResNet18    | lr=0.1, μ=0.1    | lr=0.05, μ=0.1 | lr=0.05, μ=0.1  | lr=0.05, μ=1.0    |                  |
+| moon          | ResNet18    | lr=0.1, μ=0.1    | lr=0.05, μ=0.1 | lr=0.05, μ=0.1  | lr=0.05, μ=1.0    | lr=0.05, μ=0.1   |
 | feddyn        | ResNet18    | lr=0.1, α=0.1    | lr=0.1, α=0.1  | lr=0.1, α=0.1   | lr=0.1, α=0.1     | lr=0.1, α=0.1    |
 |               |             |                  |                |                 |                   |                  |
 | fedavg        | ResNet18-GN | lr=0.1           | lr=0.1         | lr=0.1          | lr=0.1            | lr=0.1           |
