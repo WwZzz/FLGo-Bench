@@ -807,7 +807,32 @@ log_file: True
 | <img src="/task/fundus_c4/res.png" alt="Alt text" width="500" height="500"> |
 
 ```
+learning_rate: [0.00005, 0.0001, 0.0005, 0.001, 0.005]
+batch_size: 16
+weight_decay: 1e-4
+lr_scheduler: 0
+learning_rate_decay: 0.9998
+num_rounds: 500
+num_epochs: 1
+clip_grad: 10
+proportion: 1.0
+early_stop: 50
+train_holdout: 0.2
+local_test: True
+optimizer: Adam
+no_log_console: True
+log_file: True
 ```
+
+| **Algorithm** | **model** | **domain**         |   
+|---------------|-----------|--------------------|
+| standalone    | UNet      |                    |
+| fedavg        | UNet      | lr=0.001           |
+| fedprox       | UNet      | lr=0.001, μ=0.0001 |
+| scaffold      | UNet      | lr=0.001           |
+| feddyn        | UNet      | lr=0.0005, α=0.01  |
+| moon          | UNet      |                    |
+
 
 <div style="text-align: right;">
 <a href="#Nevigation" style="text-decoration: none; background-color: #0366d6; color: white; padding: 5px 10px; border-radius: 5px;">Back</a>

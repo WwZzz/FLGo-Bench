@@ -11,6 +11,12 @@ import torch.nn.functional as F
 import flgo.utils.fmodule as fmodule
 
 def model_contrastive_loss(z, z_glob, z_prev, temperature=0.5):
+    if len(z.shape)>2:
+        batch_size = z.shape[0]
+        z = z.reshape(batch_size, -1)
+        z_glob = z_glob.reshape(batch_size, -1)
+        if z_prev is not None:
+            z_prev = z_prev.reshape(batch_size, -1)
     pos_sim = F.cosine_similarity(z, z_glob, dim=-1)
     logits = pos_sim.reshape(-1, 1)
     if z_prev is not None:
