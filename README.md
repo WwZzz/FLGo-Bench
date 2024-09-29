@@ -826,12 +826,12 @@ log_file: True
 
 | **Algorithm** | **model** | **domain**         |   
 |---------------|-----------|--------------------|
-| standalone    | UNet      |                    |
+| standalone    | UNet      | lr=0.001           |
 | fedavg        | UNet      | lr=0.001           |
 | fedprox       | UNet      | lr=0.001, μ=0.0001 |
 | scaffold      | UNet      | lr=0.001           |
 | feddyn        | UNet      | lr=0.0005, α=0.01  |
-| moon          | UNet      |                    |
+| moon          | UNet      | lr=0.0005, μ=0.1   |
 
 
 <div style="text-align: right;">
