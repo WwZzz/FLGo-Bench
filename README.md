@@ -833,6 +833,16 @@ log_file: True
 | feddyn        | UNet      | lr=0.0005, α=0.01  |
 | moon          | UNet      | lr=0.0005, μ=0.1   |
 
+## Local Test
+
+| **Algorithm** | **model** | **$\textbf{Client}_{1}$** | **$\textbf{Client}_{2}$** | **$\textbf{Client}_{3}$** | **$\textbf{Client}_{4}$** | **Mean**   | **Weighted-Mean** |      
+|---------------|-----------|---------------------------|---------------------------|---------------------------|---------------------------|------------|-------------------|
+| standalone    | AlexNet   |                           |                           |                           |                           |            |                   |
+| fedavg        | AlexNet   | 76.60±4.68                | 60.69±4.27                | 81.42±5.98                | 77.87±2.23                | 74.15±2.91 | 77.05±3.32        |
+| fedprox       | AlexNet   | 82.64±1.02                | 66.90±2.62                | 78.45±4.51                | 74.38±3.77                | 75.59±2.44 | 75.61±3.02        |
+| scaffold      | AlexNet   | 54.24±3.17                | 49.25±0.65                | 72.92±0.80                | 65.51±1.85                | 60.48±0.88 | 65.74±0.58        |
+| feddyn        | AlexNet   | 82.58±1.90                | 67.23±2.81                | 85.21±5.53                | 78.61±4.88                | 78.41±3.28 | 80.09±4.41        |
+| moon          | AlexNet   | 80.61±3.66                | 66.55±3.48                | 87.23±1.48                | 79.72±3.03                | 78.53±1.35 | 81.15±1.36        |
 
 <div style="text-align: right;">
 <a href="#Nevigation" style="text-decoration: none; background-color: #0366d6; color: white; padding: 5px 10px; border-radius: 5px;">Back</a>
