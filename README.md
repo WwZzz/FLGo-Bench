@@ -452,7 +452,7 @@ seed: [2,4388,15,333,967] # results are averaged over five random seeds
 | fedprox       | CNN       | 86.24±0.02    |
 | scaffold      | CNN       | 86.92±0.07    |
 | feddyn        | CNN       | 86.90±0.05    |
-| moon          | CNN       |               |
+| moon          | CNN       | 86.29±0.01    |
 
 
 *Local Test*
@@ -463,7 +463,7 @@ seed: [2,4388,15,333,967] # results are averaged over five random seeds
 | fedprox       | CNN       | 84.76±0.06    |
 | scaffold      | CNN       | 87.39±0.08    |
 | feddyn        | CNN       | 87.30±0.08    |
-| moon          | CNN       |               |
+| moon          | CNN       | 86.63±0.05    |
 
 
 
